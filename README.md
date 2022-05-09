@@ -86,37 +86,6 @@ To run unit tests in flutter use the following command:
 flutter test
 ```
 
-
-## Project structure
-The project has folders for assets, env variables and source code (lib) which has core folder to place all shareable code or resources and features.
-```
-.
-├── assets
-├── env
-├── lib
-│   ├── core
-│   └── features
-```
-
-This project follows clean architecture structure with flutter, so it is needed to indentify features, each feature will have a folder in [app](lib/features) with the following structure:
-
-```
-..
-feat folder
-├── data
-│   ├── data_sources
-│   ├── models
-│   └── repositories
-├── domain
-│   ├── entities
-│   ├── repositories
-│   └── use_cases
-├── presentation
-│   ├── bloc
-│   ├── pages
-│   └── widgets
-```
-
 ## Dependencies
 
 To add new dependencies, it must be placed in [pubspec.yaml file](pubspec.yaml).
