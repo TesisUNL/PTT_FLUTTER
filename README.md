@@ -13,7 +13,7 @@ Project mobile for the tourist route Mancomunidad Bosque Seco
 1. Clone the project
 ```
 git clone https://github.com/TesisUNL/PTT_FLUTTER.git
-cd  office_reservation_app
+cd  PTT_FLUTTER.git
 ```
 
 2. Install dependencies
