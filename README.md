@@ -98,25 +98,6 @@ The project has folders for assets, env variables and source code (lib) which ha
 │   └── features
 ```
 
-This project follows clean architecture structure with flutter, so it is needed to indentify features, each feature will have a folder in [app](lib/features) with the following structure:
-
-```
-..
-feat folder
-├── data
-│   ├── data_sources
-│   ├── models
-│   └── repositories
-├── domain
-│   ├── entities
-│   ├── repositories
-│   └── use_cases
-├── presentation
-│   ├── bloc
-│   ├── pages
-│   └── widgets
-```
-
 ## Dependencies
 
 To add new dependencies, it must be placed in [pubspec.yaml file](pubspec.yaml).
