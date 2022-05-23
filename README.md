@@ -10,18 +10,12 @@ Project mobile for the tourist route Mancomunidad Bosque Seco
 
 ### How to install and run the project
 
-1. Clone the project
-```
-git clone https://github.com/TesisUNL/PTT_FLUTTER.git
-cd  office_reservation_app
-```
-
-2. Install dependencies
+1. Install dependencies
 ```
 flutter pub get
 ```
 
-3. Run project, before this please verify that you have connected devices
+2. Run project, before this please verify that you have connected devices
 ```
 flutter run lib/main.dart
 ```
@@ -96,25 +90,6 @@ The project has folders for assets, env variables and source code (lib) which ha
 ├── lib
 │   ├── core
 │   └── features
-```
-
-This project follows clean architecture structure with flutter, so it is needed to indentify features, each feature will have a folder in [app](lib/features) with the following structure:
-
-```
-..
-feat folder
-├── data
-│   ├── data_sources
-│   ├── models
-│   └── repositories
-├── domain
-│   ├── entities
-│   ├── repositories
-│   └── use_cases
-├── presentation
-│   ├── bloc
-│   ├── pages
-│   └── widgets
 ```
 
 ## Dependencies
