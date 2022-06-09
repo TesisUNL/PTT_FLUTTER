@@ -173,7 +173,7 @@ class _LoginState extends State<Login> {
                               context: context,
                               builder: (buildcontext) {
                                 return AlertDialog(
-                                  title: Text("error"),
+                                  title: Text("ERROR"),
                                   content: Text(response.body),
                                   actions: <Widget>[
                                     RaisedButton(
