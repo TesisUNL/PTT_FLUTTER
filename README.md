@@ -10,18 +10,12 @@ Project mobile for the tourist route Mancomunidad Bosque Seco
 
 ### How to install and run the project
 
-1. Clone the project
-```
-git clone https://github.com/TesisUNL/PTT_FLUTTER.git
-cd  office_reservation_app
-```
-
-2. Install dependencies
+1. Install dependencies
 ```
 flutter pub get
 ```
 
-3. Run project, before this please verify that you have connected devices
+2. Run project, before this please verify that you have connected devices
 ```
 flutter run lib/main.dart
 ```
