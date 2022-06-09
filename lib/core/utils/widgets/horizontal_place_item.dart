@@ -39,20 +39,6 @@ class HorizontalPlaceItem extends StatelessWidget {
                   textAlign: TextAlign.left,
                 ),
               ),
-              SizedBox(height: 3.0),
-              Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "${place["location"]}",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13.0,
-                    color: Colors.blueGrey[300],
-                  ),
-                  maxLines: 1,
-                  textAlign: TextAlign.left,
-                ),
-              ),
             ],
           ),
         ),

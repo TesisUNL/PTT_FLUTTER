@@ -6,6 +6,8 @@ import 'package:ptt_rtmb/core/utils/helpers/rounded_btn.dart';
 import 'package:ptt_rtmb/features/create_account/create_account.dart';
 import 'package:ptt_rtmb/features/layout/main_screen.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:ptt_rtmb/core/constants/theme.dart';
+import 'package:http/http.dart' as http;
 
 class Login extends StatefulWidget {
   @override
@@ -34,8 +36,7 @@ class _LoginState extends State<Login> {
                   child: SizedBox(
                       width: 175,
                       height: 175,
-                      child:
-                      SvgPicture.asset('assets/login.svg')),
+                      child: SvgPicture.asset('assets/login.svg')),
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20, 15, 20, 8),
@@ -50,7 +51,7 @@ class _LoginState extends State<Login> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: Text(
-                    'Please sign in to continue.',
+                    'Ingrese sus credenciales para continuar.',
                     style: TextStyle(
                         color: Colors.grey[600],
                         fontWeight: FontWeight.w400,
@@ -107,7 +108,7 @@ class _LoginState extends State<Login> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        'Password',
+                        'Clave',
                         style: TextStyle(
                             fontWeight: FontWeight.w300,
                             fontSize: 13,
@@ -144,27 +145,52 @@ class _LoginState extends State<Login> {
                   padding: const EdgeInsets.all(8.0),
                   child: Center(
                     child: RoundedButton(
-                      btnText: 'LOGIN',
+                      btnText: 'INGRESAR',
                       color: Color(0xff14DAE2),
                       onPressed: () async {
                         // Add login code
                         setState(() {
                           showSpinner = true;
                         });
-                        try {
-                          //final user = await _auth.signInWithEmailAndPassword(
-                              //email: email, password: password);
-                          //if (user != null) {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => MainScreen()));
-                          //}
+
+                        var url = Uri.http('192.168.0.6:3000', '/auth/login');
+
+                        Map params = {"email": email, "password": password};
+
+                        var response = await http.post(url, body: params);
+
+                        if (response.body.toString().contains('id')) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MainScreen()));
+
                           setState(() {
                             showSpinner = false;
                           });
-                        } catch (e) {
-                          print(e);
+                        } else {
+                          showDialog(
+                              context: context,
+                              builder: (buildcontext) {
+                                return AlertDialog(
+                                  title: Text("ERROR"),
+                                  content: Text(response.body),
+                                  actions: <Widget>[
+                                    RaisedButton(
+                                      child: Text(
+                                        "CERRAR",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    )
+                                  ],
+                                );
+                              });
+                          setState(() {
+                            showSpinner = false;
+                          });
                         }
                       },
                     ),
@@ -172,7 +198,7 @@ class _LoginState extends State<Login> {
                 ),
                 Center(
                   child: Text(
-                    'Forgot Password?',
+                    'Olvidó su clave?',
                     style: TextStyle(color: Color(0xff14DAE2)),
                   ),
                 ),
@@ -183,7 +209,7 @@ class _LoginState extends State<Login> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Dont have an account?',
+                      'No tiene cuenta?',
                       style: TextStyle(
                           color: Colors.grey[600], fontWeight: FontWeight.w400),
                     ),
@@ -194,7 +220,7 @@ class _LoginState extends State<Login> {
                             MaterialPageRoute(
                                 builder: (context) => CreateAccount()));
                       },
-                      child: Text('Sign up',
+                      child: Text('Registrarse',
                           style: TextStyle(
                             color: Color(0xff14DAE2),
                           )),

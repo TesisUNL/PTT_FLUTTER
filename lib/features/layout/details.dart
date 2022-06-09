@@ -79,19 +79,6 @@ class Details extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 20),
-              Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "${places[0]["price"]}",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 17,
-                  ),
-                  maxLines: 1,
-                  textAlign: TextAlign.left,
-                ),
-              ),
               SizedBox(height: 40),
               Container(
                 alignment: Alignment.centerLeft,
