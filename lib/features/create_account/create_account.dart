@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:ptt_rtmb/core/utils/helpers/rounded_btn.dart';
 import 'package:ptt_rtmb/features/login/login.dart';
-import 'package:ptt_rtmb/core/services/success.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:http/http.dart' as http;
 
 class CreateAccount extends StatefulWidget {
   @override
@@ -35,7 +35,7 @@ class _CreateAccountState extends State<CreateAccount> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 20, 20, 8),
                 child: Text(
-                  'Create Account',
+                  'Crear Cuenta',
                   style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.w600,
@@ -45,7 +45,7 @@ class _CreateAccountState extends State<CreateAccount> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Text(
-                  'Please fill the input below.',
+                  'Por favor, rellene los campos.',
                   style: TextStyle(
                       color: Colors.grey[600],
                       fontWeight: FontWeight.w400,
@@ -97,7 +97,7 @@ class _CreateAccountState extends State<CreateAccount> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      'Password',
+                      'Clave',
                       style: TextStyle(
                           fontWeight: FontWeight.w300,
                           fontSize: 13,
@@ -133,29 +133,29 @@ class _CreateAccountState extends State<CreateAccount> {
                 padding: const EdgeInsets.all(8.0),
                 child: Center(
                   child: RoundedButton(
-                    btnText: 'SIGN UP',
+                    btnText: 'REGISTRARSE',
                     color: Color(0xff14DAE2),
                     onPressed: () async {
                       setState(() {
                         showSpinner = true;
                       });
-                      try {
-                        //final newUser
-                            //await _auth.createUserWithEmailAndPassword(
-                                //email: email, password: password);
-                        //if (newUser != null) {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Login()));
-                        //}
+
+                      var url = Uri.http('192.168.0.6:3000', '/auth/register');
+
+                      Map params = {"email": email, "password": password};
+
+                      var response = await http.post(url, body: params);
+
+                      if (response.body.isNotEmpty) {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Login()));
+
                         setState(() {
                           showSpinner = false;
                         });
-                      } catch (e) {
-                        print(e);
+                      } else {
+                        print(response.body);
                       }
-                      // Add login code
                     },
                   ),
                 ),
@@ -167,7 +167,7 @@ class _CreateAccountState extends State<CreateAccount> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Already have an account?',
+                    'Ya tiene cuenta?',
                     style: TextStyle(
                         color: Colors.grey[600], fontWeight: FontWeight.w400),
                   ),
@@ -176,7 +176,7 @@ class _CreateAccountState extends State<CreateAccount> {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => Login()));
                     },
-                    child: Text('Sign in',
+                    child: Text('Ingresar',
                         style: TextStyle(
                           color: Color(0xff14DAE2),
                         )),

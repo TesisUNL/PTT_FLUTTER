@@ -35,6 +35,8 @@ dependencies:
   confetti: ^0.6.0
   cupertino_icons: ^1.0.2
   path_drawing: ^1.0.0
+  json_serializable: ^1.0.0
+  http: ^0.13.4
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
