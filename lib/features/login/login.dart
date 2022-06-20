@@ -151,16 +151,19 @@ class _LoginState extends State<Login> {
                           showSpinner = true;
                         });
 
+
                         var res = await postLogin(email, password);
 
                         if (res.statusCode == 201) {
                           setState(() {
                             showSpinner = false;
                           });
+
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => MainScreen()));
+
                         } else {
                           setState(() {
                             showSpinner = false;
@@ -183,6 +186,7 @@ class _LoginState extends State<Login> {
                             ),
                             barrierDismissible: false,
                           );
+
                         }
                       },
                     ),
