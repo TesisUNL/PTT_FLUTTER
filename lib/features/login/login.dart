@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ptt_rtmb/core/services/post_services.dart';
 import 'package:ptt_rtmb/core/utils/helpers/rounded_btn.dart';
 import 'package:ptt_rtmb/features/create_account/create_account.dart';
 import 'package:ptt_rtmb/features/layout/main_screen.dart';
@@ -148,49 +147,46 @@ class _LoginState extends State<Login> {
                       btnText: 'INGRESAR',
                       color: Color(0xff14DAE2),
                       onPressed: () async {
-                        // Add login code
                         setState(() {
                           showSpinner = true;
                         });
 
-                        var url = Uri.http('192.168.0.6:3000', '/auth/login');
 
-                        Map params = {"email": email, "password": password};
+                        var res = await postLogin(email, password);
 
-                        var response = await http.post(url, body: params);
+                        if (res.statusCode == 201) {
+                          setState(() {
+                            showSpinner = false;
+                          });
 
-                        if (response.body.toString().contains('id')) {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => MainScreen()));
 
-                          setState(() {
-                            showSpinner = false;
-                          });
                         } else {
-                          showDialog(
-                              context: context,
-                              builder: (buildcontext) {
-                                return AlertDialog(
-                                  title: Text("ERROR"),
-                                  content: Text(response.body),
-                                  actions: <Widget>[
-                                    RaisedButton(
-                                      child: Text(
-                                        "CERRAR",
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    )
-                                  ],
-                                );
-                              });
                           setState(() {
                             showSpinner = false;
                           });
+                          showDialog(
+                            context: context,
+                            builder: (_) => AlertDialog(
+                              title: Text('Error'),
+                              content: Text('Usuario o contraseña incorrectos'),
+                              actions: [
+                                FlatButton(
+                                  child: Text('OK'),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                )
+                              ],
+                              elevation: 24.0,
+                              backgroundColor: Theme.of(context).primaryColor,
+                            ),
+                            barrierDismissible: false,
+                          );
+
                         }
                       },
                     ),

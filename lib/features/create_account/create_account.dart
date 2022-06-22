@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:ptt_rtmb/core/services/post_services.dart';
 import 'package:ptt_rtmb/core/utils/helpers/rounded_btn.dart';
 import 'package:ptt_rtmb/features/login/login.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -140,21 +141,37 @@ class _CreateAccountState extends State<CreateAccount> {
                         showSpinner = true;
                       });
 
-                      var url = Uri.http('192.168.0.6:3000', '/auth/register');
+                      var res = await postRegister(email, password);
 
-                      Map params = {"email": email, "password": password};
-
-                      var response = await http.post(url, body: params);
-
-                      if (response.body.isNotEmpty) {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => Login()));
-
+                      if (res.statusCode == 201) {
                         setState(() {
                           showSpinner = false;
                         });
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Login()));
                       } else {
-                        print(response.body);
+                        setState(() {
+                          showSpinner = false;
+                        });
+                        showDialog(
+                          context: context,
+                          builder: (_) => AlertDialog(
+                            title: Text('Error'),
+                            content: Text('Usuario o contraseña incorrectos'),
+                            actions: [
+                              FlatButton(
+                                child: Text('OK'),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                              )
+                            ],
+                            elevation: 24.0,
+                            backgroundColor: Theme.of(context).primaryColor,
+                          ),
+                          barrierDismissible: false,
+                        );
+
                       }
                     },
                   ),
