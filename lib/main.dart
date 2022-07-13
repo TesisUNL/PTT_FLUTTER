@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:ptt_rtmb/features/login/login.dart';
 import 'package:ptt_rtmb/core/constants/theme.dart';
 
-void main() {
+Future<void> main() async {
+  await dotenv.load();
+
   runApp(MyApp());
 }
 
@@ -15,8 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
-          fontFamily: 'Poppins'
-      ),
+          fontFamily: 'Poppins'),
       darkTheme: Constants.darkTheme,
       home: Login(),
     );
