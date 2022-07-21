@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ptt_rtmb/core/services/post_services.dart';
@@ -178,7 +179,7 @@ class _LoginState extends State<Login> {
                         } else {
                           var res = await postLogin(email, password);
 
-                          var bodyRes = jsonDecode(res.body);
+                          Map bodyRes = jsonDecode(res.body);
 
                           if (res.statusCode == 201) {
                             setState(() {
@@ -218,7 +219,7 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 SizedBox(
-                  height: 40,
+                  height: 20,
                 ),
                 buttonItem(context, "assets/google.svg", "Continue with Google",
                     25, () {}),
@@ -271,9 +272,10 @@ class _LoginState extends State<Login> {
       child: Container(
         width: MediaQuery.of(context).size.width - 60,
         height: 60,
+        alignment: Alignment.center,
         child: Card(
           elevation: 8,
-          color: Colors.black,
+          color: Color.fromARGB(255, 145, 95, 158),
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
               side: const BorderSide(

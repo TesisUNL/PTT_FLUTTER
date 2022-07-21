@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:ptt_rtmb/core/services/post_services.dart';
 import 'package:ptt_rtmb/core/utils/helpers/rounded_btn.dart';
@@ -186,7 +187,7 @@ class _CreateAccountState extends State<CreateAccount> {
 
                       var res = await postRegister(email, password);
 
-                      var bodyRes = jsonDecode(res.body);
+                      Map bodyRes = jsonDecode(res.body);
 
                       if (res.statusCode == 201) {
                         setState(() {
@@ -272,9 +273,10 @@ Widget buttonItem(BuildContext context, String imagePath, String buttonName,
     child: Container(
       width: MediaQuery.of(context).size.width - 60,
       height: 60,
+      alignment: Alignment.center,
       child: Card(
         elevation: 8,
-        color: Colors.black,
+        color: Color.fromARGB(255, 94, 53, 110),
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
             side: const BorderSide(
