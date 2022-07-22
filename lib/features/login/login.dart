@@ -1,12 +1,14 @@
+import 'dart:convert';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ptt_rtmb/core/services/post_services.dart';
+import 'package:ptt_rtmb/core/services/auth_service.dart';
 import 'package:ptt_rtmb/core/utils/helpers/rounded_btn.dart';
 import 'package:ptt_rtmb/features/create_account/create_account.dart';
 import 'package:ptt_rtmb/features/layout/main_screen.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:ptt_rtmb/core/constants/theme.dart';
-import 'package:http/http.dart' as http;
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
 class Login extends StatefulWidget {
   @override
@@ -14,10 +16,11 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  firebase_auth.FirebaseAuth firebaseAuth = firebase_auth.FirebaseAuth.instance;
   bool showSpinner = false;
-  late String email;
-  late String password;
-
+  late String email = '';
+  late String password = '';
+  AuthClass authClass = AuthClass();
   @override
   Widget build(BuildContext context) {
     return ModalProgressHUD(
@@ -94,7 +97,7 @@ class _LoginState extends State<Login> {
                             ),
                           ),
                           onChanged: (value) {
-                            email = value;
+                            if (value.isNotEmpty) email = value;
                           },
                         ),
                       ],
@@ -134,7 +137,7 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                         onChanged: (value) {
-                          password = value;
+                          if (value.isNotEmpty) password = value;
                         },
                       ),
                     ],
@@ -151,20 +154,7 @@ class _LoginState extends State<Login> {
                           showSpinner = true;
                         });
 
-
-                        var res = await postLogin(email, password);
-
-                        if (res.statusCode == 201) {
-                          setState(() {
-                            showSpinner = false;
-                          });
-
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => MainScreen()));
-
-                        } else {
+                        if (email.isEmpty || password.isEmpty) {
                           setState(() {
                             showSpinner = false;
                           });
@@ -172,7 +162,7 @@ class _LoginState extends State<Login> {
                             context: context,
                             builder: (_) => AlertDialog(
                               title: Text('Error'),
-                              content: Text('Usuario o contraseña incorrectos'),
+                              content: Text('Debe rellenar los campos primero'),
                               actions: [
                                 FlatButton(
                                   child: Text('OK'),
@@ -186,11 +176,58 @@ class _LoginState extends State<Login> {
                             ),
                             barrierDismissible: false,
                           );
+                        } else {
+                          var res = await postLogin(email, password);
 
+                          Map bodyRes = jsonDecode(res.body);
+
+                          if (res.statusCode == 201) {
+                            setState(() {
+                              showSpinner = false;
+                            });
+
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => MainScreen()));
+                          } else {
+                            setState(() {
+                              showSpinner = false;
+                            });
+                            showDialog(
+                              context: context,
+                              builder: (_) => AlertDialog(
+                                title: Text('Error'),
+                                content: Text(bodyRes['message']),
+                                actions: [
+                                  FlatButton(
+                                    child: Text('OK'),
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                  )
+                                ],
+                                elevation: 24.0,
+                                backgroundColor: Theme.of(context).primaryColor,
+                              ),
+                              barrierDismissible: false,
+                            );
+                          }
                         }
                       },
                     ),
                   ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                buttonItem(
+                    context, "assets/google.svg", "Continuar con Google", 25,
+                    () async {
+                  await authClass.googleSignIn(context);
+                }),
+                const SizedBox(
+                  height: 15,
                 ),
                 Center(
                   child: Text(
@@ -228,6 +265,50 @@ class _LoginState extends State<Login> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget buttonItem(BuildContext context, String imagePath, String buttonName,
+      double size, Function() onTap) {
+    return InkWell(
+      onTap: onTap,
+      child: Align(
+          alignment: Alignment.center,
+          child: Container(
+            width: MediaQuery.of(context).size.width - 60,
+            height: 90,
+            alignment: Alignment.center,
+            child: Card(
+              elevation: 8,
+              color: Color.fromARGB(255, 75, 22, 88),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                  side: const BorderSide(
+                    width: 1,
+                    color: Colors.grey,
+                  )),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(
+                    imagePath,
+                    height: size,
+                    width: size,
+                  ),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  Text(
+                    buttonName,
+                    style: const TextStyle(
+                        color: Color.fromARGB(255, 255, 255, 255),
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
+          )),
     );
   }
 }
