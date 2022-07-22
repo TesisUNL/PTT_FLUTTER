@@ -223,13 +223,8 @@ class _CreateAccountState extends State<CreateAccount> {
                 ),
               ),
               SizedBox(
-                height: 50,
+                height: 25,
               ),
-              buttonItem(
-                  context, "assets/google.svg", "Continue with Google", 25,
-                  () async {
-                await authClass.googleSignIn(context);
-              }),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -264,46 +259,4 @@ Widget _goBackButton(BuildContext context) {
       onPressed: () {
         Navigator.of(context).pop(true);
       });
-}
-
-Widget buttonItem(BuildContext context, String imagePath, String buttonName,
-    double size, Function() onTap) {
-  return InkWell(
-    onTap: onTap,
-    child: Container(
-      width: MediaQuery.of(context).size.width - 60,
-      height: 60,
-      alignment: Alignment.center,
-      child: Card(
-        elevation: 8,
-        color: Color.fromARGB(255, 94, 53, 110),
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-            side: const BorderSide(
-              width: 1,
-              color: Colors.grey,
-            )),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              imagePath,
-              height: size,
-              width: size,
-            ),
-            const SizedBox(
-              width: 15,
-            ),
-            Text(
-              buttonName,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 17,
-              ),
-            ),
-          ],
-        ),
-      ),
-    ),
-  );
 }

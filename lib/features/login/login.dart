@@ -221,8 +221,11 @@ class _LoginState extends State<Login> {
                 SizedBox(
                   height: 20,
                 ),
-                buttonItem(context, "assets/google.svg", "Continue with Google",
-                    25, () {}),
+                buttonItem(
+                    context, "assets/google.svg", "Continuar con Google", 25,
+                    () async {
+                  await authClass.googleSignIn(context);
+                }),
                 const SizedBox(
                   height: 15,
                 ),
@@ -269,41 +272,43 @@ class _LoginState extends State<Login> {
       double size, Function() onTap) {
     return InkWell(
       onTap: onTap,
-      child: Container(
-        width: MediaQuery.of(context).size.width - 60,
-        height: 60,
-        alignment: Alignment.center,
-        child: Card(
-          elevation: 8,
-          color: Color.fromARGB(255, 145, 95, 158),
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
-              side: const BorderSide(
-                width: 1,
-                color: Colors.grey,
-              )),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SvgPicture.asset(
-                imagePath,
-                height: size,
-                width: size,
+      child: Align(
+          alignment: Alignment.center,
+          child: Container(
+            width: MediaQuery.of(context).size.width - 60,
+            height: 90,
+            alignment: Alignment.center,
+            child: Card(
+              elevation: 8,
+              color: Color.fromARGB(255, 75, 22, 88),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                  side: const BorderSide(
+                    width: 1,
+                    color: Colors.grey,
+                  )),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(
+                    imagePath,
+                    height: size,
+                    width: size,
+                  ),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  Text(
+                    buttonName,
+                    style: const TextStyle(
+                        color: Color.fromARGB(255, 255, 255, 255),
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
               ),
-              const SizedBox(
-                width: 15,
-              ),
-              Text(
-                buttonName,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 17,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+            ),
+          )),
     );
   }
 }

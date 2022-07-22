@@ -36,4 +36,8 @@ class Enviroment {
   static String get iosBundleId {
     return dotenv.env['IOS_BUNDLE_ID'] ?? 'IOS_BUNDLE_ID not found';
   }
+
+  static String get host {
+    return dotenv.env['API_URL'] ?? 'HOST not found';
+  }
 }

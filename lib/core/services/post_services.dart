@@ -1,8 +1,9 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
+import 'package:ptt_rtmb/enviroment.dart';
 
-String host = dotenv.env['API_URL'] ?? '192.168.0.9:3000';
+String host = Enviroment.host;
 
 Future<http.Response> postRegister(String email, String password) async {
   Map params = {"email": email, "password": password};
