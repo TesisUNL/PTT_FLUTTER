@@ -1,10 +1,13 @@
+import 'dart:convert';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:ptt_rtmb/core/services/post_services.dart';
 import 'package:ptt_rtmb/core/utils/helpers/rounded_btn.dart';
+import 'package:ptt_rtmb/features/layout/main_screen.dart';
 import 'package:ptt_rtmb/features/login/login.dart';
+import 'package:ptt_rtmb/core/services/auth_service.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:http/http.dart' as http;
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
 class CreateAccount extends StatefulWidget {
   @override
@@ -12,10 +15,27 @@ class CreateAccount extends StatefulWidget {
 }
 
 class _CreateAccountState extends State<CreateAccount> {
-  bool showSpinner = false;
-  late String email;
-  late String password;
+  Widget currentPage = CreateAccount();
+  @override
+  void initState() {
+    super.initState();
+    checkLogin();
+  }
 
+  void checkLogin() async {
+    String? token = await authClass.getToken();
+    if (token != null) {
+      setState(() {
+        currentPage = MainScreen();
+      });
+    }
+  }
+
+  firebase_auth.FirebaseAuth firebaseAuth = firebase_auth.FirebaseAuth.instance;
+  bool showSpinner = false;
+  late String email = '';
+  late String password = '';
+  AuthClass authClass = AuthClass();
   @override
   Widget build(BuildContext context) {
     return ModalProgressHUD(
@@ -86,7 +106,7 @@ class _CreateAccountState extends State<CreateAccount> {
                         ),
                       ),
                       onChanged: (value) {
-                        email = value;
+                        if (value.isNotEmpty) email = value;
                       },
                     ),
                   ],
@@ -124,7 +144,7 @@ class _CreateAccountState extends State<CreateAccount> {
                         ),
                       ),
                       onChanged: (value) {
-                        password = value;
+                        if (value.isNotEmpty) password = value;
                       },
                     ),
                   ],
@@ -141,7 +161,33 @@ class _CreateAccountState extends State<CreateAccount> {
                         showSpinner = true;
                       });
 
+                      if (email.isEmpty || password.isEmpty) {
+                        setState(() {
+                          showSpinner = false;
+                        });
+                        showDialog(
+                          context: context,
+                          builder: (_) => AlertDialog(
+                            title: Text('Error'),
+                            content: Text('Debe rellenar los campos primero'),
+                            actions: [
+                              FlatButton(
+                                child: Text('OK'),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                              )
+                            ],
+                            elevation: 24.0,
+                            backgroundColor: Theme.of(context).primaryColor,
+                          ),
+                          barrierDismissible: false,
+                        );
+                      }
+
                       var res = await postRegister(email, password);
+
+                      Map bodyRes = jsonDecode(res.body);
 
                       if (res.statusCode == 201) {
                         setState(() {
@@ -157,7 +203,7 @@ class _CreateAccountState extends State<CreateAccount> {
                           context: context,
                           builder: (_) => AlertDialog(
                             title: Text('Error'),
-                            content: Text('Usuario o contraseña incorrectos'),
+                            content: Text(bodyRes['message']),
                             actions: [
                               FlatButton(
                                 child: Text('OK'),
@@ -171,14 +217,13 @@ class _CreateAccountState extends State<CreateAccount> {
                           ),
                           barrierDismissible: false,
                         );
-
                       }
                     },
                   ),
                 ),
               ),
               SizedBox(
-                height: 100,
+                height: 25,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

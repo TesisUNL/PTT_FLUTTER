@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "573956922577",
+    "project_id": "flutter-mbsapp",
+    "storage_bucket": "flutter-mbsapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:573956922577:android:051e1035bfb17bb68139f0",
+        "android_client_info": {
+          "package_name": "com.example.ptt_rtmb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "573956922577-3a9to1momvjdu7cs249ilpslf4p6s6g2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSwopmw8TJ5bLOQJmL0O64bYJbe8ukjvw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "573956922577-3a9to1momvjdu7cs249ilpslf4p6s6g2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

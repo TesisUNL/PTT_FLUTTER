@@ -21,6 +21,11 @@ cd  PTT_FLUTTER
 flutter pub get
 ```
 
+3. Crear un archivo `.env` en el root de la aplicación, con la siguiente estructura:
+```
+API_URL= {ip}:3000
+```
+
 3. Correr el proyecto con: 
 ```
 flutter run lib/main.dart
