@@ -22,11 +22,20 @@ flutter pub get
 ```
 
 3. Crear un archivo `.env` en el root de la aplicación, con la siguiente estructura:
-```
+```env
 API_URL= {ip}:3000
+ANDROID_API_KEY= value
+ANDROID_APP_ID= value 
+MESSAGING_SENDER_ID= value
+PROJECT_ID= value
+STORAGE_BUCKET= value
+IOS_API_KEY= value
+IOS_APP_ID= value
+IOS_CLIENT_ID= value
+IOS_BUNDLE_ID= value
 ```
 
-3. Correr el proyecto con: 
+4. Correr el proyecto con: 
 ```
 flutter run lib/main.dart
 ```
