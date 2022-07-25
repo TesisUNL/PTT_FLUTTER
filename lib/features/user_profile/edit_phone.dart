@@ -89,7 +89,7 @@ class EditPhoneFormPageState extends State<EditPhoneFormPage> {
                               }
                             },
                             child: const Text(
-                              'Update',
+                              'Actualizar',
                               style: TextStyle(fontSize: 15),
                             ),
                           ),
