@@ -1,20 +1,19 @@
 import 'dart:convert';
-
 import 'user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:ptt_rtmb/features/login/login.dart';
 
 class UserData {
   static late SharedPreferences _preferences;
   static const _keyUser = 'user';
+  static Map user = Login.returnUser;
 
   static User myUser = User(
     image:
-        "https://upload.wikimedia.org/wikipedia/en/0/0b/Darth_Vader_in_The_Empire_Strikes_Back.jpg",
-    name: 'Test Test',
-    email: 'test.test@gmail.com',
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/800px-User_icon_2.svg.png",
+    name: 'Name Test',
+    email: user['email'],
     phone: '(208) 206-5039',
-    aboutMeDescription:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat...',
   );
 
   static Future init() async =>
