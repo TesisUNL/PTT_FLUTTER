@@ -35,6 +35,7 @@ class _CreateAccountState extends State<CreateAccount> {
   bool showSpinner = false;
   late String email = '';
   late String password = '';
+  late String name = '';
   AuthClass authClass = AuthClass();
   @override
   Widget build(BuildContext context) {
@@ -71,6 +72,45 @@ class _CreateAccountState extends State<CreateAccount> {
                       color: Colors.grey[600],
                       fontWeight: FontWeight.w400,
                       fontSize: 14),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      'Nombre',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w300,
+                          fontSize: 13,
+                          color: Colors.white),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    TextField(
+                      style: (TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.w400)),
+                      keyboardType: TextInputType.emailAddress,
+                      obscureText: false,
+                      cursorColor: Colors.white,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        fillColor: Color(0xfff3B324E),
+                        filled: true,
+                        prefixIcon: Image.asset('assets/icon_name.png'),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Color(0xff14DAE2), width: 2.0),
+                          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                        ),
+                      ),
+                      onChanged: (value) {
+                        if (value.isNotEmpty) name = value;
+                      },
+                    ),
+                  ],
                 ),
               ),
               Container(
@@ -161,7 +201,7 @@ class _CreateAccountState extends State<CreateAccount> {
                         showSpinner = true;
                       });
 
-                      if (email.isEmpty || password.isEmpty) {
+                      if (email.isEmpty || password.isEmpty || name.isEmpty) {
                         setState(() {
                           showSpinner = false;
                         });
@@ -185,7 +225,7 @@ class _CreateAccountState extends State<CreateAccount> {
                         );
                       }
 
-                      var res = await postRegister(email, password);
+                      var res = await postRegister(email, password, name);
 
                       Map bodyRes = jsonDecode(res.body);
 

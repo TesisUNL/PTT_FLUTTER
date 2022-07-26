@@ -1,13 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:ptt_rtmb/features/login/login.dart';
 import 'package:ptt_rtmb/features/user_profile/edit_image.dart';
 import 'package:ptt_rtmb/features/user_profile/edit_name.dart';
 import 'package:ptt_rtmb/features/user_profile/edit_phone.dart';
 import 'package:ptt_rtmb/features/user_profile/edit_email.dart';
-import 'package:ptt_rtmb/core/models/user/user.dart';
 import 'package:ptt_rtmb/core/utils/widgets/user_profile_widgets/display_image_widget.dart';
 import 'package:ptt_rtmb/core/models/user/user_data.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:ptt_rtmb/core/services/auth_service.dart';
 
 // This class handles the Page to dispaly the user's info on the "Edit Profile" Screen
 class ProfilePage extends StatefulWidget {
@@ -16,6 +18,15 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  firebase_auth.FirebaseAuth firebaseAuth = firebase_auth.FirebaseAuth.instance;
+  AuthClass authClass = AuthClass();
+  //signout function
+  signOut() async {
+    await authClass.logout();
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => Login()));
+  }
+
   @override
   Widget build(BuildContext context) {
     final user = UserData.myUser;
@@ -50,6 +61,19 @@ class _ProfilePageState extends State<ProfilePage> {
           buildUserInfoDisplay(user.name, 'Nombre', EditNameFormPage()),
           buildUserInfoDisplay(user.phone, 'Teléfono', EditPhoneFormPage()),
           buildUserInfoDisplay(user.email, 'Email', EditEmailFormPage()),
+          SizedBox(
+            height: 180,
+          ),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: FloatingActionButton(
+              onPressed: () {
+                signOut();
+              },
+              child: Icon(Icons.logout_rounded),
+              backgroundColor: Color.fromRGBO(64, 105, 225, 1),
+            ),
+          )
         ],
       ),
     );

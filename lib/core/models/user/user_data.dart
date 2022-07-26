@@ -11,8 +11,8 @@ class UserData {
   static User myUser = User(
     image:
         "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/800px-User_icon_2.svg.png",
-    name: 'Name Test',
-    email: user['email'] | 'darlackwow76@gmail.com',
+    name: user['name'] ?? 'Name Test',
+    email: user['email'] ?? 'darlackwow76@gmail.com',
     phone: '(208) 206-5039',
   );
 

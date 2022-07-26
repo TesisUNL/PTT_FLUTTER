@@ -11,7 +11,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
 class Login extends StatefulWidget {
-  static late Map returnUser;
+  static late Map returnUser = {};
 
   @override
   _LoginState createState() => _LoginState();
