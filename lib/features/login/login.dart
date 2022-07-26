@@ -11,11 +11,30 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
 class Login extends StatefulWidget {
+  static late Map returnUser = {};
+
   @override
   _LoginState createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
+  Widget currentPage = Login();
+
+  @override
+  void initState() {
+    super.initState();
+    checkLogin();
+  }
+
+  void checkLogin() async {
+    String? token = await authClass.getToken();
+    if (token != null) {
+      setState(() {
+        currentPage = MainScreen();
+      });
+    }
+  }
+
   firebase_auth.FirebaseAuth firebaseAuth = firebase_auth.FirebaseAuth.instance;
   bool showSpinner = false;
   late String email = '';
@@ -185,7 +204,7 @@ class _LoginState extends State<Login> {
                             setState(() {
                               showSpinner = false;
                             });
-
+                            Login.returnUser = bodyRes;
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(

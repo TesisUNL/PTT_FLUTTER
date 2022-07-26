@@ -5,8 +5,9 @@ import 'package:ptt_rtmb/enviroment.dart';
 
 String host = Enviroment.host;
 
-Future<http.Response> postRegister(String email, String password) async {
-  Map params = {"email": email, "password": password};
+Future<http.Response> postRegister(
+    String email, String password, String name) async {
+  Map params = {"email": email, "password": password, "name": name};
   var response =
       await http.post(Uri.http(host, '/auth/register'), body: params);
   return response;
