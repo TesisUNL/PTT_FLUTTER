@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ptt_rtmb/features/layout/home.dart';
 import 'package:ptt_rtmb/core/utils/widgets/icon_badge.dart';
 import 'package:ptt_rtmb/features/user_profile/profile_page.dart';
-import 'package:ptt_rtmb/features/map/google_maps.dart';
+import 'package:ptt_rtmb/features/map/maps.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -75,7 +75,7 @@ class _MainScreenState extends State<MainScreen> {
         pageWidget = List.generate(4, (index) => Home());
         break;
       case 2:
-        pageWidget = List.generate(4, (index) => MapSample());
+        pageWidget = List.generate(4, (index) => MapPage());
         break;
       case 3:
         pageWidget = List.generate(4, (index) => ProfilePage());
