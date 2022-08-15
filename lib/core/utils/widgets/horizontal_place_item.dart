@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'package:ptt_rtmb/features/layout/details.dart';
 
+import '../../models/attraction/attraction.dart';
+
 class HorizontalPlaceItem extends StatelessWidget {
-  final Map place;
+  final Attraction place;
 
   HorizontalPlaceItem({required this.place});
 
@@ -20,7 +22,7 @@ class HorizontalPlaceItem extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: Image.asset(
-                  "${place["img"]}",
+                  "${place.image}",
                   height: 178.0,
                   width: 140.0,
                   fit: BoxFit.cover,
@@ -30,7 +32,7 @@ class HorizontalPlaceItem extends StatelessWidget {
               Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  "${place["name"]}",
+                  "${place.name}",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 15.0,
