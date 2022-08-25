@@ -30,13 +30,11 @@ class Attraction {
       );
 
   static Attraction fromJson(Map<String, dynamic> json) => Attraction(
-        image: json['cover_image'] ?? '',
-        name: json['name'] ?? '',
-        description: json['long_description'] ?? '',
-        shortDescription: json['short_description'] ?? '',
-        location: json['location'] ??
-            'default', // change this data use canton_name instant
-      );
+      image: json['cover_image'] ?? '',
+      name: json['name'] ?? '',
+      description: json['long_description'] ?? '',
+      shortDescription: json['short_description'] ?? '',
+      location: json['canton'] ?? '');
 
   static List<Attraction> fromJsonList(List<dynamic> jsonList) => jsonList
       .map((attractionData) => Attraction.fromJson(attractionData))
