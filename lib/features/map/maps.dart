@@ -21,6 +21,10 @@ class MapPageState extends State<MapPage> {
 
   Completer<GoogleMapController> _controller = Completer();
 
+  Set<Polyline> polyline = Set<Polyline>();
+  
+  final Set<Polyline> _polyline = {};
+
   void _changeMapType() {
     setState(() {
       _defaultMapType = _defaultMapType == MapType.normal
@@ -40,10 +44,12 @@ class MapPageState extends State<MapPage> {
     controller
         .animateCamera(CameraUpdate.newLatLngZoom(LatLng(lat, long), _zoom));
     setState(() {
+      _markers.clear();
       _markers.add(
         Marker(
           markerId: MarkerId('Parque Central Milagros'),
           position: LatLng(lat, long),
+          infoWindow: InfoWindow(title: 'Parque Central Milagros', snippet: 'Bienvenido al Parque')
         ),
       );
     });
@@ -58,8 +64,10 @@ class MapPageState extends State<MapPage> {
       ),
       body: Stack(children: <Widget>[
         GoogleMap(
+          markers: _markers,
           mapType: _defaultMapType,
           myLocationEnabled: true,
+          compassEnabled: true,
           onMapCreated: _onMapCreated,
           initialCameraPosition: _initialPosition,
         ),
