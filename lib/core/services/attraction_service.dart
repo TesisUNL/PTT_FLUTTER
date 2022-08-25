@@ -10,11 +10,10 @@ const String ATTRACTION_URL = '/attractions';
 String host = Enviroment.host;
 
 Future<List<Attraction>> getAttractions() async {
-  final response = await http.get(Uri.http(host, ATTRACTION_URL));
-
-  if (response.statusCode == 200) {
+  try {
+    final response = await http.get(Uri.http(host, ATTRACTION_URL));
     return Attraction.fromJsonList(jsonDecode(response.body));
-  } else {
-    throw Exception('Failed to load attractions');
+  } on Exception catch (e) {
+    throw Exception(e.toString());
   }
 }
