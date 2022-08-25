@@ -62,7 +62,7 @@ class _ProfilePageState extends State<ProfilePage> {
           buildUserInfoDisplay(user.phone, 'Teléfono', EditPhoneFormPage()),
           buildUserInfoDisplay(user.email, 'Email', EditEmailFormPage()),
           SizedBox(
-            height: 180,
+            height: 80,
           ),
           Align(
             alignment: Alignment.bottomRight,

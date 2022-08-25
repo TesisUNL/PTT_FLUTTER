@@ -92,7 +92,7 @@ class EditNameFormPageState extends State<EditNameFormPage> {
                 ],
               ),
               Padding(
-                  padding: EdgeInsets.only(top: 150),
+                  padding: EdgeInsets.only(top: 25),
                   child: Align(
                       alignment: Alignment.bottomCenter,
                       child: SizedBox(

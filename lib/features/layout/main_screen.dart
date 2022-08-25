@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:ptt_rtmb/features/augmented_reality/bird_model.dart';
 import 'package:ptt_rtmb/features/layout/home.dart';
 import 'package:ptt_rtmb/core/utils/widgets/icon_badge.dart';
 import 'package:ptt_rtmb/features/user_profile/profile_page.dart';
-import 'package:ptt_rtmb/features/map/google_maps.dart';
+import 'package:ptt_rtmb/features/map/maps.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -29,7 +30,7 @@ class _MainScreenState extends State<MainScreen> {
           children: <Widget>[
             SizedBox(width: 7.0),
             barIcon(icon: Icons.home, page: 0),
-            barIcon(icon: Icons.favorite, page: 1),
+            barIcon(icon: Icons.app_shortcut_sharp, page: 1),
             barIcon(icon: Icons.map, page: 2, badge: true),
             barIcon(icon: Icons.person, page: 3),
             SizedBox(width: 7.0),
@@ -72,10 +73,10 @@ class _MainScreenState extends State<MainScreen> {
         pageWidget = List.generate(4, (index) => Home());
         break;
       case 1:
-        pageWidget = List.generate(4, (index) => Home());
+        pageWidget = List.generate(4, (index) => ModelPage());
         break;
       case 2:
-        pageWidget = List.generate(4, (index) => MapSample());
+        pageWidget = List.generate(4, (index) => MapPage());
         break;
       case 3:
         pageWidget = List.generate(4, (index) => ProfilePage());
