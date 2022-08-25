@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:ptt_rtmb/core/models/attraction/attraction.dart';
 import 'package:ptt_rtmb/features/layout/details.dart';
 
 class VerticalPlaceItem extends StatelessWidget {
-  final Map place;
+  final Attraction place;
 
   VerticalPlaceItem({required this.place});
 
@@ -18,7 +19,7 @@ class VerticalPlaceItem extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(5),
                 child: Image.asset(
-                  "${place["img"]}",
+                  "${place.image}",
                   height: 70.0,
                   width: 70.0,
                   fit: BoxFit.cover,
@@ -36,7 +37,7 @@ class VerticalPlaceItem extends StatelessWidget {
                     Container(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "${place["name"]}",
+                        "${place.name}",
                         style: TextStyle(
                           fontWeight: FontWeight.w700,
                           fontSize: 14.0,
@@ -57,7 +58,7 @@ class VerticalPlaceItem extends StatelessWidget {
                         Container(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            "${place["location"]}",
+                            "${place.location}",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 13.0,
