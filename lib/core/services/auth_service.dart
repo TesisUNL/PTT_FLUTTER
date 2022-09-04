@@ -13,6 +13,8 @@ class AuthClass {
   );
   FirebaseAuth auth = FirebaseAuth.instance;
 
+  late User user;
+
   final storage = const FlutterSecureStorage();
 
   Future<void> googleSignIn(BuildContext context) async {
@@ -32,6 +34,9 @@ class AuthClass {
               await auth.signInWithCredential(credential);
 
           storeTokenAndData(userCredential);
+
+          user = userCredential.user!;
+          
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (builder) => MainScreen()),
@@ -60,6 +65,16 @@ class AuthClass {
   Future<String?> getToken() async {
     return await storage.read(key: "token");
   }
+
+  Future<Map> UserSingIn() async {
+    Map UserMap = {
+      'photo': user.providerData[0].photoURL,
+      'name': user.providerData[0].displayName,
+      'email': user.providerData[0].email,
+      'phone': user.providerData[0].phoneNumber
+    }; 
+    return UserMap;
+}
 
   Future<void> logout() async {
     try {
