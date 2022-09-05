@@ -4,12 +4,14 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:ptt_rtmb/features/login/login.dart';
 import 'package:ptt_rtmb/core/constants/theme.dart';
 import 'firebase_options.dart';
+import 'package:flutter_config/flutter_config.dart';
 
 Future<void> main() async {
   await dotenv.load();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await FlutterConfig.loadEnvVariables();
   runApp(MyApp());
 }
 

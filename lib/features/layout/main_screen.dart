@@ -73,7 +73,7 @@ class _MainScreenState extends State<MainScreen> {
         pageWidget = List.generate(4, (index) => Home());
         break;
       case 1:
-        pageWidget = List.generate(4, (index) => ModelPage());
+        pageWidget = List.generate(4, (index) => ARCore(title: 'Guia Virtual',));
         break;
       case 2:
         pageWidget = List.generate(4, (index) => MapPage());

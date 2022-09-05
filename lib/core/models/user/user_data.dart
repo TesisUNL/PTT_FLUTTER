@@ -10,10 +10,10 @@ class UserData {
 
   static User myUser = User(
     image:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/800px-User_icon_2.svg.png",
-    name: user['name'] ?? 'Name Test',
-    email: user['email'] ?? 'darlackwow76@gmail.com',
-    phone: '(208) 206-5039',
+        user['photo'] ?? "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/800px-User_icon_2.svg.png",
+    name: user['name'] ?? 'User Name',
+    email: user['email'] ?? 'placeholder@gmail.com',
+    phone: user['phone'] ?? '(593) 939-577704',
   );
 
   static Future init() async =>
