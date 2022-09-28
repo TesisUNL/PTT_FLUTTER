@@ -52,6 +52,8 @@ dependencies:
   flutter_config: ^2.0.0
   vector_math: ^2.1.1
   arcore_flutter_plugin: ^0.1.0-null-safety.3
+  location: ^4.4.0
+  flutter_polyline_points: ^1.0.0
 
 dev_dependencies:
   flutter_test:

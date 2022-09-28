@@ -1,20 +1,21 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:http/http.dart' as http;
+import 'package:http/http.dart' as httpPackage;
 import 'dart:async';
 import 'package:ptt_rtmb/enviroment.dart';
 
-String host = Enviroment.host;
+import '../utils/helpers/HttpHelpers/htppWrapper.dart';
 
-Future<http.Response> postRegister(
+HttpWrapper http = HttpWrapper();
+
+Future<httpPackage.Response> postRegister(
     String email, String password, String name) async {
   Map params = {"email": email, "password": password, "name": name};
-  var response =
-      await http.post(Uri.http(host, '/auth/register'), body: params);
+  var response = await http.post('/auth/register', body: params);
   return response;
 }
 
-Future<http.Response> postLogin(String email, String password) async {
+Future<httpPackage.Response> postLogin(String email, String password) async {
   Map params = {"email": email, "password": password};
-  var response = await http.post(Uri.http(host, '/auth/login'), body: params);
+  var response = await http.post('/auth/login', body: params);
   return response;
 }

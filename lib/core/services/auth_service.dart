@@ -33,10 +33,11 @@ class AuthClass {
           UserCredential userCredential =
               await auth.signInWithCredential(credential);
 
+          print(userCredential);
           storeTokenAndData(userCredential);
 
           user = userCredential.user!;
-          
+
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (builder) => MainScreen()),
@@ -72,9 +73,9 @@ class AuthClass {
       'name': user.providerData[0].displayName,
       'email': user.providerData[0].email,
       'phone': user.providerData[0].phoneNumber
-    }; 
+    };
     return UserMap;
-}
+  }
 
   Future<void> logout() async {
     try {
