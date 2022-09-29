@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:string_validator/string_validator.dart';
-import 'package:ptt_rtmb/core/models/user/user_data.dart';
 import 'package:ptt_rtmb/core/utils/widgets/user_profile_widgets/appbar_widget.dart';
 
 // This class handles the Page to edit the Phone Section of the User Profile.

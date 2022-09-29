@@ -2,16 +2,18 @@ import 'dart:convert';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ptt_rtmb/core/services/post_services.dart';
-import 'package:ptt_rtmb/core/services/auth_service.dart';
 import 'package:ptt_rtmb/core/utils/helpers/rounded_btn.dart';
 import 'package:ptt_rtmb/features/create_account/create_account.dart';
 import 'package:ptt_rtmb/features/layout/main_screen.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
+import '../../core/models/user/auth_user.dart';
+import '../../core/services/auth/auth_google_service.dart';
+import '../../core/services/auth/auth_local_services.dart';
+
 class Login extends StatefulWidget {
-  static late Map returnUser = {};
+  static late AuthUser returnUser;
 
   @override
   _LoginState createState() => _LoginState();
@@ -19,6 +21,11 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   Widget currentPage = Login();
+  firebase_auth.FirebaseAuth firebaseAuth = firebase_auth.FirebaseAuth.instance;
+  bool showSpinner = false;
+  late String email = '';
+  late String password = '';
+  AuthClass authClass = AuthClass();
 
   @override
   void initState() {
@@ -35,11 +42,6 @@ class _LoginState extends State<Login> {
     }
   }
 
-  firebase_auth.FirebaseAuth firebaseAuth = firebase_auth.FirebaseAuth.instance;
-  bool showSpinner = false;
-  late String email = '';
-  late String password = '';
-  AuthClass authClass = AuthClass();
   @override
   Widget build(BuildContext context) {
     return ModalProgressHUD(
@@ -196,15 +198,13 @@ class _LoginState extends State<Login> {
                             barrierDismissible: false,
                           );
                         } else {
-                          var res = await postLogin(email, password);
-
-                          Map bodyRes = jsonDecode(res.body);
-
-                          if (res.statusCode == 201) {
+                          AuthUser userLogged =
+                              await postLogin(email, password);
+                          if (userLogged != null) {
                             setState(() {
                               showSpinner = false;
                             });
-                            Login.returnUser = bodyRes;
+                            Login.returnUser = userLogged;
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -217,7 +217,7 @@ class _LoginState extends State<Login> {
                               context: context,
                               builder: (_) => AlertDialog(
                                 title: Text('Error'),
-                                content: Text(bodyRes['message']),
+                                content: Text('error'),
                                 actions: [
                                   FlatButton(
                                     child: Text('OK'),
@@ -244,7 +244,7 @@ class _LoginState extends State<Login> {
                     context, "assets/google.svg", "Continuar con Google", 25,
                     () async {
                   await authClass.googleSignIn(context);
-                  Login.returnUser = await authClass.UserSingIn();
+                  //Login.returnUser = await authClass.UserSingIn();
                 }),
                 const SizedBox(
                   height: 15,

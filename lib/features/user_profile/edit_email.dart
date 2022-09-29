@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:ptt_rtmb/core/models/user/user_data.dart';
+import 'package:ptt_rtmb/core/services/auth/secureStorage.service.dart';
 import 'package:ptt_rtmb/core/utils/widgets/user_profile_widgets/appbar_widget.dart';
 import 'package:email_validator/email_validator.dart';
+
+import '../login/login.dart';
 
 // This class handles the Page to edit the Email Section of the User Profile.
 class EditEmailFormPage extends StatefulWidget {
@@ -16,7 +18,7 @@ class EditEmailFormPage extends StatefulWidget {
 class EditEmailFormPageState extends State<EditEmailFormPage> {
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
-  var user = UserData.myUser;
+  var user = Login.returnUser.user;
 
   @override
   void dispose() {

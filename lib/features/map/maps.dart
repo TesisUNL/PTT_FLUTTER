@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:ptt_rtmb/core/services/attraction_service.dart';
+import 'package:ptt_rtmb/core/services/attraction/attraction_service.dart';
 import '../../core/models/attraction/attraction_marker.dart';
 
 class MapPage extends StatefulWidget {

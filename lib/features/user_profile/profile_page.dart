@@ -7,9 +7,9 @@ import 'package:ptt_rtmb/features/user_profile/edit_name.dart';
 import 'package:ptt_rtmb/features/user_profile/edit_phone.dart';
 import 'package:ptt_rtmb/features/user_profile/edit_email.dart';
 import 'package:ptt_rtmb/core/utils/widgets/user_profile_widgets/display_image_widget.dart';
-import 'package:ptt_rtmb/core/models/user/user_data.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
-import 'package:ptt_rtmb/core/services/auth_service.dart';
+
+import '../../core/services/auth/auth_google_service.dart';
 
 // This class handles the Page to dispaly the user's info on the "Edit Profile" Screen
 class ProfilePage extends StatefulWidget {
@@ -29,7 +29,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    final user = UserData.myUser;
+    var user = Login.returnUser.user;
 
     return Scaffold(
       body: Column(

@@ -1,11 +1,12 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:ptt_rtmb/core/models/user/user_data.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 import 'package:ptt_rtmb/core/utils/widgets/user_profile_widgets/appbar_widget.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../login/login.dart';
 
 class EditImagePage extends StatefulWidget {
   const EditImagePage({Key? key}) : super(key: key);
@@ -15,7 +16,7 @@ class EditImagePage extends StatefulWidget {
 }
 
 class _EditImagePageState extends State<EditImagePage> {
-  var user = UserData.myUser;
+  var user = Login.returnUser.user;
 
   @override
   Widget build(BuildContext context) {

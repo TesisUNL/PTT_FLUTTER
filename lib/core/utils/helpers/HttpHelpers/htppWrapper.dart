@@ -8,11 +8,11 @@ import 'package:http/http.dart' as http;
 class HttpWrapper {
   HelperService helperService = HelperService();
 
-  Future<dynamic> getter(String path) async {
+  Future<dynamic> getter(String path, {bool withAccessToken = true}) async {
     try {
       final response = await http.get(
         helperService.buildUri(path),
-        headers: helperService.buildHeaders(),
+        headers: helperService.buildHeaders(withAccessToken: withAccessToken),
       );
       return response;
     } on Exception catch (e) {
@@ -20,11 +20,12 @@ class HttpWrapper {
     }
   }
 
-  Future<dynamic> post(String path, {Object? body, Encoding? encoding}) async {
+  Future<dynamic> post(String path,
+      {Object? body, Encoding? encoding, bool withAccessToken = true}) async {
     try {
       final response = await http.post(
         helperService.buildUri(path),
-        headers: helperService.buildHeaders(),
+        headers: helperService.buildHeaders(withAccessToken: withAccessToken),
         body: body,
         encoding: encoding,
       );
@@ -34,11 +35,12 @@ class HttpWrapper {
     }
   }
 
-  Future<dynamic> put(String path, {Object? body, Encoding? encoding}) async {
+  Future<dynamic> put(String path,
+      {Object? body, Encoding? encoding, bool withAccessToken = true}) async {
     try {
       final response = await http.put(
         helperService.buildUri(path),
-        headers: helperService.buildHeaders(),
+        headers: helperService.buildHeaders(withAccessToken: withAccessToken),
         body: body,
         encoding: encoding,
       );
@@ -49,11 +51,11 @@ class HttpWrapper {
   }
 
   Future<dynamic> delete(String path,
-      {Object? body, Encoding? encoding}) async {
+      {Object? body, Encoding? encoding, bool withAccessToken = true}) async {
     try {
       final response = await http.delete(
         helperService.buildUri(path),
-        headers: helperService.buildHeaders(),
+        headers: helperService.buildHeaders(withAccessToken: withAccessToken),
         body: body,
         encoding: encoding,
       );
