@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:string_validator/string_validator.dart';
 import 'package:ptt_rtmb/core/utils/widgets/user_profile_widgets/appbar_widget.dart';
 
+import '../login/login.dart';
+
 // This class handles the Page to edit the Phone Section of the User Profile.
 class EditPhoneFormPage extends StatefulWidget {
   const EditPhoneFormPage({Key? key}) : super(key: key);
@@ -14,7 +16,7 @@ class EditPhoneFormPage extends StatefulWidget {
 class EditPhoneFormPageState extends State<EditPhoneFormPage> {
   final _formKey = GlobalKey<FormState>();
   final phoneController = TextEditingController();
-  var user = UserData.myUser;
+  var user = Login.returnUser.user;
 
   @override
   void dispose() {
