@@ -27,10 +27,10 @@ class User {
       );
 
   static User fromJson(Map<String, dynamic> json) => User(
-        image: json['imagePath'],
+        image: json['imageUrl'] ?? 'assets/images/user.png',
         name: json['name'],
         email: json['email'],
-        phone: json['phone'],
+        phone: json['phone_number'] ?? 'not phone number found',
       );
 
   Map<String, dynamic> toJson() => {

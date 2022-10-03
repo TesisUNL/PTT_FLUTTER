@@ -32,6 +32,8 @@ class UserData {
   }
 }
  */
+import 'dart:convert';
+
 import 'package:ptt_rtmb/core/models/user/user.dart';
 
 class AuthUser {
@@ -59,8 +61,8 @@ class AuthUser {
 
   static AuthUser fromJson(Map<String, dynamic> json) => AuthUser(
         user: User.fromJson(json["user"]),
-        accessToken: json['accessToken'],
-        refreshToken: json['refreshToken'],
+        accessToken: json['access_token'],
+        refreshToken: json['refresh_token'] ?? '',
       );
 
   Map<String, dynamic> toJson() => {

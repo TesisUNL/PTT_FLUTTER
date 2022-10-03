@@ -35,7 +35,7 @@ class _ProfilePageState extends State<ProfilePage> {
       body: Column(
         children: [
           AppBar(
-            backgroundColor: Colors.transparent,
+            backgroundColor: Color.fromARGB(0, 177, 173, 173),
             elevation: 0,
             toolbarHeight: 10,
           ),

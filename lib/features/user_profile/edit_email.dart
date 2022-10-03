@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ptt_rtmb/core/services/auth/secureStorage.service.dart';
+import 'package:ptt_rtmb/core/constants/secureStorage.dart';
 import 'package:ptt_rtmb/core/utils/widgets/user_profile_widgets/appbar_widget.dart';
 import 'package:email_validator/email_validator.dart';
 

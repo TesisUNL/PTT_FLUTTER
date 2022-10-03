@@ -8,3 +8,6 @@ IOS_API_KEY= value
 IOS_APP_ID= value
 IOS_CLIENT_ID= value
 IOS_BUNDLE_ID= value
+API_PART=
+API_SCHEMA=http
+
