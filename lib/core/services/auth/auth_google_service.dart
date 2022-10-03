@@ -33,7 +33,6 @@ class AuthClass {
           UserCredential userCredential =
               await auth.signInWithCredential(credential);
 
-          print(userCredential);
           storeTokenAndData(userCredential);
 
           user = userCredential.user!;
