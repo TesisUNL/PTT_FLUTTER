@@ -6,6 +6,7 @@ import 'package:ptt_rtmb/core/utils/widgets/horizontal_place_item.dart';
 import 'package:ptt_rtmb/core/utils/widgets/icon_badge.dart';
 import 'package:ptt_rtmb/core/utils/widgets/search_bar.dart';
 import 'package:ptt_rtmb/core/utils/widgets/vertical_place_item.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -58,6 +59,17 @@ class _HomeState extends State<Home> {
                     ),
                     buildHorizontalList(context, snapshot.data),
                     buildVerticalList(snapshot.data),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        _buildButtonRequestPermissionCamera(
+                            Permission.camera, context),
+                        _buildButtonRequestPermissionContacts(
+                            Permission.contacts, context),
+                        _buildButtonRequestPermissionLocation(
+                            Permission.locationWhenInUse, context)
+                      ],
+                    ),
                   ],
                 );
               } else {
@@ -96,5 +108,82 @@ class _HomeState extends State<Home> {
         },
       ),
     );
+  }
+
+  Widget _buildButtonRequestPermissionContacts(
+      Permission permission, BuildContext context) {
+    return _buildButton(Colors.yellow[300]!, 'Solicitud permiso contactos',
+        permission, context);
+  }
+
+  Widget _buildButtonRequestPermissionLocation(
+      Permission permission, BuildContext context) {
+    return _buildButton(Colors.green[300]!, 'Solicitud permiso localización',
+        permission, context);
+  }
+
+  Widget _buildButtonRequestPermissionCamera(
+      Permission permission, BuildContext context) {
+    return _buildButton(
+        Colors.blue[300]!, 'Solicitud permiso camara', permission, context);
+  }
+
+  Widget _buildButton(
+      Color color, String title, Permission permission, BuildContext context) {
+    return MaterialButton(
+      minWidth: 250,
+      color: color,
+      child: Text(title),
+      onPressed: () {
+        _requestPermission(permission, context);
+      },
+    );
+  }
+
+  void _requestPermission(Permission permission, BuildContext context) async {
+    if (await permission.request().isGranted) {
+      //Permiso concedido
+      _displaySnackBar(context);
+    } else if (await permission.request().isDenied) {
+      //Permiso revocado
+      _displaySnackBarNeedPermission(context);
+    } else {
+      //Preguntamos si está permanentemente denegado
+      requestPermanentlyDeniedPermission(permission);
+    }
+  }
+
+  void _displaySnackBar(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text("'Permisos concedidos"),
+        duration: Duration(milliseconds: 300),
+      ),
+    );
+  }
+
+  void _displaySnackBarNeedPermission(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+            "'Necesitamos esos permisos para que la app funcione de forma correcta"),
+        duration: Duration(milliseconds: 300),
+      ),
+    );
+  }
+
+  void requestPermanentlyDeniedPermission(Permission permission) async {
+    if (await permission.isPermanentlyDenied) {
+      openAppSettings();
+    }
+  }
+
+  void requestMultiplesPermission() async {
+    Map<Permission, PermissionStatus> statuses = await [
+      Permission.location,
+      Permission.camera,
+      Permission.manageExternalStorage
+    ].request();
+    print(statuses[Permission.location]);
   }
 }
