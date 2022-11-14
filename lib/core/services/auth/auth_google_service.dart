@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:ptt_rtmb/core/models/user/auth_user.dart';
+import 'package:ptt_rtmb/core/models/user/user.dart' as UserModel;
 import 'package:ptt_rtmb/features/layout/main_screen.dart';
 
 class AuthClass {
@@ -66,14 +68,19 @@ class AuthClass {
     return await storage.read(key: "token");
   }
 
-  Future<Map> UserSingIn() async {
-    Map UserMap = {
-      'photo': user.providerData[0].photoURL,
-      'name': user.providerData[0].displayName,
-      'email': user.providerData[0].email,
-      'phone': user.providerData[0].phoneNumber
-    };
-    return UserMap;
+  Future<AuthUser> UserSingIn() async {
+    UserModel.User loggedUser = UserModel.User(
+        email: user.providerData[0].email ?? "",
+        image: user.providerData[0].photoURL ??  "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/800px-User_icon_2.svg.png",
+        name: user.providerData[0].displayName ?? "User Name",	
+        phone: user.providerData[0].phoneNumber ?? "");
+
+    AuthUser authUser = AuthUser(
+      user: loggedUser,
+      accessToken: '',
+    );
+
+    return authUser;
   }
 
   Future<void> logout() async {

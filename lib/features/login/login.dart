@@ -183,7 +183,7 @@ class _LoginState extends State<Login> {
                     context, "assets/google.svg", "Continuar con Google", 25,
                     () async {
                   await authClass.googleSignIn(context);
-                  //Login.returnUser = await authClass.UserSingIn();
+                  Login.returnUser = await authClass.UserSingIn();
                 }),
                 const SizedBox(
                   height: 15,

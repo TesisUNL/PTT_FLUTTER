@@ -8,7 +8,6 @@ import 'package:ptt_rtmb/features/user_profile/edit_phone.dart';
 import 'package:ptt_rtmb/features/user_profile/edit_email.dart';
 import 'package:ptt_rtmb/core/utils/widgets/user_profile_widgets/display_image_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
-
 import '../../core/services/auth/auth_google_service.dart';
 
 // This class handles the Page to dispaly the user's info on the "Edit Profile" Screen
