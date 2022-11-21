@@ -15,13 +15,16 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   late Future<List<Attraction>> attractions;
-
+  late Future<Map<Permission, PermissionStatus>> permissionStatus;
+  Future<Map<Permission, PermissionStatus>> getPermissionStatus() async =>
+      await requestMultiplesPermission();
   Future<List<Attraction>> fetchAttractions() async => await getAttractions();
 
   @override
   void initState() {
     super.initState();
     attractions = fetchAttractions();
+    permissionStatus = getPermissionStatus();
   }
 
   @override
@@ -59,17 +62,6 @@ class _HomeState extends State<Home> {
                     ),
                     buildHorizontalList(context, snapshot.data),
                     buildVerticalList(snapshot.data),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        _buildButtonRequestPermissionCamera(
-                            Permission.camera, context),
-                        _buildButtonRequestPermissionContacts(
-                            Permission.contacts, context),
-                        _buildButtonRequestPermissionLocation(
-                            Permission.locationWhenInUse, context)
-                      ],
-                    ),
                   ],
                 );
               } else {
@@ -86,7 +78,7 @@ class _HomeState extends State<Home> {
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
           primary: false,
-          itemCount: 5,
+          itemCount: data?.length, 
           itemBuilder: (BuildContext context, int index) {
             Attraction place = data!.reversed.toList()[index];
             return HorizontalPlaceItem(place: place);
@@ -110,80 +102,19 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget _buildButtonRequestPermissionContacts(
-      Permission permission, BuildContext context) {
-    return _buildButton(Colors.yellow[300]!, 'Solicitud permiso contactos',
-        permission, context);
-  }
-
-  Widget _buildButtonRequestPermissionLocation(
-      Permission permission, BuildContext context) {
-    return _buildButton(Colors.green[300]!, 'Solicitud permiso localización',
-        permission, context);
-  }
-
-  Widget _buildButtonRequestPermissionCamera(
-      Permission permission, BuildContext context) {
-    return _buildButton(
-        Colors.blue[300]!, 'Solicitud permiso camara', permission, context);
-  }
-
-  Widget _buildButton(
-      Color color, String title, Permission permission, BuildContext context) {
-    return MaterialButton(
-      minWidth: 250,
-      color: color,
-      child: Text(title),
-      onPressed: () {
-        _requestPermission(permission, context);
-      },
-    );
-  }
-
-  void _requestPermission(Permission permission, BuildContext context) async {
-    if (await permission.request().isGranted) {
-      //Permiso concedido
-      _displaySnackBar(context);
-    } else if (await permission.request().isDenied) {
-      //Permiso revocado
-      _displaySnackBarNeedPermission(context);
-    } else {
-      //Preguntamos si está permanentemente denegado
-      requestPermanentlyDeniedPermission(permission);
-    }
-  }
-
-  void _displaySnackBar(BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text("'Permisos concedidos"),
-        duration: Duration(milliseconds: 300),
-      ),
-    );
-  }
-
-  void _displaySnackBarNeedPermission(BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-            "'Necesitamos esos permisos para que la app funcione de forma correcta"),
-        duration: Duration(milliseconds: 300),
-      ),
-    );
-  }
-
   void requestPermanentlyDeniedPermission(Permission permission) async {
     if (await permission.isPermanentlyDenied) {
       openAppSettings();
     }
   }
 
-  void requestMultiplesPermission() async {
+  Future<Map<Permission, PermissionStatus>> requestMultiplesPermission() async {
     Map<Permission, PermissionStatus> statuses = await [
       Permission.location,
+      Permission.storage,
       Permission.camera,
-      Permission.manageExternalStorage
     ].request();
-    print(statuses[Permission.location]);
+
+    return statuses;
   }
 }
