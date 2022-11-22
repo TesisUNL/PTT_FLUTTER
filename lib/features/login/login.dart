@@ -1,17 +1,21 @@
 import 'dart:convert';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ptt_rtmb/core/services/post_services.dart';
-import 'package:ptt_rtmb/core/services/auth_service.dart';
+import 'package:ptt_rtmb/core/constants/secureStorage.dart';
 import 'package:ptt_rtmb/core/utils/helpers/rounded_btn.dart';
 import 'package:ptt_rtmb/features/create_account/create_account.dart';
 import 'package:ptt_rtmb/features/layout/main_screen.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
+import '../../core/models/user/auth_user.dart';
+import '../../core/services/auth/auth_google_service.dart';
+import '../../core/services/auth/auth_local_services.dart';
+
 class Login extends StatefulWidget {
-  static late Map returnUser = {};
+  static late AuthUser returnUser;
 
   @override
   _LoginState createState() => _LoginState();
@@ -19,6 +23,12 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   Widget currentPage = Login();
+  firebase_auth.FirebaseAuth firebaseAuth = firebase_auth.FirebaseAuth.instance;
+  bool showSpinner = false;
+  late String email = '';
+  late String password = '';
+  AuthClass authClass = AuthClass();
+  FlutterSecureStorage _storage = FlutterSecureStorage();
 
   @override
   void initState() {
@@ -35,11 +45,6 @@ class _LoginState extends State<Login> {
     }
   }
 
-  firebase_auth.FirebaseAuth firebaseAuth = firebase_auth.FirebaseAuth.instance;
-  bool showSpinner = false;
-  late String email = '';
-  late String password = '';
-  AuthClass authClass = AuthClass();
   @override
   Widget build(BuildContext context) {
     return ModalProgressHUD(
@@ -166,75 +171,9 @@ class _LoginState extends State<Login> {
                   padding: const EdgeInsets.all(8.0),
                   child: Center(
                     child: RoundedButton(
-                      btnText: 'INGRESAR',
-                      color: Color(0xff14DAE2),
-                      onPressed: () async {
-                        setState(() {
-                          showSpinner = true;
-                        });
-
-                        if (email.isEmpty || password.isEmpty) {
-                          setState(() {
-                            showSpinner = false;
-                          });
-                          showDialog(
-                            context: context,
-                            builder: (_) => AlertDialog(
-                              title: Text('Error'),
-                              content: Text('Debe rellenar los campos primero'),
-                              actions: [
-                                FlatButton(
-                                  child: Text('OK'),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                )
-                              ],
-                              elevation: 24.0,
-                              backgroundColor: Theme.of(context).primaryColor,
-                            ),
-                            barrierDismissible: false,
-                          );
-                        } else {
-                          var res = await postLogin(email, password);
-
-                          Map bodyRes = jsonDecode(res.body);
-
-                          if (res.statusCode == 201) {
-                            setState(() {
-                              showSpinner = false;
-                            });
-                            Login.returnUser = bodyRes;
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => MainScreen()));
-                          } else {
-                            setState(() {
-                              showSpinner = false;
-                            });
-                            showDialog(
-                              context: context,
-                              builder: (_) => AlertDialog(
-                                title: Text('Error'),
-                                content: Text(bodyRes['message']),
-                                actions: [
-                                  FlatButton(
-                                    child: Text('OK'),
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                  )
-                                ],
-                                elevation: 24.0,
-                                backgroundColor: Theme.of(context).primaryColor,
-                              ),
-                              barrierDismissible: false,
-                            );
-                          }
-                        }
-                      },
-                    ),
+                        btnText: 'INGRESAR',
+                        color: Color(0xff14DAE2),
+                        onPressed: _localLogin),
                   ),
                 ),
                 SizedBox(
@@ -266,14 +205,14 @@ class _LoginState extends State<Login> {
                       style: TextStyle(
                           color: Colors.grey[600], fontWeight: FontWeight.w400),
                     ),
-                    FlatButton(
+                    TextButton(
                       onPressed: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => CreateAccount()));
                       },
-                      child: Text('Registrarse',
+                      child: const Text('Registrarse',
                           style: TextStyle(
                             color: Color(0xff14DAE2),
                           )),
@@ -330,5 +269,59 @@ class _LoginState extends State<Login> {
             ),
           )),
     );
+  }
+
+  Widget _generateTextButton(BuildContext context, String buttonLabel) {
+    return TextButton(
+      child: Text(buttonLabel),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+  }
+
+  void _generateDialog(BuildContext context,
+      {required String title, required String content}) {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(title),
+        content: Text(content),
+        actions: [_generateTextButton(context, 'Ok')],
+        elevation: 24.0,
+        backgroundColor: Theme.of(context).primaryColor,
+      ),
+      barrierDismissible: false,
+    );
+  }
+
+  Future _localLogin() async {
+    if (email.isNotEmpty || password.isNotEmpty) {
+      setState(() {
+        showSpinner = true;
+      });
+
+      try {
+        AuthUser? userLogged = await postLogin(email, password);
+        if (userLogged != null) {
+          setState(() {
+            showSpinner = false;
+          });
+          await _storage.write(
+              key: SecureStorage.accessTokenKey, value: userLogged.accessToken);
+          Login.returnUser = userLogged;
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => MainScreen()));
+        }
+      } on Exception catch (e) {
+        print(e.toString());
+        setState(() {
+          showSpinner = false;
+        });
+
+        _generateDialog(context,
+            title: 'Error', content: 'Credenciales incorrectas');
+      }
+    }
   }
 }

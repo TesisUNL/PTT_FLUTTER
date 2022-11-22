@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Constants {
-  static String appName = "Mancomunidad Bosque Seco Tourist's Routes";
-
+class ConstantsTheme {
   //Colors for theme
   static Color lightPrimary = Color(0xfffcfcff);
   static Color darkPrimary = Colors.black;

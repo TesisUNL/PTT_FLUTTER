@@ -1,13 +1,14 @@
 import 'dart:convert';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:ptt_rtmb/core/services/post_services.dart';
+import 'package:ptt_rtmb/core/services/auth/auth_google_service.dart';
 import 'package:ptt_rtmb/core/utils/helpers/rounded_btn.dart';
 import 'package:ptt_rtmb/features/layout/main_screen.dart';
 import 'package:ptt_rtmb/features/login/login.dart';
-import 'package:ptt_rtmb/core/services/auth_service.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+
+import '../../core/services/user/user.service.dart';
 
 class CreateAccount extends StatefulWidget {
   @override
@@ -227,9 +228,7 @@ class _CreateAccountState extends State<CreateAccount> {
 
                       var res = await postRegister(email, password, name);
 
-                      Map bodyRes = jsonDecode(res.body);
-
-                      if (res.statusCode == 201) {
+                      if (res != null) {
                         setState(() {
                           showSpinner = false;
                         });
@@ -243,7 +242,7 @@ class _CreateAccountState extends State<CreateAccount> {
                           context: context,
                           builder: (_) => AlertDialog(
                             title: Text('Error'),
-                            content: Text(bodyRes['message']),
+                            content: Text('Error'),
                             actions: [
                               FlatButton(
                                 child: Text('OK'),

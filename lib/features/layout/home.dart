@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:ptt_rtmb/core/models/attraction/attraction.dart';
-import 'package:ptt_rtmb/core/services/attraction_service.dart';
+import 'package:ptt_rtmb/core/services/attraction/attraction_service.dart';
 import 'package:ptt_rtmb/core/utils/helpers/places.dart';
 import 'package:ptt_rtmb/core/utils/widgets/horizontal_place_item.dart';
 import 'package:ptt_rtmb/core/utils/widgets/icon_badge.dart';
 import 'package:ptt_rtmb/core/utils/widgets/search_bar.dart';
 import 'package:ptt_rtmb/core/utils/widgets/vertical_place_item.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -14,13 +15,16 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   late Future<List<Attraction>> attractions;
-
+  late Future<Map<Permission, PermissionStatus>> permissionStatus;
+  Future<Map<Permission, PermissionStatus>> getPermissionStatus() async =>
+      await requestMultiplesPermission();
   Future<List<Attraction>> fetchAttractions() async => await getAttractions();
 
   @override
   void initState() {
     super.initState();
     attractions = fetchAttractions();
+    permissionStatus = getPermissionStatus();
   }
 
   @override
@@ -74,7 +78,7 @@ class _HomeState extends State<Home> {
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
           primary: false,
-          itemCount: 5,
+          itemCount: data?.length, 
           itemBuilder: (BuildContext context, int index) {
             Attraction place = data!.reversed.toList()[index];
             return HorizontalPlaceItem(place: place);
@@ -96,5 +100,21 @@ class _HomeState extends State<Home> {
         },
       ),
     );
+  }
+
+  void requestPermanentlyDeniedPermission(Permission permission) async {
+    if (await permission.isPermanentlyDenied) {
+      openAppSettings();
+    }
+  }
+
+  Future<Map<Permission, PermissionStatus>> requestMultiplesPermission() async {
+    Map<Permission, PermissionStatus> statuses = await [
+      Permission.location,
+      Permission.storage,
+      Permission.camera,
+    ].request();
+
+    return statuses;
   }
 }

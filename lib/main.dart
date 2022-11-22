@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:ptt_rtmb/features/login/login.dart';
-import 'package:ptt_rtmb/core/constants/theme.dart';
+import 'core/constants/constants.dart';
 import 'firebase_options.dart';
 import 'package:flutter_config/flutter_config.dart';
 
