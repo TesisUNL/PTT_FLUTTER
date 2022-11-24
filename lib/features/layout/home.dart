@@ -7,6 +7,7 @@ import 'package:ptt_rtmb/core/utils/widgets/icon_badge.dart';
 import 'package:ptt_rtmb/core/utils/widgets/search_bar.dart';
 import 'package:ptt_rtmb/core/utils/widgets/vertical_place_item.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:app_settings/app_settings.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -15,16 +16,13 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   late Future<List<Attraction>> attractions;
-  late Future<Map<Permission, PermissionStatus>> permissionStatus;
-  Future<Map<Permission, PermissionStatus>> getPermissionStatus() async =>
-      await requestMultiplesPermission();
   Future<List<Attraction>> fetchAttractions() async => await getAttractions();
 
   @override
   void initState() {
     super.initState();
     attractions = fetchAttractions();
-    permissionStatus = getPermissionStatus();
+    requestStoragePermission();
   }
 
   @override
@@ -78,7 +76,7 @@ class _HomeState extends State<Home> {
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
           primary: false,
-          itemCount: data?.length, 
+          itemCount: data?.length,
           itemBuilder: (BuildContext context, int index) {
             Attraction place = data!.reversed.toList()[index];
             return HorizontalPlaceItem(place: place);
@@ -103,18 +101,57 @@ class _HomeState extends State<Home> {
   }
 
   void requestPermanentlyDeniedPermission(Permission permission) async {
-    if (await permission.isPermanentlyDenied) {
-      openAppSettings();
+    if (await permission.isDenied) {
+      print('estoy if');
+      Navigator.of(context).pop();
+      await permission.request();
+    } else if (await permission.isPermanentlyDenied) {
+      print('estoy else if');
+      Navigator.of(context).pop();
+      await AppSettings.openLocationSettings;
+    } else {
+      print('estoy else');
+      Navigator.of(context).pop();
     }
   }
 
-  Future<Map<Permission, PermissionStatus>> requestMultiplesPermission() async {
-    Map<Permission, PermissionStatus> statuses = await [
-      Permission.location,
-      Permission.storage,
-      Permission.camera,
-    ].request();
+  void requestStoragePermission() async {
+    if (await Permission.storage.request().isGranted) {
+      return;
+    } else {
+      _showAlertDialog();
+    }
+  }
 
-    return statuses;
+  void _showAlertDialog() {
+    showDialog(
+        context: context,
+        builder: (buildcontext) {
+          return AlertDialog(
+            title: Text("No aceptaste los permisos"),
+            content: Text(
+                "Necesitamos que aceptes los permisos para funcionar bien"),
+            actions: <Widget>[
+              ElevatedButton(
+                child: Text(
+                  "CERRAR",
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              ElevatedButton(
+                child: Text(
+                  "DAR PERMISOS",
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () async {
+                  requestPermanentlyDeniedPermission(Permission.storage);
+                },
+              )
+            ],
+          );
+        });
   }
 }
