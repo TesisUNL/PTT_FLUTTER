@@ -29,7 +29,7 @@ class _ProfilePageState extends State<ProfilePage> {
           const SizedBox(height: 24),
           buildUserData(user),
           const SizedBox(height: 48),
-          buildRutesWidget(user),
+          buildRoutesWidget(user),
         ],
       ),
     );
@@ -55,7 +55,7 @@ class _ProfilePageState extends State<ProfilePage> {
       );
 
   //TODO AGREGAR WIDGET QUE CARGUE LAS RUTAS
-  Widget buildRutesWidget(User user) => Container(
+  Widget buildRoutesWidget(User user) => Container(
         padding: EdgeInsets.symmetric(horizontal: 48),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

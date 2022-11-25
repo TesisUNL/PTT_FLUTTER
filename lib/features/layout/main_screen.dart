@@ -5,6 +5,8 @@ import 'package:ptt_rtmb/core/utils/widgets/icon_badge.dart';
 import 'package:ptt_rtmb/features/user_profile/profile_page.dart';
 import 'package:ptt_rtmb/features/map/maps.dart';
 
+import '../tourist_routes/routes_list.dart';
+
 class MainScreen extends StatefulWidget {
   @override
   _MainScreenState createState() => _MainScreenState();
@@ -32,7 +34,8 @@ class _MainScreenState extends State<MainScreen> {
             barIcon(icon: Icons.home, page: 0),
             barIcon(icon: Icons.app_shortcut_sharp, page: 1),
             barIcon(icon: Icons.map, page: 2, badge: true),
-            barIcon(icon: Icons.person, page: 3),
+            barIcon(icon: Icons.add_road, page: 3),
+            barIcon(icon: Icons.person, page: 4),
             SizedBox(width: 7.0),
           ],
         ),
@@ -70,16 +73,19 @@ class _MainScreenState extends State<MainScreen> {
 
     switch (index) {
       case 0:
-        pageWidget = List.generate(4, (index) => Home());
+        pageWidget = List.generate(5, (index) => Home());
         break;
       case 1:
-        pageWidget = List.generate(4, (index) => ARCore(title: 'Guia Virtual',));
+        pageWidget = List.generate(5, (index) => ARCore(title: 'Guia Virtual',));
         break;
       case 2:
-        pageWidget = List.generate(4, (index) => MapPage());
+        pageWidget = List.generate(5, (index) => MapPage());
         break;
       case 3:
-        pageWidget = List.generate(4, (index) => ProfilePage());
+        pageWidget = List.generate(5, (index) => RoutesPage());
+        break;
+      case 4:
+        pageWidget = List.generate(5, (index) => ProfilePage());
         break;
     }
 
