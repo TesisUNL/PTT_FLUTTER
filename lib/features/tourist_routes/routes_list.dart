@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 
+import 'create_route.dart';
+
 class RoutesPage extends StatefulWidget {
   const RoutesPage({Key? key}) : super(key: key);
 
@@ -29,7 +31,10 @@ class RoutesPageState extends State<RoutesPage> {
       persistentFooterButtons: <Widget>[
         Text('Crea tu propia ruta: '),
         ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => CreateRoutePage()));
+          },
           child: Icon(
             Icons.add,
             color: Colors.white,
