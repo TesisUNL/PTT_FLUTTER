@@ -101,16 +101,16 @@ class _HomeState extends State<Home> {
   }
 
   void requestPermanentlyDeniedPermission(Permission permission) async {
-    if (await permission.isDenied) {
-      print('estoy if');
-      Navigator.of(context).pop();
-      await permission.request();
-    } else if (await permission.isPermanentlyDenied) {
-      print('estoy else if');
-      Navigator.of(context).pop();
-      await AppSettings.openLocationSettings;
+    bool permissionStatus = await permission.status.isGranted;
+    if (!permissionStatus) {
+      if (await permission.isDenied) {
+        Navigator.of(context).pop();
+        await permission.request();
+      } else if (await permission.isPermanentlyDenied) {
+        Navigator.of(context).pop();
+        await AppSettings.openLocationSettings;
+      }
     } else {
-      print('estoy else');
       Navigator.of(context).pop();
     }
   }
