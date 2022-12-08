@@ -8,6 +8,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.33.6+1"
+  app_settings:
+    dependency: "direct main"
+    description:
+      name: app_settings
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.1.6"
   arcore_flutter_plugin:
     dependency: "direct main"
     description:
@@ -251,6 +258,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.4"
+  flutter_multi_select_items:
+    dependency: "direct main"
+    description:
+      name: flutter_multi_select_items
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.2"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
