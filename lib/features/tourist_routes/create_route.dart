@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ptt_rtmb/core/utils/widgets/multi_select.dart';
 
 class CreateRoutePage extends StatefulWidget {
   @override
@@ -37,8 +38,6 @@ class _CreateRoutePageState extends State<CreateRoutePage> {
     );
   }
 
-  String gender = 'hombre';
-
   Widget formUI() {
     return Column(
       children: <Widget>[
@@ -52,16 +51,17 @@ class _CreateRoutePageState extends State<CreateRoutePage> {
               validator: validateName,
             )),
         formItemsDesign(
-            Icons.phone,
+            Icons.add_road_outlined,
             TextFormField(
               enabled: false,
               controller: pathLengthCtrl,
               decoration: new InputDecoration(
                 labelText: 'Longitud de Ruta',
               ),
-              keyboardType: TextInputType.phone,
+              keyboardType: TextInputType.number,
               maxLength: 10,
             )),
+        MultiSelectList(),
         GestureDetector(
             onTap: () {
               save();
