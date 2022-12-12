@@ -52,7 +52,7 @@ class Attraction {
   Map<String, dynamic> toJson() => {
         'cover_image': image,
         'long_description': description,
-        'short_descripMaption': shortDescription,
+        'short_description': shortDescription,
         'location': location,
         'name': name,
         'latitude': latitude,
