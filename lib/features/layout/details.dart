@@ -3,6 +3,7 @@ import 'package:ptt_rtmb/core/utils/helpers/places.dart';
 import 'package:ptt_rtmb/core/utils/widgets/icon_badge.dart';
 
 import '../../core/models/attraction/attraction.dart';
+import '../../enviroment.dart';
 
 class Details extends StatelessWidget {
   final Attraction place;
@@ -125,13 +126,14 @@ class Details extends StatelessWidget {
   }
 
   buildSlider() {
+    List<String> allImages = [place.image, ...place.images];
     return Container(
       padding: EdgeInsets.only(left: 20),
       height: 250.0,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         primary: false,
-        itemCount: places == null ? 0 : places.length,
+        itemCount: allImages == null ? 0 : allImages.length,
         itemBuilder: (BuildContext context, int index) {
           Map place = places[index];
 
@@ -139,8 +141,18 @@ class Details extends StatelessWidget {
             padding: EdgeInsets.only(right: 10.0),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10.0),
-              child: Image.asset(
-                "${place["img"]}",
+              child: FadeInImage(
+                image: NetworkImage(
+                    "${Enviroment.api_scheme}://${Enviroment.api_host}${Enviroment.api_part}/${allImages[index]}"),
+                imageErrorBuilder: (context, error, stackTrace) {
+                  return Image.asset(
+                    'assets/default.jpeg',
+                    height: 250.0,
+                    width: MediaQuery.of(context).size.width - 40.0,
+                    fit: BoxFit.cover,
+                  );
+                },
+                placeholder: AssetImage("assets/jar-loading.gif"),
                 height: 250.0,
                 width: MediaQuery.of(context).size.width - 40.0,
                 fit: BoxFit.cover,

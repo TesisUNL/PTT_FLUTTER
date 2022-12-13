@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:ptt_rtmb/features/layout/details.dart';
 
+import '../../../enviroment.dart';
 import '../../models/attraction/attraction.dart';
 
 class HorizontalPlaceItem extends StatelessWidget {
@@ -21,8 +22,14 @@ class HorizontalPlaceItem extends StatelessWidget {
             children: <Widget>[
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Image.asset(
-                  "${place.image}",
+                child: FadeInImage(
+                  image: NetworkImage(
+                      "${Enviroment.api_scheme}://${Enviroment.api_host}/${place.image}"),
+                  imageErrorBuilder: (context, error, stackTrace) {
+                    return Image.asset('assets/default.jpeg',
+                        height: 178.0, width: 140.0, fit: BoxFit.fitWidth);
+                  },
+                  placeholder: AssetImage("assets/jar-loading.gif"),
                   height: 178.0,
                   width: 140.0,
                   fit: BoxFit.cover,
