@@ -1,6 +1,7 @@
 class Attraction {
   String name;
   String image;
+  List<dynamic> images = [];
   String description;
   String shortDescription; // validate this data use location instant
   String location;
@@ -16,10 +17,12 @@ class Attraction {
     required this.location,
     required this.latitude,
     required this.longitude,
+    required this.images,
   });
 
   Attraction copy(
           {String? cover_image,
+          List<dynamic>? images,
           String? name,
           String? long_description,
           String? short_description,
@@ -28,6 +31,7 @@ class Attraction {
           double? longitude}) =>
       Attraction(
         image: cover_image ?? this.image,
+        images: images ?? this.images,
         name: name ?? this.name,
         description: long_description ?? this.description,
         location: location ?? this.location,
@@ -38,6 +42,7 @@ class Attraction {
 
   static Attraction fromJson(Map<String, dynamic> json) => Attraction(
       image: json['cover_image'] ?? '',
+      images: json['images'] ?? [],
       name: json['name'] ?? '',
       description: json['long_description'] ?? '',
       shortDescription: json['short_description'] ?? '',
@@ -52,10 +57,11 @@ class Attraction {
   Map<String, dynamic> toJson() => {
         'cover_image': image,
         'long_description': description,
-        'short_descripMaption': shortDescription,
+        'short_description': shortDescription,
         'location': location,
         'name': name,
         'latitude': latitude,
-        'longitude': longitude
+        'longitude': longitude,
+        'images': images,
       };
 }

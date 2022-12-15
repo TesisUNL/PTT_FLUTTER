@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ptt_rtmb/core/models/attraction/attraction.dart';
+import 'package:ptt_rtmb/enviroment.dart';
 import 'package:ptt_rtmb/features/layout/details.dart';
 
 class VerticalPlaceItem extends StatelessWidget {
@@ -18,8 +19,14 @@ class VerticalPlaceItem extends StatelessWidget {
             children: <Widget>[
               ClipRRect(
                 borderRadius: BorderRadius.circular(5),
-                child: Image.asset(
-                  "${place.image}",
+                child: FadeInImage(
+                  image: NetworkImage(
+                      "${Enviroment.api_scheme}://${Enviroment.api_host}${Enviroment.api_part}/${place.image}"),
+                  imageErrorBuilder: (context, error, stackTrace) {
+                    return Image.asset('assets/default.jpeg',
+                        height: 70.0, width: 70.0, fit: BoxFit.fitWidth);
+                  },
+                  placeholder: AssetImage("assets/jar-loading.gif"),
                   height: 70.0,
                   width: 70.0,
                   fit: BoxFit.cover,
@@ -80,7 +87,7 @@ class VerticalPlaceItem extends StatelessWidget {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (BuildContext context) {
-                return Details();
+                return Details(place: place);
               },
             ),
           );
