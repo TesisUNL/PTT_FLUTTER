@@ -109,7 +109,7 @@ class _HomeState extends State<Home> {
             ),
           ],
         ),
-        body: (!_isLoading && _attractions.length > 0)
+        body: (_attractions.length > 0)
             ? RefreshIndicator(
                 onRefresh: _getPage1,
                 child: ListView(
