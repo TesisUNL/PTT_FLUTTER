@@ -10,10 +10,18 @@ import 'dart:async';
 import 'package:ptt_rtmb/enviroment.dart';
 
 const String ATTRACTION_URL = '/attractions';
+const int PAGE_SIZE = 10;
+
 HttpWrapper http = HttpWrapper();
 
-Future<List<Attraction>> getAttractions() async {
-  final response = await http.get(ATTRACTION_URL);
+Future<List<Attraction>> getAttractions({int? page}) async {
+  page ??= 0;
+  Map<String, dynamic> queryParams = {
+    "pagination": json.encode({"start": (page * PAGE_SIZE), "limit": PAGE_SIZE})
+  };
+
+  final response = await http.get(ATTRACTION_URL, queryParams: queryParams);
+
   if (!HttpHelperService.isSuccessfullyResponse(response!.statusCode)) {
     throw Exception('Failed to load attractions');
   }

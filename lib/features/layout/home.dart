@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:ptt_rtmb/core/models/attraction/attraction.dart';
 import 'package:ptt_rtmb/core/services/attraction/attraction_service.dart';
@@ -15,14 +17,83 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final ScrollController _scrollController = ScrollController();
   late Future<List<Attraction>> attractions;
-  Future<List<Attraction>> fetchAttractions() async => await getAttractions();
+  List<Attraction> _attractions = [];
+  bool _isLoading = false;
+  bool _isEndPagination = false;
+  int _page = 0;
 
   @override
   void initState() {
     super.initState();
-    attractions = fetchAttractions();
+    _addAttractions(_page);
     requestStoragePermission();
+
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        _fetchData();
+      }
+    });
+  }
+
+  Future<Timer> _fetchData() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    final duration = new Duration(seconds: 1);
+    return Timer(duration, _responseHTTP);
+  }
+
+  void _responseHTTP() async {
+    if (_scrollController.hasClients) {
+      _scrollController.animateTo(_scrollController.position.pixels + 100,
+          duration: Duration(milliseconds: 250), curve: Curves.fastOutSlowIn);
+    }
+
+    _addAttractions(_page);
+  }
+
+  void _addAttractions(int page) async {
+    if (_isEndPagination) {
+      setState(() {
+        _isLoading = false;
+        return;
+      });
+    }
+    List<Attraction> pageAttractions = await getAttractions(page: page);
+    _isLoading = false;
+    if (pageAttractions.length == 0) {
+      _isEndPagination = true;
+      setState(() {});
+      return;
+    }
+    _attractions.addAll(pageAttractions);
+    setState(() {
+      _page++;
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    if (_scrollController.hasClients) {
+      _scrollController.dispose();
+    }
+  }
+
+  Future _getPage1() async {
+    final duration = new Duration(milliseconds: 500);
+    new Timer(duration, () {
+      _isEndPagination = false;
+      _attractions.clear();
+      _page = 0;
+      _addAttractions(_page);
+    });
+
+    return Future.delayed(duration);
   }
 
   @override
@@ -38,11 +109,11 @@ class _HomeState extends State<Home> {
             ),
           ],
         ),
-        body: FutureBuilder<List<Attraction>>(
-            future: attractions,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return ListView(
+        body: (!_isLoading && _attractions.length > 0)
+            ? RefreshIndicator(
+                onRefresh: _getPage1,
+                child: ListView(
+                  controller: _scrollController,
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.all(20.0),
@@ -58,14 +129,13 @@ class _HomeState extends State<Home> {
                       padding: EdgeInsets.all(20.0),
                       child: SearchBar(),
                     ),
-                    buildHorizontalList(context, snapshot.data),
-                    buildVerticalList(snapshot.data),
+                    buildHorizontalList(context, _attractions),
+                    buildVerticalList(_attractions),
+                    createLoading(),
                   ],
-                );
-              } else {
-                return Center(child: CircularProgressIndicator());
-              }
-            }));
+                ),
+              )
+            : const Center(child: CircularProgressIndicator()));
   }
 
   buildHorizontalList(BuildContext context, List<Attraction>? data) {
@@ -153,5 +223,41 @@ class _HomeState extends State<Home> {
             ],
           );
         });
+  }
+
+  Widget createLoading() {
+    if (_isEndPagination) {
+      return Container(
+        padding: const EdgeInsets.only(bottom: 10.0),
+        child: const Center(
+          child: Text(
+            "No hay más atracciones",
+            style: TextStyle(
+              fontSize: 10.0,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+      );
+    }
+    if (_isLoading) {
+      return Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircularProgressIndicator(),
+            ],
+          ),
+          SizedBox(
+            height: 12.0,
+          )
+        ],
+      );
+    } else {
+      return Container();
+    }
   }
 }
