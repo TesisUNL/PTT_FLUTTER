@@ -46,7 +46,13 @@ class RoutesPageState extends State<RoutesPage> {
 
   Widget buildRoutesContainer(String routeName, int pathLenght, int views) =>
       Container(
+        margin: EdgeInsets.all(10),
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+                topRight: Radius.circular(40.0),
+                bottomLeft: Radius.circular(40.0)),
+            border: Border.all(color: Colors.blue, width: 3)),
         child: ListTile(
           title: Text(routeName),
           subtitle: Text(pathLenght.toString() + 'km'),
@@ -54,7 +60,14 @@ class RoutesPageState extends State<RoutesPage> {
             Icons.map_rounded,
             color: Colors.blue,
           ),
-          trailing: Text(views.toString() + ' views'),
+          trailing: Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: 5,
+            children: [
+              Text(views.toString()),
+              Icon(Icons.remove_red_eye_outlined, color: Colors.blue),
+            ],
+          ),
         ),
       );
 }
