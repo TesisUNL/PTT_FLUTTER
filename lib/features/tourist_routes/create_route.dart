@@ -5,6 +5,7 @@ import 'package:ptt_rtmb/core/utils/widgets/multi_select.dart';
 
 import '../../core/models/canton/canton.dart';
 import '../../core/services/canton/canton_service.dart';
+import 'attraction_selection.dart';
 
 class CreateRoutePage extends StatefulWidget {
   @override
@@ -19,6 +20,8 @@ class _CreateRoutePageState extends State<CreateRoutePage> {
   //Canton Service
   late Future<List<Canton>> cantons;
   Future<List<Canton>> fetchCantons() async => await getCantons();
+
+  bool _visible = false;
 
   @override
   void initState() {
@@ -92,13 +95,15 @@ class _CreateRoutePageState extends State<CreateRoutePage> {
                 children: <Widget>[
                   Expanded(
                       flex: 0,
-                      child: SizedBox(
+                      child: Container(
                         width: 70,
                         height: 50,
-                        child: Image(
-                            image: NetworkImage(cantons[i].description),
-                            alignment: Alignment.centerLeft,
-                            fit: BoxFit.fill),
+                        decoration: BoxDecoration(
+                            color: Colors.black,
+                            image: DecorationImage(
+                                image: NetworkImage(cantons[i].description),
+                                fit: BoxFit.cover),
+                            border: Border.all(width: 1)),
                       )),
                   Expanded(
                       child: SizedBox(
@@ -106,7 +111,9 @@ class _CreateRoutePageState extends State<CreateRoutePage> {
                       style: TextButton.styleFrom(
                           alignment: Alignment.centerLeft,
                           padding: EdgeInsets.only(left: 10, right: 60)),
-                      onPressed: () {},
+                      onPressed: () {
+                        _navigateAndDisplaySelection(context);
+                      },
                       child: Text(
                         cantons[i].name,
                         textAlign: TextAlign.left,
@@ -117,19 +124,25 @@ class _CreateRoutePageState extends State<CreateRoutePage> {
                     ),
                   )),
                   Expanded(
-                      child: Container(
-                    padding: EdgeInsets.all(0),
-                    child: ListTile(
-                      leading: Icon(Icons.check_box, color: Colors.green),
-                      title: Align(
-                          child: Text(
-                            '5 Seleccionados',
-                            style: TextStyle(
-                                fontSize: 10,
-                                color: Color.fromARGB(255, 140, 145, 150)),
-                          ),
-                          alignment: Alignment(-90, 0)),
+                      child: Visibility(
+                    child: Container(
+                      padding: EdgeInsets.all(0),
+                      child: ListTile(
+                        title: Align(
+                            child: Text(
+                              '5 Seleccionados',
+                              style: TextStyle(
+                                  fontSize: 10,
+                                  color: Color.fromARGB(255, 140, 145, 150)),
+                            ),
+                            alignment: Alignment(11, 0)),
+                        trailing: Icon(Icons.check_box, color: Colors.green),
+                      ),
                     ),
+                    maintainSize: true,
+                    maintainAnimation: true,
+                    maintainState: true,
+                    visible: _visible ? true : false,
                   ))
                 ],
               ),
@@ -206,4 +219,17 @@ class _CreateRoutePageState extends State<CreateRoutePage> {
       keyForm.currentState!.reset();
     }
   }
+
+  // Un método que inicia SelectionScreen y espera por el resultado de
+  // Navigator.pop
+  _navigateAndDisplaySelection(BuildContext context) async {
+    // Navigator.push devuelve un Future que se completará después de que llamemos
+    // Navigator.pop en la pantalla de selección!
+    final result = await Navigator.push(
+      context,
+      // Crearemos la SelectionScreen en el siguiente paso!
+      MaterialPageRoute(builder: (context) => AttractionSelection()),
+    );
+  }
+
 }
