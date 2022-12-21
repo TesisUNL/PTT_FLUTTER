@@ -29,7 +29,7 @@ class RoutesPageState extends State<RoutesPage> {
         ],
       ),
       persistentFooterButtons: <Widget>[
-        Text('Crea tu propia ruta: '),
+        Text('Crea tu propia ruta:    '),
         ElevatedButton(
           onPressed: () {
             Navigator.push(context,
