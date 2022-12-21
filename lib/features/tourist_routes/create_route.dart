@@ -230,6 +230,12 @@ class _CreateRoutePageState extends State<CreateRoutePage> {
       // Crearemos la SelectionScreen en el siguiente paso!
       MaterialPageRoute(builder: (context) => AttractionSelection()),
     );
-  }
 
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text("${result}"),
+        duration: Duration(milliseconds: 300),
+      ),
+    );
+  }
 }
