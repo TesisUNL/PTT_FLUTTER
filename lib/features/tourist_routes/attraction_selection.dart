@@ -3,7 +3,12 @@ import 'package:flutter/widgets.dart';
 import 'package:ptt_rtmb/core/utils/widgets/multi_select.dart';
 
 class AttractionSelection extends StatelessWidget {
-  late String future = "";
+
+  String cantonAttractions = "";
+
+  AttractionSelection(String name){
+    cantonAttractions = name;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +17,7 @@ class AttractionSelection extends StatelessWidget {
         title: Text('Attraction Selection'),
         automaticallyImplyLeading: false,
       ),
-      body: MultiSelectList(),
+      body: MultiSelectList(cantonAttractions),
       persistentFooterButtons: <Widget>[
         ElevatedButton(
           onPressed: () {},

@@ -28,3 +28,11 @@ Future<List<MarkerAttraction>> getMarkerAttractions() async {
     throw Exception(e.toString());
   }
 }
+
+Future<List<Attraction>> getAttractionsByCantonName(String cantonName) async {
+  final response = await http.get(ATTRACTION_URL + '/byCanton/' + cantonName);
+  if (!HttpHelperService.isSuccessfullyResponse(response!.statusCode)) {
+    throw Exception('Failed to load attractions');
+  }
+  return Attraction.fromJsonList(jsonDecode(response.body));
+}

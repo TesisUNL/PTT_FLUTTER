@@ -3,7 +3,7 @@ class TouristRoute {
   bool isUserRoute;
   String name;
   int views;
-  int pathLenght;
+  int pathLength;
 
   // Constructor
   TouristRoute({
@@ -11,7 +11,7 @@ class TouristRoute {
     required this.isUserRoute,
     required this.name,
     required this.views,
-    this.pathLenght = 0,
+    required this.pathLength,
   });
 
   TouristRoute copy({
@@ -23,7 +23,7 @@ class TouristRoute {
         isUserRoute: isUserRoute,
         name: name ?? this.name,
         views: views,
-        pathLenght: pathLenght,
+        pathLength: pathLength,
       );
 
   static TouristRoute fromJson(Map<String, dynamic> json) => TouristRoute(
@@ -31,6 +31,7 @@ class TouristRoute {
         isUserRoute: json['isUserRoute'] ?? false,
         name: json['name'] ?? '',
         views: json['views'] ?? 0,
+        pathLength: json['pathLength'] ?? 0,
       );
 
   static List<TouristRoute> fromJsonList(List<dynamic> jsonList) =>

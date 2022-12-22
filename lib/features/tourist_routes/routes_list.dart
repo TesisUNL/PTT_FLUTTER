@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:ptt_rtmb/core/services/rotues/routes_service.dart';
 
+import '../../core/models/routes/route.dart';
 import 'create_route.dart';
 
 class RoutesPage extends StatefulWidget {
@@ -11,9 +13,14 @@ class RoutesPage extends StatefulWidget {
 }
 
 class RoutesPageState extends State<RoutesPage> {
+
+  late Future<List<TouristRoute>> touristRoutes;
+  Future<List<TouristRoute>> fetchRoutes() async => await getTouristRoutes();
+
   @override
   void initState() {
     super.initState();
+    touristRoutes = fetchRoutes();
   }
 
   @override
@@ -22,11 +29,24 @@ class RoutesPageState extends State<RoutesPage> {
       appBar: AppBar(
         title: const Text('Rutas'),
       ),
-      body: ListView(
-        children: [
-          for (var i = 0; i < 10; i++)
-            buildRoutesContainer('Nombre de ruta', 12000, 4),
-        ],
+      body: FutureBuilder<List<TouristRoute>>(
+        future: touristRoutes,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return ListView.builder(
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) {
+                return buildRoutesContainer(
+                    snapshot.data![index].name,
+                    snapshot.data![index].pathLength,
+                    snapshot.data![index].views);
+              },
+            );
+          } else if (snapshot.hasError) {
+            return Text("${snapshot.error}");
+          }
+          return const CircularProgressIndicator();
+        },      
       ),
       persistentFooterButtons: <Widget>[
         Text('Crea tu propia ruta:    '),

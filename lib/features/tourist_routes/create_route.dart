@@ -1,8 +1,6 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:ptt_rtmb/core/utils/widgets/multi_select.dart';
-
 import '../../core/models/canton/canton.dart';
 import '../../core/services/canton/canton_service.dart';
 import 'attraction_selection.dart';
@@ -112,7 +110,7 @@ class _CreateRoutePageState extends State<CreateRoutePage> {
                           alignment: Alignment.centerLeft,
                           padding: EdgeInsets.only(left: 10, right: 60)),
                       onPressed: () {
-                        _navigateAndDisplaySelection(context);
+                        _navigateAndDisplaySelection(context, cantons[i].name);
                       },
                       child: Text(
                         cantons[i].name,
@@ -222,13 +220,13 @@ class _CreateRoutePageState extends State<CreateRoutePage> {
 
   // Un método que inicia SelectionScreen y espera por el resultado de
   // Navigator.pop
-  _navigateAndDisplaySelection(BuildContext context) async {
+  _navigateAndDisplaySelection(BuildContext context, String name) async {
     // Navigator.push devuelve un Future que se completará después de que llamemos
     // Navigator.pop en la pantalla de selección!
     final result = await Navigator.push(
       context,
       // Crearemos la SelectionScreen en el siguiente paso!
-      MaterialPageRoute(builder: (context) => AttractionSelection()),
+      MaterialPageRoute(builder: (context) => AttractionSelection(name)),
     );
 
     ScaffoldMessenger.of(context).showSnackBar(
