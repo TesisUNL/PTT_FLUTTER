@@ -56,7 +56,7 @@ dependencies:
   flutter_polyline_points: ^1.0.0
   permission_handler: ^9.0.2 #TODO: revisar podfile para permisos en IOs
   app_settings: ^4.1.6
-  flutter_multi_select_items: ^0.4.2
+  multi_select_flutter: ^4.1.3
 
 dev_dependencies:
   flutter_test:

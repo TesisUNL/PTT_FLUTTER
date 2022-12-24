@@ -1,4 +1,7 @@
+import 'package:flutter/material.dart';
+
 class Attraction {
+  String id;
   String name;
   String image;
   List<dynamic> images = [];
@@ -10,6 +13,7 @@ class Attraction {
 
   // Constructor
   Attraction({
+    required this.id,
     required this.image,
     required this.name,
     required this.description,
@@ -21,7 +25,8 @@ class Attraction {
   });
 
   Attraction copy(
-          {String? cover_image,
+          {String? id,
+          String? cover_image,
           List<dynamic>? images,
           String? name,
           String? long_description,
@@ -30,6 +35,7 @@ class Attraction {
           double? latitude,
           double? longitude}) =>
       Attraction(
+        id: id ?? this.id,
         image: cover_image ?? this.image,
         images: images ?? this.images,
         name: name ?? this.name,
@@ -41,6 +47,7 @@ class Attraction {
       );
 
   static Attraction fromJson(Map<String, dynamic> json) => Attraction(
+      id: json['id'] ?? '',
       image: json['cover_image'] ?? '',
       images: json['images'] ?? [],
       name: json['name'] ?? '',
