@@ -7,7 +7,7 @@
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8mb4 */;
+/*!50503 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -21,7 +21,7 @@
 
 DROP TABLE IF EXISTS `attraction`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `attraction` (
   `id` varchar(36) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -37,7 +37,7 @@ CREATE TABLE `attraction` (
   PRIMARY KEY (`id`),
   KEY `FK_5ad76f18db39092c5ab4f2fd3b3` (`cantonId`),
   CONSTRAINT `FK_5ad76f18db39092c5ab4f2fd3b3` FOREIGN KEY (`cantonId`) REFERENCES `canton` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,7 +46,13 @@ CREATE TABLE `attraction` (
 
 LOCK TABLES `attraction` WRITE;
 /*!40000 ALTER TABLE `attraction` DISABLE KEYS */;
-INSERT INTO `attraction` VALUES ('04d0faa0-e383-4b99-9b4e-f48fdb39e9ba','Rio Matalanga',-4.08333,-80.1167,'Ubicado en la parroquia Chiquinal','Rio que posee una abundante flora y fauna, es famoso por la pureza de sus aguas, existe el mito que su fuente vienen del mítico lugar “Agua de Vida”, ya que su fuente se encuentra en el interior del cerro Matalanga.','https://bosquesecoturismo.com/x/cdn/?https://storage.googleapis.com/wzukusers/user-27851147/images/5923655eeed76YDGfImF/puyando2_d400.jpeg','string','2022-12-29 17:12:13.831407','2022-12-29 17:12:13.831407','b4f3beb0-5a8f-495b-b1ea-8ac46470d7b7'),('2cd69e52-f5b6-4517-9245-597c27a0919d','Piedra del Indio',-4.04856,-79.6526,'Se encuentra a 25 km de la ciudad de catacocha.','Es un petroglifo grabado con la técnica del inciso, un bloque de piedra piramidal donde representa una figura de ser humano que está en posición de lamento','https://assets.isu.pub/document-structure/211119191325-c9a7f9c94f63b2301cfd43168955de60/v1/97b3dbbff5c1dfe21aaab3ad825e98e9.jpeg','string','2022-12-29 17:37:41.342794','2022-12-29 17:37:41.342794','1825a10d-bb7a-428b-b87e-e408cef7679f'),('6c6fa523-050f-42f8-856b-1085012f6855','Mangahurco Huayacanes​',-4.15684,-80.4317,'description','La parroquia Mangahurco se encuentra en el epicentro de la reserva Natural del Bosque Seco y es punto de encuentro para los turistas que vistan el florecimiento de los guayacanes en los meses de lluvias.','assets/guayacanes.jpeg',NULL,'2022-11-15 07:22:09.120887','2022-12-23 21:48:02.209079','0a2736f3-4291-4124-a391-412c79424ee8'),('abbc1efe-2bb4-49cf-aca7-4f48c3a90d09','Bosque Protector Cardo Palto',-4.37245,-79.936,'string','​Ubicado a 1km de la ciudad, con una extensión de 90.83 hectáreas, incluyendo una granja de palto que conforma parte de un convenio entre el Colegio Técnico de Macara y PREDESUR','assets/protector.jpeg',NULL,'2022-11-15 07:11:02.404386','2022-12-23 21:53:33.360603','8f02e6b9-ffb8-44a7-b8c3-cc9884bcffe4'),('d4f91900-b898-4832-a333-5da1510609f3','Reloj de ocho esferas',-4.01786,-80.0196,'Ubicado en la parroquia de Alamor','Fue fabricado en Alemania en el año 1917, es una joya única en el mundo puesto que no fue realizado en serie.','https://ec.viajandox.com/uploads/Reloj_2.jpg','string','2022-12-29 17:24:40.809438','2022-12-29 17:24:40.809438','397b2b92-0f9e-4af3-abed-90be4e7befc7'),('ea39759e-8992-4be0-b50e-a47c93c8e94b','Cerro Huayrapungo​',-4.07527,-79.9605,'description','​Se encuentra a 11 km del centro de la ciudad y tiene una altura aproximada de 3500 metros sobre el nivel del mar. Se accede por una vía que está en buenas condiciones','assets/cerro.jpg',NULL,'2022-11-15 07:17:21.739523','2022-12-23 21:55:11.359542','3957d66d-1bc6-463e-bc28-61073b443fb6');
+INSERT INTO `attraction` VALUES 
+('04d0faa0-e383-4b99-9b4e-f48fdb39e9ba','Rio Matalanga',-4.08333,-80.1167,'Ubicado en la parroquia Chiquinal','Rio que posee una abundante flora y fauna, es famoso por la pureza de sus aguas, existe el mito que su fuente vienen del mítico lugar “Agua de Vida”, ya que su fuente se encuentra en el interior del cerro Matalanga.','https://bosquesecoturismo.com/x/cdn/?https://storage.googleapis.com/wzukusers/user-27851147/images/5923655eeed76YDGfImF/puyando2_d400.jpeg','string','2022-12-29 17:12:13.831407','2022-12-29 17:12:13.831407','b4f3beb0-5a8f-495b-b1ea-8ac46470d7b7'),
+('2cd69e52-f5b6-4517-9245-597c27a0919d','Piedra del Indio',-4.04856,-79.6526,'Se encuentra a 25 km de la ciudad de catacocha.','Es un petroglifo grabado con la técnica del inciso, un bloque de piedra piramidal donde representa una figura de ser humano que está en posición de lamento','https://assets.isu.pub/document-structure/211119191325-c9a7f9c94f63b2301cfd43168955de60/v1/97b3dbbff5c1dfe21aaab3ad825e98e9.jpeg','string','2022-12-29 17:37:41.342794','2022-12-29 17:37:41.342794','1825a10d-bb7a-428b-b87e-e408cef7679f'),
+('6c6fa523-050f-42f8-856b-1085012f6855','Mangahurco Huayacanes​',-4.15684,-80.4317,'description','La parroquia Mangahurco se encuentra en el epicentro de la reserva Natural del Bosque Seco y es punto de encuentro para los turistas que vistan el florecimiento de los guayacanes en los meses de lluvias.','assets/guayacanes.jpeg',NULL,'2022-11-15 07:22:09.120887','2022-12-23 21:48:02.209079','0a2736f3-4291-4124-a391-412c79424ee8'),
+('  ','Bosque Protector Cardo Palto',-4.37245,-79.936,'string','​Ubicado a 1km de la ciudad, con una extensión de 90.83 hectáreas, incluyendo una granja de palto que conforma parte de un convenio entre el Colegio Técnico de Macara y PREDESUR','assets/protector.jpeg',NULL,'2022-11-15 07:11:02.404386','2022-12-23 21:53:33.360603','8f02e6b9-ffb8-44a7-b8c3-cc9884bcffe4'),
+('d4f91900-b898-4832-a333-5da1510609f3','Reloj de ocho esferas',-4.01786,-80.0196,'Ubicado en la parroquia de Alamor','Fue fabricado en Alemania en el año 1917, es una joya única en el mundo puesto que no fue realizado en serie.','https://ec.viajandox.com/uploads/Reloj_2.jpg','string','2022-12-29 17:24:40.809438','2022-12-29 17:24:40.809438','397b2b92-0f9e-4af3-abed-90be4e7befc7'),
+('ea39759e-8992-4be0-b50e-a47c93c8e94b','Cerro Huayrapungo​',-4.07527,-79.9605,'description','​Se encuentra a 11 km del centro de la ciudad y tiene una altura aproximada de 3500 metros sobre el nivel del mar. Se accede por una vía que está en buenas condiciones','assets/cerro.jpg',NULL,'2022-11-15 07:17:21.739523','2022-12-23 21:55:11.359542','3957d66d-1bc6-463e-bc28-61073b443fb6');
 /*!40000 ALTER TABLE `attraction` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -56,7 +62,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `canton`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `canton` (
   `id` varchar(36) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -66,7 +72,7 @@ CREATE TABLE `canton` (
   `updated_at` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
   PRIMARY KEY (`id`),
   UNIQUE KEY `IDX_86029953a3e2ed6ad0f13a7b94` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -85,7 +91,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `rating`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `rating` (
   `id` varchar(36) NOT NULL,
   `stars` int NOT NULL,
@@ -99,7 +105,7 @@ CREATE TABLE `rating` (
   KEY `FK_5339a0f5bbf9e00838aaa1f660c` (`attractionId`),
   CONSTRAINT `FK_5339a0f5bbf9e00838aaa1f660c` FOREIGN KEY (`attractionId`) REFERENCES `attraction` (`id`),
   CONSTRAINT `FK_a6c53dfc89ba3188b389ef29a62` FOREIGN KEY (`userId`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -117,7 +123,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `tourist_route`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;utf8_general_ci
 CREATE TABLE `tourist_route` (
   `id` varchar(36) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -130,7 +136,7 @@ CREATE TABLE `tourist_route` (
   PRIMARY KEY (`id`),
   KEY `FK_c826793e666d89f2c8ba74cefcb` (`ownerId`),
   CONSTRAINT `FK_c826793e666d89f2c8ba74cefcb` FOREIGN KEY (`ownerId`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -149,7 +155,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `tourist_route_attractions_attraction`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `tourist_route_attractions_attraction` (
   `touristRouteId` varchar(36) NOT NULL,
   `attractionId` varchar(36) NOT NULL,
@@ -158,7 +164,7 @@ CREATE TABLE `tourist_route_attractions_attraction` (
   KEY `IDX_97f4dbad8704a617b8693d9a28` (`attractionId`),
   CONSTRAINT `FK_97f4dbad8704a617b8693d9a28b` FOREIGN KEY (`attractionId`) REFERENCES `attraction` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_bc241097877c2f9118c3b759538` FOREIGN KEY (`touristRouteId`) REFERENCES `tourist_route` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -177,7 +183,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `user` (
   `id` varchar(36) NOT NULL,
   `name` varchar(80) NOT NULL,
@@ -192,7 +198,7 @@ CREATE TABLE `user` (
   `updated_at` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
   PRIMARY KEY (`id`),
   UNIQUE KEY `IDX_e12875dfb3b1d92d7d7c5377e2` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

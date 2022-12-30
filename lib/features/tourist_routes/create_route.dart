@@ -26,9 +26,6 @@ class _CreateRoutePageState extends State<CreateRoutePage> {
   Future<List<Attraction>> fetchAttractions(String cantonName) async =>
       await getAttractionsByCantonName(cantonName);
 
-  late Set selectedAttractions = Set();
-  late Set actualAttractions = Set();
-
   @override
   void initState() {
     super.initState();
@@ -37,6 +34,8 @@ class _CreateRoutePageState extends State<CreateRoutePage> {
 
   @override
   Widget build(BuildContext context) {
+    final Map<dynamic, dynamic> formValues = {};
+
     return Scaffold(
       appBar: new AppBar(
         title: new Text('Creación de ruta'),
@@ -50,7 +49,7 @@ class _CreateRoutePageState extends State<CreateRoutePage> {
                   margin: new EdgeInsets.all(10.0),
                   child: new Form(
                     key: keyForm,
-                    child: formUI(snapshot.data),
+                    child: formUI(snapshot.data, formValues),
                   ),
                 ),
               );
@@ -84,7 +83,7 @@ class _CreateRoutePageState extends State<CreateRoutePage> {
     );
   }
 
-  buildAttractionsList(String cantonName) {
+  buildAttractionsList(String cantonName, Map<dynamic, dynamic> formValues) {
     return FutureBuilder<List<Attraction>>(
       future: fetchAttractions(cantonName),
       builder: (context, snapshot) {
@@ -96,7 +95,7 @@ class _CreateRoutePageState extends State<CreateRoutePage> {
                     .map((attraction) =>
                         MultiSelectItem(attraction, attraction.name))
                     .toList(),
-                title: Text("Attracciones"),
+                title: const Text("Attractions"),
                 selectedColor: Colors.blue,
                 decoration: BoxDecoration(
                   color: Colors.blue.withOpacity(0.1),
@@ -117,27 +116,9 @@ class _CreateRoutePageState extends State<CreateRoutePage> {
                     fontSize: 16,
                   ),
                 ),
-                onConfirm: (List<Attraction> results) {
-                  print('selected ${selectedAttractions}');
-                  print('actual ${actualAttractions}');
-
-                  for (var i = 0; i < selectedAttractions.length; i++) {
-                    print('results ${results[i].id}');
-                    if (!results.contains(selectedAttractions.elementAt(i))) {
-                      selectedAttractions
-                          .remove(selectedAttractions.elementAt(i));
-                    }
-                  }
-                  var timer = Timer(
-                      Duration(seconds: 2), () => actualAttractions.clear());
+                onConfirm: (List<Attraction> result) {
+                  formValues[cantonName] = result.map((e) => e.id).toList();
                 },
-                onSelectionChanged:
-                    ((List<Attraction> actualSelectedAttractions) {
-                  for (var i = 0; i < actualSelectedAttractions.length; i++) {
-                    selectedAttractions.add(actualSelectedAttractions[i].id);
-                    actualAttractions.add(actualSelectedAttractions[i].id);
-                  }
-                }),
               ),
             ],
           );
@@ -149,35 +130,36 @@ class _CreateRoutePageState extends State<CreateRoutePage> {
     );
   }
 
-  formListCantonSelectionButtonsDesign(String cantonName) {
+  formListCantonSelectionButtonsDesign(
+      String cantonName, Map<dynamic, dynamic> formValues) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 7),
       child: Container(
         alignment: Alignment.center,
         padding: EdgeInsets.all(0),
-        child: buildAttractionsList(cantonName),
+        child: buildAttractionsList(cantonName, formValues),
       ),
     );
   }
 
-  Widget formUI(List<Canton>? cantons) {
+  Widget formUI(List<Canton>? cantons, Map<dynamic, dynamic> formValues) {
     return Column(
       children: <Widget>[
         formItemsDesign(
             Icons.route_outlined,
             TextFormField(
               controller: nameCtrl,
-              decoration: new InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Nombre de Ruta',
               ),
               validator: validateName,
             )),
         formLabelDesign('Selecciona los puntos de interés: '),
         for (var i = 0; i < cantons!.length; i++)
-          formListCantonSelectionButtonsDesign(cantons[i].name),
+          formListCantonSelectionButtonsDesign(cantons[i].name, formValues),
         GestureDetector(
             onTap: () {
-              save();
+              save(formValues);
             },
             child: Container(
               margin: new EdgeInsets.all(20.0),
@@ -208,13 +190,21 @@ class _CreateRoutePageState extends State<CreateRoutePage> {
     return null;
   }
 
-  save() async {
-    print("Faltan Campos por llenar");
-    print(selectedAttractions);
-    if (keyForm.currentState!.validate() && selectedAttractions.length > 2) {
-      await postTouristRoute(nameCtrl.text, selectedAttractions, 0);
+  save(Map<dynamic, dynamic> formValues) async {
+    final List selectedAttractions =
+        formValues.values.expand((i) => i).toList();
+
+    final List<String> selectedAttractionsIds =
+        selectedAttractions.map((e) => e.toString()).toList();
+
+    if (keyForm.currentState!.validate() && selectedAttractions.length >= 2) {
+      final response =
+          await postTouristRoute(nameCtrl.text, selectedAttractionsIds, 0);
+      print(response);
       print("Ruta ${nameCtrl.text} creada exitosamente");
       keyForm.currentState!.reset();
+    } else {
+      print("Ruta ${nameCtrl.text} no creada, ocurrió un error");
     }
   }
 }

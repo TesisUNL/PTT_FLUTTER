@@ -17,15 +17,23 @@ Future<List<TouristRoute>> getTouristRoutes() async {
 }
 
 Future<TouristRoute> postTouristRoute(
-    String name, Set attractionsId, int pathLength) async {
-  Map params = {
+    String name, List<String> attractionsId, int pathLength) async {
+  Map<String, dynamic> params = {
     "name": name,
     "attractions": attractionsId,
-    "pathLength": pathLength = 0
+    "isUserRoute": true,
+    "pathLength": pathLength,
   };
-  final response = await http.post('/tourist-routes', body: params);
+
+  print(json.encode(params));
+
+  final response =
+      await http.post('/tourist-routes', body: json.encode(params));
+
   if (HttpHelperService.isClientErrorResponse(response.statusCode) ||
       HttpHelperService.isServerErrorResponse(response.statusCode)) {
+    print(response!.statusCode);
+    print(response.body);
     throw Exception('Failed to Create a new Route');
   }
 

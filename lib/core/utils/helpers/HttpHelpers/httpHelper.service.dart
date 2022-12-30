@@ -24,7 +24,7 @@ class HttpHelperService {
   Future<Map<String, String>> buildHeaders({bool? withAccessToken}) async {
     Map<String, String> headers = {
       "Accept": "application/json",
-      //"Content-Type": "application/json",
+      "Content-Type": "application/json",
     };
     if (withAccessToken == true) {
       _accessToken = (await _storage.read(key: SecureStorage.accessTokenKey));
