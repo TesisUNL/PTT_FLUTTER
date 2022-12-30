@@ -15,3 +15,19 @@ Future<List<TouristRoute>> getTouristRoutes() async {
   }
   return TouristRoute.fromJsonList(jsonDecode(response.body));
 }
+
+Future<TouristRoute> postTouristRoute(
+    String name, Set attractionsId, int pathLength) async {
+  Map params = {
+    "name": name,
+    "attractions": attractionsId,
+    "pathLength": pathLength = 0
+  };
+  final response = await http.post('/tourist-routes', body: params);
+  if (HttpHelperService.isClientErrorResponse(response.statusCode) ||
+      HttpHelperService.isServerErrorResponse(response.statusCode)) {
+    throw Exception('Failed to Create a new Route');
+  }
+
+  return TouristRoute.fromJson(jsonDecode(response.body));
+}

@@ -2,12 +2,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:multi_select_flutter/dialog/multi_select_dialog_field.dart';
 import 'package:multi_select_flutter/util/multi_select_item.dart';
-import 'package:ptt_rtmb/core/utils/widgets/multi_select.dart';
 import '../../core/models/attraction/attraction.dart';
 import '../../core/models/canton/canton.dart';
 import '../../core/services/attraction/attraction_service.dart';
 import '../../core/services/canton/canton_service.dart';
-import 'attraction_selection.dart';
+import 'package:ptt_rtmb/core/services/rotues/routes_service.dart';
 
 class CreateRoutePage extends StatefulWidget {
   @override
@@ -23,11 +22,12 @@ class _CreateRoutePageState extends State<CreateRoutePage> {
   late Future<List<Canton>> cantons;
   Future<List<Canton>> fetchCantons() async => await getCantons();
 
-  late Future<List<Attraction>> attractions;
+  //Attraction Service
   Future<List<Attraction>> fetchAttractions(String cantonName) async =>
       await getAttractionsByCantonName(cantonName);
 
-  bool _visible = false;
+  late Set selectedAttractions = Set();
+  late Set actualAttractions = Set();
 
   @override
   void initState() {
@@ -91,37 +91,54 @@ class _CreateRoutePageState extends State<CreateRoutePage> {
         if (snapshot.hasData) {
           return Column(
             children: <Widget>[
-              for (var i = 0; i < snapshot.data!.length; i++)
-                MultiSelectDialogField(
-                  items: snapshot.data!
-                      .map((attraction) =>
-                          MultiSelectItem(attraction, attraction.name))
-                      .toList(),
-                  title: Text("Attracciones"),
-                  selectedColor: Colors.blue,
-                  decoration: BoxDecoration(
-                    color: Colors.blue.withOpacity(0.1),
-                    borderRadius: BorderRadius.all(Radius.circular(40)),
-                    border: Border.all(
-                      color: Colors.blue,
-                      width: 2,
-                    ),
-                  ),
-                  buttonIcon: Icon(
-                    Icons.arrow_drop_down,
+              MultiSelectDialogField(
+                items: snapshot.data!
+                    .map((attraction) =>
+                        MultiSelectItem(attraction, attraction.name))
+                    .toList(),
+                title: Text("Attracciones"),
+                selectedColor: Colors.blue,
+                decoration: BoxDecoration(
+                  color: Colors.blue.withOpacity(0.1),
+                  borderRadius: BorderRadius.all(Radius.circular(40)),
+                  border: Border.all(
                     color: Colors.blue,
+                    width: 2,
                   ),
-                  buttonText: Text(
-                    cantonName,
-                    style: TextStyle(
-                      color: Colors.blue,
-                      fontSize: 16,
-                    ),
-                  ),
-                  onConfirm: (results) {
-                    print(results);
-                  },
                 ),
+                buttonIcon: Icon(
+                  Icons.arrow_drop_down,
+                  color: Colors.blue,
+                ),
+                buttonText: Text(
+                  cantonName,
+                  style: TextStyle(
+                    color: Colors.blue,
+                    fontSize: 16,
+                  ),
+                ),
+                onConfirm: (List<Attraction> results) {
+                  print('selected ${selectedAttractions}');
+                  print('actual ${actualAttractions}');
+
+                  for (var i = 0; i < selectedAttractions.length; i++) {
+                    print('results ${results[i].id}');
+                    if (!results.contains(selectedAttractions.elementAt(i))) {
+                      selectedAttractions
+                          .remove(selectedAttractions.elementAt(i));
+                    }
+                  }
+                  var timer = Timer(
+                      Duration(seconds: 2), () => actualAttractions.clear());
+                },
+                onSelectionChanged:
+                    ((List<Attraction> actualSelectedAttractions) {
+                  for (var i = 0; i < actualSelectedAttractions.length; i++) {
+                    selectedAttractions.add(actualSelectedAttractions[i].id);
+                    actualAttractions.add(actualSelectedAttractions[i].id);
+                  }
+                }),
+              ),
             ],
           );
         } else if (snapshot.hasError) {
@@ -137,85 +154,11 @@ class _CreateRoutePageState extends State<CreateRoutePage> {
       padding: EdgeInsets.symmetric(vertical: 7),
       child: Container(
         alignment: Alignment.center,
-        padding: EdgeInsets.all(20),
+        padding: EdgeInsets.all(0),
         child: buildAttractionsList(cantonName),
       ),
     );
   }
-
-  // formListViewDesign(List<Canton>? cantons) {
-  //   for (var i = 0; i < cantons!.length; i++) {
-  //     print(cantons[i].name);
-  //     print(cantons[i].description);
-  //   }
-  //   return Padding(
-  //     padding: EdgeInsets.symmetric(vertical: 7),
-  //     child: ListView(
-  //       shrinkWrap: true,
-  //       scrollDirection: Axis.vertical,
-  //       children: <Widget>[
-  //         for (var i = 0; i < cantons.length; i++)
-  //           Card(
-  //             child: Row(
-  //               children: <Widget>[
-  //                 Expanded(
-  //                     flex: 0,
-  //                     child: Container(
-  //                       width: 70,
-  //                       height: 50,
-  //                       decoration: BoxDecoration(
-  //                           color: Colors.black,
-  //                           image: DecorationImage(
-  //                               image: NetworkImage(cantons[i].description),
-  //                               fit: BoxFit.cover),
-  //                           border: Border.all(width: 1)),
-  //                     )),
-  //                 Expanded(
-  //                     child: SizedBox(
-  //                   child: TextButton(
-  //                     style: TextButton.styleFrom(
-  //                         alignment: Alignment.centerLeft,
-  //                         padding: EdgeInsets.only(left: 10, right: 60)),
-  //                     onPressed: () {
-  //                       _navigateAndDisplaySelection(context, cantons[i].name);
-  //                     },
-  //                     child: Text(
-  //                       cantons[i].name,
-  //                       textAlign: TextAlign.left,
-  //                       style: TextStyle(
-  //                           fontSize: 16,
-  //                           color: Color.fromARGB(255, 140, 145, 150)),
-  //                     ),
-  //                   ),
-  //                 )),
-  //                 Expanded(
-  //                     child: Visibility(
-  //                   child: Container(
-  //                     padding: EdgeInsets.all(0),
-  //                     child: ListTile(
-  //                       title: Align(
-  //                           child: Text(
-  //                             '5 Seleccionados',
-  //                             style: TextStyle(
-  //                                 fontSize: 10,
-  //                                 color: Color.fromARGB(255, 140, 145, 150)),
-  //                           ),
-  //                           alignment: Alignment(11, 0)),
-  //                       trailing: Icon(Icons.check_box, color: Colors.green),
-  //                     ),
-  //                   ),
-  //                   maintainSize: true,
-  //                   maintainAnimation: true,
-  //                   maintainState: true,
-  //                   visible: _visible ? true : false,
-  //                 ))
-  //               ],
-  //             ),
-  //           )
-  //       ],
-  //     ),
-  //   );
-  // }
 
   Widget formUI(List<Canton>? cantons) {
     return Column(
@@ -229,21 +172,9 @@ class _CreateRoutePageState extends State<CreateRoutePage> {
               ),
               validator: validateName,
             )),
-        /*formItemsDesign(
-            Icons.add_road_outlined,
-            TextFormField(
-              enabled: false,
-              controller: pathLengthCtrl,
-              decoration: new InputDecoration(
-                labelText: 'Longitud de Ruta',
-              ),
-              keyboardType: TextInputType.number,
-              maxLength: 10,
-            )),*/
         formLabelDesign('Selecciona los puntos de interés: '),
         for (var i = 0; i < cantons!.length; i++)
           formListCantonSelectionButtonsDesign(cantons[i].name),
-        //formListViewDesign(cantons),
         GestureDetector(
             onTap: () {
               save();
@@ -277,31 +208,13 @@ class _CreateRoutePageState extends State<CreateRoutePage> {
     return null;
   }
 
-  save() {
-    print(keyForm.currentState);
-    if (keyForm.currentState!.validate()) {
-      print("Nombre ${nameCtrl.text}");
-      print("Tamaño de Ruta ${pathLengthCtrl.text}");
+  save() async {
+    print("Faltan Campos por llenar");
+    print(selectedAttractions);
+    if (keyForm.currentState!.validate() && selectedAttractions.length > 2) {
+      await postTouristRoute(nameCtrl.text, selectedAttractions, 0);
+      print("Ruta ${nameCtrl.text} creada exitosamente");
       keyForm.currentState!.reset();
     }
   }
-
-  // // Un método que inicia SelectionScreen y espera por el resultado de
-  // // Navigator.pop
-  // _navigateAndDisplaySelection(BuildContext context, String name) async {
-  //   // Navigator.push devuelve un Future que se completará después de que llamemos
-  //   // Navigator.pop en la pantalla de selección!
-  //   final result = await Navigator.push(
-  //     context,
-  //     // Crearemos la SelectionScreen en el siguiente paso!
-  //     MaterialPageRoute(builder: (context) => AttractionSelection('')),
-  //   );
-
-  //   ScaffoldMessenger.of(context).showSnackBar(
-  //     SnackBar(
-  //       content: Text("${result}"),
-  //       duration: Duration(milliseconds: 300),
-  //     ),
-  //   );
-  // }
 }

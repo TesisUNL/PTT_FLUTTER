@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class Attraction {
   String id;
   String name;
