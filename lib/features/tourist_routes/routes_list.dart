@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:ptt_rtmb/core/services/rotues/routes_service.dart';
 
+import '../../core/models/routes/route.dart';
 import 'create_route.dart';
 
 class RoutesPage extends StatefulWidget {
@@ -11,9 +13,14 @@ class RoutesPage extends StatefulWidget {
 }
 
 class RoutesPageState extends State<RoutesPage> {
+
+  late Future<List<TouristRoute>> touristRoutes;
+  Future<List<TouristRoute>> fetchRoutes() async => await getTouristRoutes();
+
   @override
   void initState() {
     super.initState();
+    touristRoutes = fetchRoutes();
   }
 
   @override
@@ -22,14 +29,27 @@ class RoutesPageState extends State<RoutesPage> {
       appBar: AppBar(
         title: const Text('Rutas'),
       ),
-      body: ListView(
-        children: [
-          for (var i = 0; i < 10; i++)
-            buildRoutesContainer('Nombre de ruta', 12000, 4),
-        ],
+      body: FutureBuilder<List<TouristRoute>>(
+        future: touristRoutes,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return ListView.builder(
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) {
+                return buildRoutesContainer(
+                    snapshot.data![index].name,
+                    snapshot.data![index].pathLength,
+                    snapshot.data![index].views);
+              },
+            );
+          } else if (snapshot.hasError) {
+            return Text("${snapshot.error}");
+          }
+          return const CircularProgressIndicator();
+        },      
       ),
       persistentFooterButtons: <Widget>[
-        Text('Crea tu propia ruta: '),
+        Text('Crea tu propia ruta:    '),
         ElevatedButton(
           onPressed: () {
             Navigator.push(context,
@@ -46,7 +66,13 @@ class RoutesPageState extends State<RoutesPage> {
 
   Widget buildRoutesContainer(String routeName, int pathLenght, int views) =>
       Container(
+        margin: EdgeInsets.all(10),
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+                topRight: Radius.circular(40.0),
+                bottomLeft: Radius.circular(40.0)),
+            border: Border.all(color: Colors.blue, width: 3)),
         child: ListTile(
           title: Text(routeName),
           subtitle: Text(pathLenght.toString() + 'km'),
@@ -54,7 +80,14 @@ class RoutesPageState extends State<RoutesPage> {
             Icons.map_rounded,
             color: Colors.blue,
           ),
-          trailing: Text(views.toString() + ' views'),
+          trailing: Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: 5,
+            children: [
+              Text(views.toString()),
+              Icon(Icons.remove_red_eye_outlined, color: Colors.blue),
+            ],
+          ),
         ),
       );
 }

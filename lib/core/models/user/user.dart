@@ -1,4 +1,5 @@
 class User {
+  String id;
   String image;
   String name;
   String email;
@@ -6,6 +7,7 @@ class User {
 
   // Constructor
   User({
+    required this.id,
     required this.image,
     required this.name,
     required this.email,
@@ -13,6 +15,7 @@ class User {
   });
 
   User copy({
+    String? id,
     String? imagePath,
     String? name,
     String? phone,
@@ -20,6 +23,7 @@ class User {
     String? about,
   }) =>
       User(
+        id: id ?? this.id,
         image: imagePath ?? this.image,
         name: name ?? this.name,
         email: email ?? this.email,
@@ -27,13 +31,16 @@ class User {
       );
 
   static User fromJson(Map<String, dynamic> json) => User(
-        image: json['imageUrl'] ?? 'assets/images/user.png',
+        id: json['id'],
+        image: json['imageUrl'] ??
+            'https://img.freepik.com/free-icon/user_318-804790.jpg?w=2000',
         name: json['name'],
         email: json['email'],
         phone: json['phone_number'] ?? 'not phone number found',
       );
 
   Map<String, dynamic> toJson() => {
+        'id': id,
         'imagePath': image,
         'name': name,
         'email': email,
