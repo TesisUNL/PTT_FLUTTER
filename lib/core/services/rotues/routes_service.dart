@@ -16,6 +16,14 @@ Future<List<TouristRoute>> getTouristRoutes() async {
   return TouristRoute.fromJsonList(jsonDecode(response.body));
 }
 
+Future<List<TouristRoute>> getTouristRoutesByOwnerId(ownerId) async {
+  final response = await http.get(ROUTES_URL+'/'+ownerId);
+  if (!HttpHelperService.isSuccessfullyResponse(response!.statusCode)) {
+    throw Exception('Failed to load routes');
+  }
+  return TouristRoute.fromJsonList(jsonDecode(response.body));
+}
+
 Future<TouristRoute> postTouristRoute(
     String name, List<String> attractionsId, int pathLength) async {
   Map<String, dynamic> params = {
@@ -24,8 +32,6 @@ Future<TouristRoute> postTouristRoute(
     "isUserRoute": true,
     "pathLength": pathLength,
   };
-
-  print(json.encode(params));
 
   final response =
       await http.post('/tourist-routes', body: json.encode(params));

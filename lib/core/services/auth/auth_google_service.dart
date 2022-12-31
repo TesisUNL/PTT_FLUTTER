@@ -70,9 +70,11 @@ class AuthClass {
 
   Future<AuthUser> UserSingIn() async {
     UserModel.User loggedUser = UserModel.User(
+        id: user.providerData[0].uid ?? "",
         email: user.providerData[0].email ?? "",
-        image: user.providerData[0].photoURL ??  "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/800px-User_icon_2.svg.png",
-        name: user.providerData[0].displayName ?? "User Name",	
+        image: user.providerData[0].photoURL ??
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/800px-User_icon_2.svg.png",
+        name: user.providerData[0].displayName ?? "User Name",
         phone: user.providerData[0].phoneNumber ?? "");
 
     AuthUser authUser = AuthUser(
