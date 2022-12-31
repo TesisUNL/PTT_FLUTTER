@@ -8,6 +8,8 @@ import '../../core/services/attraction/attraction_service.dart';
 import '../../core/services/canton/canton_service.dart';
 import 'package:ptt_rtmb/core/services/rotues/routes_service.dart';
 
+import '../user_profile/profile_page.dart';
+
 class CreateRoutePage extends StatefulWidget {
   @override
   _CreateRoutePageState createState() => _CreateRoutePageState();
@@ -190,6 +192,45 @@ class _CreateRoutePageState extends State<CreateRoutePage> {
     return null;
   }
 
+  void _displayDialogAndroid(BuildContext context, String content, bool error) {
+    showDialog(
+      // barrierDismissible: true
+      barrierDismissible:
+          false, // this is to close the dialog when clicking outside
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        elevation: 5,
+        title: const Text('Info'),
+        content: Column(
+          mainAxisSize:
+              MainAxisSize.min, // this determines the height of the dialog
+          children: [
+            Text(content),
+            const SizedBox(height: 10),
+          ],
+        ),
+        actions: [
+          TextButton(
+            child: const Text('Ok'),
+            onPressed: () {
+              if (error) {
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              } else {
+                keyForm.currentState!.reset();
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ProfilePage()));
+              }
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
   save(Map<dynamic, dynamic> formValues) async {
     final List selectedAttractions =
         formValues.values.expand((i) => i).toList();
@@ -200,11 +241,13 @@ class _CreateRoutePageState extends State<CreateRoutePage> {
     if (keyForm.currentState!.validate() && selectedAttractions.length >= 2) {
       final response =
           await postTouristRoute(nameCtrl.text, selectedAttractionsIds, 0);
-      print(response);
-      print("Ruta ${nameCtrl.text} creada exitosamente");
-      keyForm.currentState!.reset();
+      if (response.name == nameCtrl.text) {
+        _displayDialogAndroid(
+            context, "Ruta ${nameCtrl.text} creada exitosamente", false);
+      }
     } else {
-      print("Ruta ${nameCtrl.text} no creada, ocurrió un error");
+      _displayDialogAndroid(
+          context, "Ruta ${nameCtrl.text} no creada, ocurrió un error", true);
     }
   }
 }

@@ -10,8 +10,8 @@ HttpWrapper http = HttpWrapper();
 
 Future<AuthUser?> postLogin(String email, String password) async {
   Map params = {"email": email, "password": password};
-  final response =
-      await http.post('/auth/login', body: params, withAccessToken: false);
+  final response = await http.post('/auth/login',
+      body: json.encode(params), withAccessToken: false);
   if (!HttpHelperService.isSuccessfullyResponse(response!.statusCode)) {
     throw Exception(response.body);
   }

@@ -10,7 +10,7 @@ HttpWrapper http = HttpWrapper();
 
 Future<User> postRegister(String email, String password, String name) async {
   Map params = {"email": email, "password": password, "name": name};
-  final response = await http.post('/auth/register', body: params);
+  final response = await http.post('/auth/register', body: json.encode(params));
   if (HttpHelperService.isClientErrorResponse(response.statusCode) ||
       HttpHelperService.isServerErrorResponse(response.statusCode)) {
     throw Exception('Failed to Register');
