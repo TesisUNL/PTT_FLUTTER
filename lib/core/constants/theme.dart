@@ -1,49 +1,23 @@
 import 'package:flutter/material.dart';
 
-class ConstantsTheme {
-  //Colors for theme
-  static Color lightPrimary = Color(0xfffcfcff);
-  static Color darkPrimary = Colors.black;
-  static Color? lightAccent = Colors.blueGrey[900];
-  static Color darkAccent = Colors.white;
-  static Color lightBG = Color(0xfffcfcff);
-  static Color darkBG = Colors.black;
-  static Color badgeColor = Colors.red;
-
+class PttAppTheme {
   static ThemeData lightTheme = ThemeData(
-    backgroundColor: lightBG,
-    primaryColor: lightPrimary,
-    accentColor: lightAccent,
-    cursorColor: lightAccent,
-    scaffoldBackgroundColor: lightBG,
-    appBarTheme: AppBarTheme(
-      elevation: 0,
-      textTheme: TextTheme(
-        headline6: TextStyle(
-          color: darkBG,
-          fontSize: 18.0,
-          fontWeight: FontWeight.w800,
-        ),
+      brightness: Brightness.light,
+      textTheme: const TextTheme(
+        headline2: TextStyle(
+            fontFamily: 'Poppins', color: Colors.black87, fontSize: 20),
+        subtitle2: TextStyle(
+            fontFamily: 'Poppins', color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
       ),
-    ),
-  );
+      primarySwatch: Colors.deepPurple);
 
   static ThemeData darkTheme = ThemeData(
-    brightness: Brightness.dark,
-    backgroundColor: darkBG,
-    primaryColor: darkPrimary,
-    accentColor: darkAccent,
-    scaffoldBackgroundColor: darkBG,
-    cursorColor: darkAccent,
-    appBarTheme: AppBarTheme(
-      elevation: 0,
-      textTheme: TextTheme(
-        headline6: TextStyle(
-          color: lightBG,
-          fontSize: 18.0,
-          fontWeight: FontWeight.w800,
-        ),
+      brightness: Brightness.dark,
+      textTheme: const TextTheme(
+        headline2: TextStyle(
+            fontFamily: 'Poppins', color: Colors.white70, fontSize: 20),
+        subtitle2: TextStyle(
+            fontFamily: 'Poppins', color: Colors.white60, fontSize: 14, fontWeight: FontWeight.bold),
       ),
-    ),
-  );
+      primarySwatch: Colors.deepOrange);
 }

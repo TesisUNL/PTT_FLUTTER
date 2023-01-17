@@ -1,7 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:ptt_rtmb/features/login/login.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:ptt_rtmb/features/splash/splash.dart';
 import 'core/constants/constants.dart';
 import 'firebase_options.dart';
 import 'package:flutter_config/flutter_config.dart';
@@ -18,15 +19,13 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: Constants.appName,
-      theme: ThemeData(
-          primarySwatch: Colors.blue,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-          fontFamily: 'Poppins'),
+      theme: Constants.lightTheme,
       darkTheme: Constants.darkTheme,
-      home: Login(),
+      themeMode: ThemeMode.system,
+      home: SplashScreen(),
     );
   }
 }
