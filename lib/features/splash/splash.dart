@@ -48,7 +48,7 @@ class SplashScreen extends StatelessWidget {
               )),
           Obx(() => AnimatedPositioned(
                 duration: const Duration(milliseconds: 2400),
-                bottom: splashController.animate.value ? 150 : 0,
+                bottom: splashController.animate.value ? MediaQuery.of(context).size.height : 0,
                 left: 40,
                 child: AnimatedOpacity(
                   duration: const Duration(milliseconds: 2000),

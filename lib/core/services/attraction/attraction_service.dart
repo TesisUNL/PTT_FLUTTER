@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ptt_rtmb/core/models/attraction/attraction.dart';
 import 'package:ptt_rtmb/core/models/attraction/attraction_marker.dart';
 import 'package:ptt_rtmb/core/utils/helpers/HttpHelpers/htppWrapper.dart';
