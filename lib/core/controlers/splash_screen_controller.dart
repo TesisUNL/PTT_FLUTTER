@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:ptt_rtmb/features/login/login.dart';
+import 'package:ptt_rtmb/features/onboarding/onboarding_screen.dart';
 
 class SplashScreenController extends GetxController {
   static SplashScreenController get find => Get.find();
@@ -13,6 +14,6 @@ class SplashScreenController extends GetxController {
 
     await Future.delayed(const Duration(milliseconds: 3000));
 
-    Get.to(Login());
+    Get.to(OnBoardingScreen());
   }
 }

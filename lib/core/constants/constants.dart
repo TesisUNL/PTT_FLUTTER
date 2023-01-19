@@ -15,4 +15,11 @@ class Constants {
   static ThemeData lightTheme = PttAppTheme.lightTheme;
 
   static ThemeData darkTheme = PttAppTheme.darkTheme;
+
+  
+
+  //App Constant Colors
+  static Color tOnBoardingPageWallColor = Color.fromARGB(255, 210, 206, 218);
+  static Color tOnBoardingPageBirdColor = Color.fromARGB(255, 136, 196, 139);
+  static Color tOnBoardingPageBagColor = Color.fromARGB(255, 128, 121, 121);
 }

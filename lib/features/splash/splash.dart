@@ -22,7 +22,7 @@ class SplashScreen extends StatelessWidget {
               top: splashController.animate.value ? 0 : -30,
               left: splashController.animate.value ? 0 : -30,
               child: const Image(
-                image: AssetImage(tSpashTopIcon),
+                image: AssetImage(tSplashTopIcon),
                 height: 130,
               ))),
           Obx(() => AnimatedPositioned(
@@ -56,7 +56,7 @@ class SplashScreen extends StatelessWidget {
                   duration: const Duration(milliseconds: 2000),
                   opacity: splashController.animate.value ? 1 : 0,
                   child: const Image(
-                    image: AssetImage(tSpashImage),
+                    image: AssetImage(tSplashImage),
                   ),
                 ),
               )),
