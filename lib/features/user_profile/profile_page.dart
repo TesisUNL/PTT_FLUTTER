@@ -24,7 +24,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
-    user = Login.returnUser.user;
+    //user = Login.returnUser.user;
     touristRoutes = fetchRoutes(user.id);
   }
 

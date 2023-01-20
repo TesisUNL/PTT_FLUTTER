@@ -12,39 +12,39 @@ class OnboardingPageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final size = MediaQuery.of(context).size;
-
     return Container(
       padding: const EdgeInsets.all(tDefaultSize),
       color: onboardingModel.bgColor,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Image(
-            image: AssetImage(onboardingModel.image),
-            height: (size.height * 0.45),
-          ),
-          Column(
-            children: [
-              Text(
-                onboardingModel.title,
-                style: Theme.of(context).textTheme.headline3,
-              ),
-              Text(
-                onboardingModel.subtitle,
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
-          Text(
-            onboardingModel.counterText,
-            style: Theme.of(context).textTheme.headline6,
-          ),
-          const SizedBox(height: 120,)
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Image(
+              image: AssetImage(onboardingModel.image),
+              height: (size.height * 0.49),
+            ),
+            Column(
+              children: [
+                Text(
+                  onboardingModel.title,
+                  style: Theme.of(context).textTheme.headline3,
+                ),
+                Text(
+                  onboardingModel.subtitle,
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+            Text(
+              onboardingModel.counterText,
+              style: Theme.of(context).textTheme.headline6,
+            ),
+            SizedBox(
+              height: size.height * 0.4,
+            )
+          ],
+        ),
       ),
     );
   }

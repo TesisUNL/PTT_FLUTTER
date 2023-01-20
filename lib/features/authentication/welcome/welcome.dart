@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:ptt_rtmb/core/constants/constants.dart';
 import 'package:ptt_rtmb/core/constants/image_strings.dart';
 import 'package:ptt_rtmb/core/constants/sizes.dart';
 import 'package:ptt_rtmb/core/constants/text_strings.dart';
+import 'package:ptt_rtmb/features/authentication/login/login.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
@@ -14,9 +16,8 @@ class WelcomeScreen extends StatelessWidget {
     var brightness = mediaQuery.platformBrightness;
     final isDarkMode = brightness == Brightness.dark;
     return Scaffold(
-      backgroundColor: isDarkMode
-          ? Constants.tAppBlackColor
-          : Constants.tAppWhiteColor,
+      backgroundColor:
+          isDarkMode ? Constants.tAppBlackColor : Constants.tAppWhiteColor,
       body: Container(
           padding: const EdgeInsets.all(tDefaultSize),
           child: Column(
@@ -43,7 +44,7 @@ class WelcomeScreen extends StatelessWidget {
                 children: [
                   Expanded(
                     child: OutlinedButton(
-                      onPressed: () {},
+                      onPressed: () => Get.to(() => Login()),
                       child: Text(tLogin.toUpperCase()),
                     ),
                   ),

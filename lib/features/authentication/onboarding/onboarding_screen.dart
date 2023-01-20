@@ -39,7 +39,7 @@ class OnBoardingScreen extends StatelessWidget {
           ),
         ),
         Positioned(
-            top: 50,
+            top: 20,
             right: 20,
             child: TextButton(
               onPressed: () => obController.skip(),

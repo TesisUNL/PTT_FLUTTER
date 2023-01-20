@@ -8,3 +8,5 @@ const String tAppOnboardingBird = "assets/onboarding/onboardingBird.png";
 const String tAppOnboardingWall = "assets/onboarding/onboardingWall.png";
 
 const String tAppWelcomeScreenImage = "assets/welcome/Welcome.png";
+
+const String tGoogleImage = "assets/google.png";
