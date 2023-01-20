@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ptt_rtmb/core/models/attraction/attraction.dart';
 import 'package:ptt_rtmb/core/services/attraction/attraction_service.dart';
-import 'package:ptt_rtmb/core/utils/helpers/places.dart';
 import 'package:ptt_rtmb/core/utils/widgets/horizontal_place_item.dart';
 import 'package:ptt_rtmb/core/utils/widgets/icon_badge.dart';
 import 'package:ptt_rtmb/core/utils/widgets/search_bar.dart';

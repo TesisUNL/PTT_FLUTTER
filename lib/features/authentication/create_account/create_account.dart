@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:ptt_rtmb/core/services/auth/auth_google_service.dart';
 import 'package:ptt_rtmb/core/utils/helpers/rounded_btn.dart';
 import 'package:ptt_rtmb/features/layout/main_screen.dart';
-import 'package:ptt_rtmb/features/login/login.dart';
+import 'package:ptt_rtmb/features/authentication/login/login.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
-import '../../core/services/user/user.service.dart';
+import '../../../core/services/user/user.service.dart';
 
 class CreateAccount extends StatefulWidget {
   @override

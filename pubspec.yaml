@@ -84,6 +84,9 @@ flutter:
 
   assets:
     - assets/
+    - assets/onboarding/
+    - assets/splash/
+    - assets/welcome/
     - .env
 
   fonts:

@@ -16,3 +16,10 @@ const String tAppOnboardingCounter2 = "2/3";
 const String tAppOnboardingTitle3 = "Explora";
 const String tAppOnboardingSubTittle3 = "Las rutas y encuentra nuevos destinos";
 const String tAppOnboardingCounter3 = "3/3";
+
+const String tAppWelcomeScreenTitle = "RTMB APP";
+const String tWelcomeSubTitle =
+    "Mancomunidad de municipalidades del sur occidente de la provincia de Loja “Bosque Seco”";
+
+const String tLogin = "Ingresar";
+const String tRegister = "Registrarse";

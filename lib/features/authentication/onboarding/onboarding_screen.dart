@@ -4,8 +4,6 @@ import 'package:liquid_swipe/liquid_swipe.dart';
 import 'package:ptt_rtmb/core/controlers/onboarding_screen_controller.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../../core/utils/widgets/onboarding_widget.dart';
-
 class OnBoardingScreen extends StatelessWidget {
   const OnBoardingScreen({Key? key}) : super(key: key);
 

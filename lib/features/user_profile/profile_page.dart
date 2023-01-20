@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:ptt_rtmb/core/models/user/user.dart';
 import 'package:ptt_rtmb/core/utils/widgets/user_profile_widgets/profile_widget.dart';
 import 'package:ptt_rtmb/core/utils/widgets/user_profile_widgets/appbar_widget.dart';
-import 'package:ptt_rtmb/features/login/login.dart';
+import 'package:ptt_rtmb/features/authentication/login/login.dart';
 
 import '../../core/models/routes/route.dart';
 import '../../core/services/rotues/routes_service.dart';

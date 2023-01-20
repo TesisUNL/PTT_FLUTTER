@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
-import 'package:ptt_rtmb/features/login/login.dart';
-import 'package:ptt_rtmb/features/onboarding/onboarding_screen.dart';
+import 'package:ptt_rtmb/features/authentication/onboarding/onboarding_screen.dart';
 
 class SplashScreenController extends GetxController {
   static SplashScreenController get find => Get.find();

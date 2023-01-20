@@ -1,10 +1,6 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:ptt_rtmb/core/constants/constants.dart';
-import 'package:ptt_rtmb/core/models/user/auth_user.dart';
 import 'package:ptt_rtmb/core/constants/secureStorage.dart';
-import 'package:ptt_rtmb/enviroment.dart';
-import 'package:ptt_rtmb/features/login/login.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class HttpHelperService {
   final String _host = Constants.api_url;

@@ -68,8 +68,8 @@ class SplashScreen extends StatelessWidget {
                   duration: const Duration(milliseconds: 2000),
                   opacity: splashController.animate.value ? 1 : 0,
                   child: Container(
-                    width: tSpashContainerSize,
-                    height: tSpashContainerSize,
+                    width: tSplashContainerSize,
+                    height: tSplashContainerSize,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(100),
                       color: Colors.lightGreen,
