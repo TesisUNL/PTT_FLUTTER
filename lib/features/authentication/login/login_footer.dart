@@ -37,7 +37,8 @@ class LoginFooterWidget extends StatelessWidget {
                 style: Theme.of(context).textTheme.bodyText1,
                 children: const [
                   TextSpan(
-                      text: tRegister, style: TextStyle(color: Colors.blue))
+                      text: tMakeARegister,
+                      style: TextStyle(color: Colors.blue))
                 ])))
       ],
     );

@@ -34,3 +34,4 @@ const String tPassword = "Contraseña";
 const String tForgotPassword = "¿Olvidaste tu contraseña?";
 const String tSingInWithGoogle = "Ingresa con google";
 const String tDontHaveAnAccount = "¿Aún no tienes una cuenta?";
+const String tMakeARegister = "Registrate";
