@@ -28,10 +28,17 @@ const String tRegister = "Registrarse";
 const String tLoginTitle = "Bienvenido de vuelta";
 const String tLoginSubtitle = "Es un placer tenerte de regreso";
 const String tRememberMe = "Recuerdame";
-const String tAlreadyHaveAnAccount = "¿Ya tienes una cuenta?";
 const String tEmail = "E-Mail";
 const String tPassword = "Contraseña";
 const String tForgotPassword = "¿Olvidaste tu contraseña?";
 const String tSingInWithGoogle = "Ingresa con google";
-const String tDontHaveAnAccount = "¿Aún no tienes una cuenta?";
+const String tDontHaveAnAccount = "¿Aún no tienes una cuenta? ";
 const String tMakeARegister = "Registrate";
+
+//Register Screen Texts
+const String tRegisterTitle = "Únete a bordo";
+const String tRegisterSubtitle =
+    "Crea tu cuenta para comenzar con tus aventuras";
+const String tAlreadyHaveAnAccount = "¿Ya tienes una cuenta? ";
+const String tFullName = "Nombre y Apellido";
+const String tPhoneNo = "Número telefónico";

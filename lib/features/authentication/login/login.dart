@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:ptt_rtmb/core/constants/image_strings.dart';
 import 'package:ptt_rtmb/core/constants/sizes.dart';
-import 'package:ptt_rtmb/features/authentication/login/login_header.dart';
+import 'package:ptt_rtmb/core/constants/text_strings.dart';
+import 'package:ptt_rtmb/features/authentication/login/login_form.dart';
+import 'package:ptt_rtmb/core/utils/widgets/form/form_header.dart';
 
 import 'login_footer.dart';
-import 'login_form.dart';
 
 class Login extends StatelessWidget {
   const Login({Key? key}) : super(key: key);
@@ -16,12 +18,16 @@ class Login extends StatelessWidget {
         body: SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.all(tDefaultSize),
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              LoginHeaderWidget(size: size),
-              const LoginFormWIdget(),
-              const LoginFooterWidget(),
-            ]),
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                  FormHeaderWidget(
+                      image: tAppWelcomeScreenImage,
+                      title: tLoginTitle,
+                      subTitle: tLoginSubtitle),
+                  LoginFormWidget(),
+                  LoginFooterWidget(),
+                ]),
           ),
         ),
       ),

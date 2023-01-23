@@ -34,6 +34,14 @@ class PttAppTheme {
             shape: const RoundedRectangleBorder(),
             padding: const EdgeInsets.symmetric(vertical: tButtonHeight)),
       )),
+      inputDecorationTheme: (InputDecorationTheme(
+          border: const OutlineInputBorder(),
+          prefixIconColor: Constants.tAppSecondaryColor,
+          floatingLabelStyle: TextStyle(color: Constants.tAppSecondaryColor),
+          focusedBorder: OutlineInputBorder(
+            borderSide:
+                BorderSide(width: 2, color: Constants.tAppSecondaryColor),
+          ))),
       primarySwatch: Colors.deepPurple);
 
   static ThemeData darkTheme = ThemeData(
@@ -67,5 +75,12 @@ class PttAppTheme {
             shape: const RoundedRectangleBorder(),
             padding: const EdgeInsets.symmetric(vertical: tButtonHeight)),
       )),
+      inputDecorationTheme: (InputDecorationTheme(
+          border: const OutlineInputBorder(),
+          prefixIconColor: Constants.tAppPrimaryColor,
+          floatingLabelStyle: TextStyle(color: Constants.tAppPrimaryColor),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(width: 2, color: Constants.tAppPrimaryColor),
+          ))),
       primarySwatch: Colors.deepOrange);
 }

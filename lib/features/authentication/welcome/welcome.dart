@@ -4,6 +4,7 @@ import 'package:ptt_rtmb/core/constants/constants.dart';
 import 'package:ptt_rtmb/core/constants/image_strings.dart';
 import 'package:ptt_rtmb/core/constants/sizes.dart';
 import 'package:ptt_rtmb/core/constants/text_strings.dart';
+import 'package:ptt_rtmb/features/authentication/create_account/register.dart';
 import 'package:ptt_rtmb/features/authentication/login/login.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -53,7 +54,7 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () => Get.to(() => SingUpScreen()),
                       child: Text(tRegister.toUpperCase()),
                     ),
                   ),

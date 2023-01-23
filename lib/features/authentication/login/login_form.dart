@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-
 import '../../../core/constants/sizes.dart';
 import '../../../core/constants/text_strings.dart';
 
-class LoginFormWIdget extends StatelessWidget {
-  const LoginFormWIdget({
+class LoginFormWidget extends StatelessWidget {
+  const LoginFormWidget({
     Key? key,
   }) : super(key: key);
 
