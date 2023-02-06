@@ -20,8 +20,7 @@ class VerticalPlaceItem extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(5),
                 child: FadeInImage(
-                  image: NetworkImage(
-                      "${Enviroment.api_scheme}://${Enviroment.api_host}${Enviroment.api_part}/${place.image}"),
+                  image: NetworkImage("${place.image}"),
                   imageErrorBuilder: (context, error, stackTrace) {
                     return Image.asset('assets/default.jpeg',
                         height: 70.0, width: 70.0, fit: BoxFit.fitWidth);
