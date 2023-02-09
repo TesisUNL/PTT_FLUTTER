@@ -23,8 +23,7 @@ class HorizontalPlaceItem extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: FadeInImage(
-                  image: NetworkImage(
-                      "${Enviroment.api_scheme}://${Enviroment.api_host}/${place.image}"),
+                  image: NetworkImage("${place.image}"),
                   imageErrorBuilder: (context, error, stackTrace) {
                     return Image.asset('assets/default.jpeg',
                         height: 178.0, width: 140.0, fit: BoxFit.fitWidth);
