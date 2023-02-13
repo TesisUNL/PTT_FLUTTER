@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:ptt_rtmb/core/constants/sizes.dart';
 import 'package:ptt_rtmb/core/constants/text_strings.dart';
 import '../../../core/constants/image_strings.dart';
+import '../login/login.dart';
 
 class SignUpFooterWidget extends StatelessWidget {
   const SignUpFooterWidget({
@@ -27,7 +29,9 @@ class SignUpFooterWidget extends StatelessWidget {
               label: const Text(tSingInWithGoogle)),
         ),
         TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.to(() => Login());
+            },
             child: Text.rich(TextSpan(children: [
               TextSpan(
                   text: tAlreadyHaveAnAccount,

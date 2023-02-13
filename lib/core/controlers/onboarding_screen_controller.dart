@@ -51,17 +51,15 @@ class OnBoardingController extends GetxController {
     currentPage.value = activePageIndex;
   }
 
-  //skip() => controller.jumpToPage(page: 2);
-
-  skip() => Get.to(const WelcomeScreen());
+  skip() => Get.to(WelcomeScreen());
 
   animateToNextSlide() {
     int nextPage = controller.currentPage + 1;
     if (nextPage == 3) {
-      Get.to(const WelcomeScreen());
+      Get.to(WelcomeScreen());
       return;
     } else {
-      controller.animateToPage(page: nextPage);
+      controller.jumpToPage(page: nextPage);
     }
   }
 }
