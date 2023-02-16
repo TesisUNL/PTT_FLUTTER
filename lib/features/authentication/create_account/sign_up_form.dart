@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
+import 'package:ptt_rtmb/core/controlers/register_screen_controller.dart';
 import '../../../core/constants/sizes.dart';
 import '../../../core/constants/text_strings.dart';
 
@@ -10,6 +11,7 @@ class SignUpFormWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final registerController = Get.put(RegisterController());
     return Container(
       padding: const EdgeInsets.symmetric(vertical: tFormHeight - 10),
       child: Form(
@@ -21,6 +23,9 @@ class SignUpFormWidget extends StatelessWidget {
                 label: Text(tFullName),
                 prefixIcon: Icon(Icons.person_outline_rounded),
               ),
+              onChanged: (value) => {
+                registerController.name.value = value,
+              },
             ),
             const SizedBox(
               height: tFormHeight - 20,
@@ -30,6 +35,9 @@ class SignUpFormWidget extends StatelessWidget {
                 label: Text(tEmail),
                 prefixIcon: Icon(Icons.email_outlined),
               ),
+              onChanged: (value) => {
+                registerController.email.value = value,
+              },
             ),
             const SizedBox(
               height: tFormHeight - 20,
@@ -39,23 +47,45 @@ class SignUpFormWidget extends StatelessWidget {
                 label: Text(tPhoneNo),
                 prefixIcon: Icon(Icons.numbers),
               ),
+              onChanged: (value) => {
+                registerController.phoneNumber.value = value,
+              },
             ),
             const SizedBox(
               height: tFormHeight - 20,
             ),
-            TextFormField(
-              decoration: const InputDecoration(
-                label: Text(tPassword),
-                prefixIcon: Icon(Icons.fingerprint),
-              ),
+            Obx(
+            () => TextFormField(
+              decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.fingerprint),
+                  labelText: tPassword,
+                  hintText: tPassword,
+                  border: const OutlineInputBorder(),
+                  suffixIcon: IconButton(
+                    icon: Icon(registerController.isObscure.value
+                        ? Icons.visibility
+                        : Icons.visibility_off),
+                    onPressed: () {
+                      registerController.isObscure.value =
+                          !registerController.isObscure.value;
+                    },
+                  )),
+              obscureText: registerController.isObscure.value,
+              enableSuggestions: false,
+              onChanged: (value) {
+                registerController.password.value = value;
+              },
             ),
+          ),
             const SizedBox(
               height: tFormHeight - 20,
             ),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                  onPressed: () {}, child: Text(tRegister.toUpperCase())),
+                  onPressed: () {
+                    registerController.registerLogic();
+                  }, child: Text(tRegister.toUpperCase())),
             )
           ],
         ),
