@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:ptt_rtmb/features/authentication/login/login.dart';
+import 'package:ptt_rtmb/features/authentication/welcome/welcome.dart';
 import 'core/constants/constants.dart';
 import 'features/authentication/splash/splash.dart';
 import 'firebase_options.dart';
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
       theme: Constants.lightTheme,
       darkTheme: Constants.darkTheme,
       themeMode: ThemeMode.system,
-      home: Login(),
+      home: const WelcomeScreen(),
     );
   }
 }

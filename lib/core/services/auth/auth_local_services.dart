@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:ptt_rtmb/core/models/user/auth_user.dart';
-import '../../models/user/user.dart';
 import '../../utils/helpers/HttpHelpers/htppWrapper.dart';
 import '../../utils/helpers/HttpHelpers/httpHelper.service.dart';
 

@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ptt_rtmb/core/models/user/user.dart';
 import 'package:ptt_rtmb/core/utils/widgets/user_profile_widgets/profile_widget.dart';
@@ -33,7 +31,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       appBar: buildAppBar(context),
       body: ListView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         children: [
           ProfileWidget(
               imagePath: user.image,
@@ -56,7 +54,7 @@ class _ProfilePageState extends State<ProfilePage> {
           if (snapshot.hasData) {
             return ListView.builder(
               shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
                 return buildRoutesContainer(
@@ -74,17 +72,17 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget buildRoutesContainer(String routeName, int pathLenght, int views) =>
       Container(
-        margin: EdgeInsets.all(10),
+        margin: const EdgeInsets.all(10),
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
+            borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(40.0),
                 bottomLeft: Radius.circular(40.0)),
             border: Border.all(color: Colors.blue, width: 3)),
         child: ListTile(
           title: Text(routeName),
           subtitle: Text(pathLenght.toString() + 'km'),
-          leading: Icon(
+          leading: const Icon(
             Icons.map_rounded,
             color: Colors.blue,
           ),
@@ -93,7 +91,7 @@ class _ProfilePageState extends State<ProfilePage> {
             spacing: 5,
             children: [
               Text(views.toString()),
-              Icon(Icons.remove_red_eye_outlined, color: Colors.blue),
+              const Icon(Icons.remove_red_eye_outlined, color: Colors.blue),
             ],
           ),
         ),
@@ -103,32 +101,31 @@ class _ProfilePageState extends State<ProfilePage> {
         children: [
           Text(
             user.name,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
           ),
           const SizedBox(height: 4),
           Text(
             user.email,
-            style: TextStyle(color: Colors.grey),
+            style: const TextStyle(color: Colors.grey),
           ),
           const SizedBox(height: 4),
           Text(
             user.phone,
-            style: TextStyle(color: Colors.grey),
+            style: const TextStyle(color: Colors.grey),
           )
         ],
       );
 
-  //TODO AGREGAR WIDGET QUE CARGUE LAS RUTAS
   Widget buildRoutesWidget(User user) => Container(
-        padding: EdgeInsets.symmetric(horizontal: 48),
+        padding: const EdgeInsets.symmetric(horizontal: 48),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+          children: const [
             Text(
               'Rutas',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 16),
             Text(
               'Tus rutas son:',
               style: TextStyle(fontSize: 16, height: 1.4),
