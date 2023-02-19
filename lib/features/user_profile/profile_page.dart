@@ -1,27 +1,45 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:ptt_rtmb/core/models/user/user.dart';
 import 'package:ptt_rtmb/core/utils/widgets/user_profile_widgets/profile_widget.dart';
 import 'package:ptt_rtmb/core/utils/widgets/user_profile_widgets/appbar_widget.dart';
-import 'package:ptt_rtmb/features/authentication/login/login.dart';
-
-import '../../core/controlers/user_profile_screen_controller.dart';
 import '../../core/models/routes/route.dart';
 import '../../core/services/rotues/routes_service.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
+  @override
+  _ProfilePageState createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  late User user;
+  FlutterSecureStorage _storage = FlutterSecureStorage();
+  late Future<List<TouristRoute>> touristRoutes;
+  Future<List<TouristRoute>> fetchRoutes(String ownerId) async =>
+      await getTouristRoutesByOwnerId(ownerId);
+
+  @override
+  void initState() {
+    super.initState();
+    _storage.read(key: 'user').then(((value) {
+      setState(() {
+        user = User.fromJson(jsonDecode(value!));
+      });
+    }));
+    touristRoutes = fetchRoutes(user.id);
+  }
+
   @override
   Widget build(BuildContext context) {
-    final userProfileController = Get.put(ProfileScreenController());
-    final user = userProfileController.returnUser();
     return Scaffold(
       appBar: buildAppBar(context),
       body: ListView(
         physics: const BouncingScrollPhysics(),
         children: [
           ProfileWidget(
-              imagePath: user!.image,
+              imagePath: user.image,
               onClicked: () async {} //TODO: implement image picker,
               ),
           const SizedBox(height: 24),
@@ -29,14 +47,13 @@ class ProfilePage extends StatelessWidget {
           const SizedBox(height: 48),
           buildRoutesWidget(),
           const SizedBox(height: 24),
-          buildTouristRoutesList(userProfileController.returnUserRoutes()),
+          buildTouristRoutesList(),
         ],
       ),
     );
   }
 
-  Widget buildTouristRoutesList(Future<List<TouristRoute>> touristRoutes) =>
-      FutureBuilder<List<TouristRoute>>(
+  Widget buildTouristRoutesList() => FutureBuilder<List<TouristRoute>>(
         future: touristRoutes,
         builder: (context, snapshot) {
           if (snapshot.hasData) {

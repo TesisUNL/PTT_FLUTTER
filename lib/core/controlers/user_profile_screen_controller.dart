@@ -9,22 +9,19 @@ import 'package:ptt_rtmb/core/services/rotues/routes_service.dart';
 class ProfileScreenController extends GetxController {
   static ProfileScreenController get find => Get.find();
   FlutterSecureStorage _storage = FlutterSecureStorage();
+  late User user;
+
+  @override
+  void onInit() {
+    super.onInit();
+    getUser();
+  }
 
   Future<User?> getUser() async {
     String userString = await _storage.read(key: 'user') ?? '';
-    late User user;
     if (userString.isNotEmpty) {
       user = User.fromJson(jsonDecode(userString));
     }
-    return user;
-  }
-
-  User? returnUser() {
-    User? user;
-
-    getUser().then((value) =>
-        {print('el user:' + value!.toJson().toString()), user = value});
-
     return user;
   }
 

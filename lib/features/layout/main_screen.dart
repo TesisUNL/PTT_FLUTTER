@@ -20,7 +20,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageView(
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         controller: _pageController,
         onPageChanged: onPageChanged,
         children: buildChildren(),
@@ -30,13 +30,13 @@ class _MainScreenState extends State<MainScreen> {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            SizedBox(width: 7.0),
+            const SizedBox(width: 7.0),
             barIcon(icon: Icons.home, page: 0),
             barIcon(icon: Icons.app_shortcut_sharp, page: 1),
             barIcon(icon: Icons.map, page: 2, badge: true),
             barIcon(icon: Icons.add_road, page: 3),
             barIcon(icon: Icons.person, page: 4),
-            SizedBox(width: 7.0),
+            const SizedBox(width: 7.0),
           ],
         ),
         color: Theme.of(context).primaryColor,
