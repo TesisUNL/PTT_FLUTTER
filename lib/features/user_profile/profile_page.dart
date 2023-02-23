@@ -1,60 +1,56 @@
-import 'dart:async';
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:get/get.dart';
+import 'package:ptt_rtmb/core/controlers/user_profile_screen_controller.dart';
 import 'package:ptt_rtmb/core/models/user/user.dart';
 import 'package:ptt_rtmb/core/utils/widgets/user_profile_widgets/profile_widget.dart';
 import 'package:ptt_rtmb/core/utils/widgets/user_profile_widgets/appbar_widget.dart';
 import '../../core/models/routes/route.dart';
-import '../../core/services/rotues/routes_service.dart';
 
-class ProfilePage extends StatefulWidget {
-  @override
-  _ProfilePageState createState() => _ProfilePageState();
-}
-
-class _ProfilePageState extends State<ProfilePage> {
-  late User user;
-  FlutterSecureStorage _storage = FlutterSecureStorage();
-  late Future<List<TouristRoute>> touristRoutes;
-  Future<List<TouristRoute>> fetchRoutes(String ownerId) async =>
-      await getTouristRoutesByOwnerId(ownerId);
-
-  @override
-  void initState() {
-    super.initState();
-    _storage.read(key: 'user').then(((value) {
-      setState(() {
-        user = User.fromJson(jsonDecode(value!));
-      });
-    }));
-    touristRoutes = fetchRoutes(user.id);
-  }
+class ProfilePage extends StatelessWidget {
+  const ProfilePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final profileScreenController = Get.put(ProfileScreenController());
     return Scaffold(
       appBar: buildAppBar(context),
       body: ListView(
         physics: const BouncingScrollPhysics(),
         children: [
-          ProfileWidget(
-              imagePath: user.image,
-              onClicked: () async {} //TODO: implement image picker,
-              ),
-          const SizedBox(height: 24),
-          buildUserData(user),
+          buildUserDataFuture(profileScreenController.getUser()),
           const SizedBox(height: 48),
           buildRoutesWidget(),
           const SizedBox(height: 24),
-          buildTouristRoutesList(),
+          buildTouristRoutesList(profileScreenController.returnUserRoutes()),
         ],
       ),
     );
   }
 
-  Widget buildTouristRoutesList() => FutureBuilder<List<TouristRoute>>(
-        future: touristRoutes,
+  Widget buildUserDataFuture(Future<User?> user) => FutureBuilder<User?>(
+        future: user,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return Column(
+              children: [
+                ProfileWidget(
+                    imagePath: snapshot.data!.image,
+                    onClicked: () async {} //TODO: implement image picker,
+                    ),
+                const SizedBox(height: 24),
+                buildUserData(snapshot.data!)
+              ],
+            );
+          } else if (snapshot.hasError) {
+            return Text("${snapshot.error}");
+          }
+          return const CircularProgressIndicator();
+        },
+      );
+
+  Widget buildTouristRoutesList(Future<List<TouristRoute>> userRoutes) =>
+      FutureBuilder<List<TouristRoute>>(
+        future: userRoutes,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(

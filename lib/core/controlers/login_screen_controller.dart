@@ -25,8 +25,7 @@ class LoginController extends GetxController {
           await _storage.write(
               key: SecureStorage.accessTokenKey, value: userLogged.accessToken);
           await _storage.write(
-              key: SecureStorage.userKey,
-              value: userLogged.user.toString());
+              key: SecureStorage.userIdKey, value: userLogged.user.id);
           Get.to(MainScreen());
         }
       } on Exception catch (e) {

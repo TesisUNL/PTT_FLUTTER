@@ -6,30 +6,22 @@ import 'package:ptt_rtmb/core/models/routes/route.dart';
 import 'package:ptt_rtmb/core/models/user/user.dart';
 import 'package:ptt_rtmb/core/services/rotues/routes_service.dart';
 
+import '../services/user/get_user_service.dart';
+
 class ProfileScreenController extends GetxController {
   static ProfileScreenController get find => Get.find();
   FlutterSecureStorage _storage = FlutterSecureStorage();
-  late User user;
 
-  @override
-  void onInit() {
-    super.onInit();
-    getUser();
+  Future<User> getUser() async {
+    String userId = await _storage.read(key: 'user_id') ?? '';
+
+    return await getUserService(userId);
   }
 
-  Future<User?> getUser() async {
-    String userString = await _storage.read(key: 'user') ?? '';
-    if (userString.isNotEmpty) {
-      user = User.fromJson(jsonDecode(userString));
-    }
-    return user;
-  }
-
-  returnUserRoutes() async {
+  Future<List<TouristRoute>> returnUserRoutes() async {
     User? user = await getUser();
-
     Future<List<TouristRoute>> touristRoutes =
-        getTouristRoutesByOwnerId(user!.id);
+        getTouristRoutesByOwnerId(user.id);
 
     return touristRoutes;
   }
