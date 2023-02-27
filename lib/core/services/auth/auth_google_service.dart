@@ -15,8 +15,6 @@ class AuthClass {
   );
   FirebaseAuth auth = FirebaseAuth.instance;
 
-  late User user;
-
   final storage = const FlutterSecureStorage();
 
   Future<void> googleSignIn(BuildContext context) async {
@@ -35,9 +33,11 @@ class AuthClass {
           UserCredential userCredential =
               await auth.signInWithCredential(credential);
 
-          storeTokenAndData(userCredential);
+          User user = userCredential.user!;
 
-          user = userCredential.user!;
+          AuthUser authUser = await ModelUser(user);
+
+          
 
           Navigator.pushAndRemoveUntil(
               context,
@@ -48,7 +48,7 @@ class AuthClass {
           ScaffoldMessenger.of(context).showSnackBar(snackbar);
         }
       } else {
-        final snackbar = SnackBar(content: Text("Not Able to sign In "));
+        final snackbar = SnackBar(content: Text("No se puede logear"));
         ScaffoldMessenger.of(context).showSnackBar(snackbar);
       }
     } catch (e) {
@@ -57,18 +57,7 @@ class AuthClass {
     }
   }
 
-  Future<void> storeTokenAndData(UserCredential userCredential) async {
-    await storage.write(
-        key: "token", value: userCredential.credential?.token.toString());
-    await storage.write(
-        key: "token", value: userCredential.credential?.token.toString());
-  }
-
-  Future<String?> getToken() async {
-    return await storage.read(key: "token");
-  }
-
-  Future<AuthUser> UserSingIn() async {
+  Future<AuthUser> ModelUser(User user) async {
     UserModel.User loggedUser = UserModel.User(
         id: user.providerData[0].uid ?? "",
         email: user.providerData[0].email ?? "",

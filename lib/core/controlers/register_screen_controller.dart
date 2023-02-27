@@ -30,7 +30,7 @@ class RegisterController extends GetxController {
             userEmail, userPassword, userName, userPhoneNumber);
         if (createdUser != null) {
           Get.snackbar('Éxito', 'Usuario Creado Correctamente');
-          Get.to(Login());
+          Get.to(const Login());
         }
       } on Exception catch (e) {
         print(e.toString());
