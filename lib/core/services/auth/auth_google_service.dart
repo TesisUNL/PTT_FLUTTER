@@ -40,6 +40,10 @@ class AuthClass {
           String profileId = userCredential.additionalUserInfo!.profile!["id"];
           User user = userCredential.user!;
 
+          print(isNewUser);
+          print(profileId);
+          print(user);
+
           if (isNewUser) {
             final registerController = Get.put(RegisterController());
             registerController.email.value = user.email!;
@@ -47,20 +51,17 @@ class AuthClass {
             registerController.name.value = user.displayName!;
             registerController.phoneNumber.value = user.phoneNumber!;
             registerController.authSocialToken.value = user.uid;
+            print('New User');
             await Future.delayed(const Duration(milliseconds: 500),
                 () => registerController.registerLogic());
+          } else {
+            final loginController = Get.put(LoginController());
+            loginController.email.value = user.email!;
+            loginController.password.value = profileId;
+            print('Not new user');
+            await Future.delayed(const Duration(milliseconds: 500),
+                () => loginController.loginLogic());
           }
-
-          final loginController = Get.put(LoginController());
-          loginController.email.value = user.email!;
-          loginController.password.value = profileId;
-          await Future.delayed(const Duration(milliseconds: 500),
-              () => loginController.loginLogic());
-
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (builder) => MainScreen()),
-              (route) => false);
         } catch (e) {
           final snackbar = SnackBar(content: Text(e.toString()));
           ScaffoldMessenger.of(context).showSnackBar(snackbar);

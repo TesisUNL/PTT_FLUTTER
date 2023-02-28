@@ -30,22 +30,26 @@ class RegisterController extends GetxController {
         userPhoneNumber.isNotEmpty) {
       try {
         if (userSocialToken.isNotEmpty) {
+          print('Auth social token is not empty');
           final loginController = Get.put(LoginController());
           User? createdUser = await postRegister(userEmail, userPassword,
               userName, userPhoneNumber, userSocialToken);
-          if (createdUser != null) {
+          if (createdUser.id.isNotEmpty) {
             Get.snackbar('Éxito', 'Usuario Creado Correctamente');
             loginController.email.value = userEmail;
             loginController.password.value = userPassword;
-            await Future.delayed(const Duration(milliseconds: 500),
+            await Future.delayed(const Duration(milliseconds: 1000),
                 () => loginController.loginLogic());
+          } else {
+            Get.snackbar('Error', 'Ocurrió un error durante la creación');
           }
-        }
-        User? createdUser = await postRegister(
-            userEmail, userPassword, userName, userPhoneNumber);
-        if (createdUser != null) {
-          Get.snackbar('Éxito', 'Usuario Creado Correctamente');
-          Get.to(const Login());
+        } else {
+          User? createdUser = await postRegister(
+              userEmail, userPassword, userName, userPhoneNumber);
+          if (createdUser != null) {
+            Get.snackbar('Éxito', 'Usuario Creado Correctamente');
+            Get.to(const Login());
+          }
         }
       } on Exception catch (e) {
         print(e.toString());

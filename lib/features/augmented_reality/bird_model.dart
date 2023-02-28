@@ -124,3 +124,49 @@
 //     );
 //   }
 // }
+
+//CHATGPT
+/*
+import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
+
+class ARScreen extends StatefulWidget {
+  @override
+  _ARScreenState createState() => _ARScreenState();
+}
+
+class _ARScreenState extends State<ARScreen> {
+  ArCoreController arCoreController;
+  ArCoreNode modelNode;
+
+  @override
+  Widget build(BuildContext context) {
+    return ArCoreView(
+      onArCoreViewCreated: onArCoreViewCreated,
+      enableTapRecognizer: true,
+    );
+  }
+
+  void onArCoreViewCreated(ArCoreController controller) {
+    this.arCoreController = controller;
+
+    final modelPath = "assets/model.glb"; // Ruta de tu modelo 3D
+
+    // Cargar el modelo 3D desde el archivo glTF
+    controller
+        .loadMesh(
+          file: modelPath,
+        )
+        .then((node) {
+      setState(() {
+        modelNode = node;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    arCoreController.dispose();
+    super.dispose();
+  }
+}
+*/
