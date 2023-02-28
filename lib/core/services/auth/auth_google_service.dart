@@ -1,7 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:ptt_rtmb/core/controlers/login_screen_controller.dart';
+import 'package:ptt_rtmb/core/controlers/register_screen_controller.dart';
 import 'package:ptt_rtmb/core/models/user/auth_user.dart';
 import 'package:ptt_rtmb/core/models/user/user.dart' as UserModel;
 import 'package:ptt_rtmb/features/layout/main_screen.dart';
@@ -33,11 +36,26 @@ class AuthClass {
           UserCredential userCredential =
               await auth.signInWithCredential(credential);
 
+          bool isNewUser = userCredential.additionalUserInfo!.isNewUser;
+          String profileId = userCredential.additionalUserInfo!.profile!["id"];
           User user = userCredential.user!;
 
-          AuthUser authUser = await ModelUser(user);
+          if (isNewUser) {
+            final registerController = Get.put(RegisterController());
+            registerController.email.value = user.email!;
+            registerController.password.value = profileId;
+            registerController.name.value = user.displayName!;
+            registerController.phoneNumber.value = user.phoneNumber!;
+            registerController.authSocialToken.value = user.uid;
+            await Future.delayed(const Duration(milliseconds: 500),
+                () => registerController.registerLogic());
+          }
 
-          
+          final loginController = Get.put(LoginController());
+          loginController.email.value = user.email!;
+          loginController.password.value = profileId;
+          await Future.delayed(const Duration(milliseconds: 500),
+              () => loginController.loginLogic());
 
           Navigator.pushAndRemoveUntil(
               context,

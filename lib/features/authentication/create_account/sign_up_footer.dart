@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ptt_rtmb/core/constants/sizes.dart';
 import 'package:ptt_rtmb/core/constants/text_strings.dart';
+import 'package:ptt_rtmb/core/services/auth/auth_google_service.dart';
 import '../../../core/constants/image_strings.dart';
 import '../login/login.dart';
 
@@ -12,6 +13,7 @@ class SignUpFooterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AuthClass authClass = AuthClass();
     return Column(
       children: [
         const Text("O"),
@@ -21,7 +23,9 @@ class SignUpFooterWidget extends StatelessWidget {
         SizedBox(
           width: double.infinity,
           child: OutlinedButton.icon(
-              onPressed: () {},
+              onPressed: () async {
+                await authClass.googleSignIn(context);
+              },
               icon: const Image(
                 image: AssetImage(tGoogleImage),
                 width: 20.0,
