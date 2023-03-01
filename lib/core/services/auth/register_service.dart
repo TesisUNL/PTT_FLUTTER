@@ -10,27 +10,29 @@ HttpWrapper http = HttpWrapper();
 
 Future<User> postRegister(
     String email, String password, String name, String phoneNumber,
-    [String? authSocialToken]) async {
+    {String authSocialToken = '', String photoUrl = ''}) async {
   Map params = {};
 
-  if (authSocialToken != null) {
+  if (authSocialToken.isNotEmpty) {
     params = {
-      "email": email,
-      "password": password,
       "name": name,
-      "phone_number": phoneNumber,
+      "email": email,
       "auth_social_token": authSocialToken,
+      "password": password,
+      "imageUrl": photoUrl,
+      "phone_number": phoneNumber
     };
   } else {
     params = {
       "email": email,
       "password": password,
       "name": name,
-      "phone_number": phoneNumber,
+      "phone_number": phoneNumber
     };
   }
 
-  final response = await http.post('/auth/register', body: json.encode(params));
+  final response = await http.post('/auth/register',
+      body: json.encode(params), withAccessToken: false);
   if (HttpHelperService.isClientErrorResponse(response.statusCode) ||
       HttpHelperService.isServerErrorResponse(response.statusCode)) {
     throw Exception('Failed to Register');

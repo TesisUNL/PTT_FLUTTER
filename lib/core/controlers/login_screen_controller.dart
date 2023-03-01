@@ -15,10 +15,11 @@ class LoginController extends GetxController {
   loginLogic() async {
     String userEmail = email.value;
     String userPassword = password.value;
-    if (!GetUtils.isEmail(userEmail)) {
-      return Get.snackbar("Error", "Ingrese un Email Válido");
-    }
+
     if (userEmail.isNotEmpty && userPassword.isNotEmpty) {
+      if (!GetUtils.isEmail(userEmail)) {
+        return Get.snackbar("Error", "Ingrese un Email Válido");
+      }
       try {
         AuthUser? userLogged = await postLogin(userEmail, userPassword);
         if (userLogged != null) {

@@ -12,6 +12,7 @@ class RegisterController extends GetxController {
   RxString name = "".obs;
   RxString phoneNumber = "".obs;
   RxString authSocialToken = "".obs;
+  RxString imageUrl = "".obs;
   RxBool isObscure = true.obs;
 
   registerLogic() async {
@@ -20,41 +21,49 @@ class RegisterController extends GetxController {
     String userName = name.value;
     String userPhoneNumber = phoneNumber.value;
     String userSocialToken = authSocialToken.value;
+    String userImageUrl = imageUrl.value;
 
-    if (!GetUtils.isEmail(userEmail)) {
-      return Get.snackbar("Error", "Ingrese un Email Válido");
-    }
     if (userEmail.isNotEmpty &&
         userPassword.isNotEmpty &&
         userName.isNotEmpty &&
         userPhoneNumber.isNotEmpty) {
+      if (!GetUtils.isEmail(userEmail)) {
+        return Get.snackbar("Error", "Ingrese un Email Válido");
+      }
       try {
         if (userSocialToken.isNotEmpty) {
-          print('Auth social token is not empty');
           final loginController = Get.put(LoginController());
-          User? createdUser = await postRegister(userEmail, userPassword,
-              userName, userPhoneNumber, userSocialToken);
+          User? createdUser = await postRegister(
+              userEmail, userPassword, userName, userPhoneNumber,
+              authSocialToken: userSocialToken, photoUrl: userImageUrl);
           if (createdUser.id.isNotEmpty) {
             Get.snackbar('Éxito', 'Usuario Creado Correctamente');
-            loginController.email.value = userEmail;
-            loginController.password.value = userPassword;
-            await Future.delayed(const Duration(milliseconds: 1000),
-                () => loginController.loginLogic());
+            await Future.delayed(
+                const Duration(milliseconds: 1000),
+                () async => {
+                      loginController.email.value = userEmail,
+                      loginController.password.value = userPassword,
+                      await loginController.loginLogic(),
+                    });
           } else {
             Get.snackbar('Error', 'Ocurrió un error durante la creación');
           }
         } else {
           User? createdUser = await postRegister(
               userEmail, userPassword, userName, userPhoneNumber);
-          if (createdUser != null) {
+          if (createdUser.id.isNotEmpty) {
             Get.snackbar('Éxito', 'Usuario Creado Correctamente');
             Get.to(const Login());
+          } else {
+            Get.snackbar('Error', 'Ocurrió un error durante la creación');
           }
         }
       } on Exception catch (e) {
         print(e.toString());
         Get.snackbar('Error', 'Credenciales incorrectas');
       }
+    } else {
+      return Get.snackbar("Error", "Ingrese todos los campos primero");
     }
   }
 }
