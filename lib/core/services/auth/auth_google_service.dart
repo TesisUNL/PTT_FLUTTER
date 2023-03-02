@@ -24,15 +24,15 @@ class AuthClass {
     try {
       GoogleSignInAccount? googleSignInAccount = await _googleSignIn.signIn();
       if (googleSignInAccount != null) {
-        GoogleSignInAuthentication googleSignInAuthentication =
-            await googleSignInAccount.authentication;
-
-        AuthCredential credential = GoogleAuthProvider.credential(
-          idToken: googleSignInAuthentication.idToken,
-          accessToken: googleSignInAuthentication.accessToken,
-        );
-
         try {
+          GoogleSignInAuthentication googleSignInAuthentication =
+              await googleSignInAccount.authentication;
+
+          AuthCredential credential = GoogleAuthProvider.credential(
+            idToken: googleSignInAuthentication.idToken,
+            accessToken: googleSignInAuthentication.accessToken,
+          );
+
           UserCredential userCredential =
               await auth.signInWithCredential(credential);
 
@@ -40,57 +40,35 @@ class AuthClass {
           String profileId = userCredential.additionalUserInfo!.profile!["id"];
           User user = userCredential.user!;
 
-          print(isNewUser);
-          print(profileId);
-          print(user);
-
           if (isNewUser) {
             final registerController = Get.put(RegisterController());
-            registerController.email.value = user.email!;
-            registerController.password.value = profileId;
-            registerController.name.value = user.displayName!;
-            registerController.phoneNumber.value = user.phoneNumber!;
-            registerController.authSocialToken.value = user.uid;
             print('New User');
-            await Future.delayed(const Duration(milliseconds: 500),
-                () => registerController.registerLogic());
+            registerController.email.value = user.email ?? "";
+            registerController.password.value = profileId;
+            registerController.name.value = user.displayName ?? "";
+            registerController.phoneNumber.value =
+                user.phoneNumber ?? "Not phone number found";
+            registerController.authSocialToken.value = user.uid;
+            registerController.imageUrl.value = user.photoURL ?? "";
+            registerController.registerLogic();
           } else {
             final loginController = Get.put(LoginController());
+            print('Not New User');
             loginController.email.value = user.email!;
             loginController.password.value = profileId;
-            print('Not new user');
-            await Future.delayed(const Duration(milliseconds: 500),
-                () => loginController.loginLogic());
+            loginController.loginLogic();
           }
         } catch (e) {
-          final snackbar = SnackBar(content: Text(e.toString()));
-          ScaffoldMessenger.of(context).showSnackBar(snackbar);
+          print(e.toString());
+          Get.snackbar('Error', e.toString());
         }
       } else {
-        final snackbar = SnackBar(content: Text("No se puede logear"));
-        ScaffoldMessenger.of(context).showSnackBar(snackbar);
+        Get.snackbar('Error', 'No se puede logear');
       }
     } catch (e) {
-      final snackbar = SnackBar(content: Text(e.toString()));
-      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+      print(e.toString());
+      Get.snackbar('Error', e.toString());
     }
-  }
-
-  Future<AuthUser> ModelUser(User user) async {
-    UserModel.User loggedUser = UserModel.User(
-        id: user.providerData[0].uid ?? "",
-        email: user.providerData[0].email ?? "",
-        image: user.providerData[0].photoURL ??
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/800px-User_icon_2.svg.png",
-        name: user.providerData[0].displayName ?? "User Name",
-        phone: user.providerData[0].phoneNumber ?? "");
-
-    AuthUser authUser = AuthUser(
-      user: loggedUser,
-      accessToken: '',
-    );
-
-    return authUser;
   }
 
   Future<void> logout() async {
@@ -100,10 +78,5 @@ class AuthClass {
     } catch (e) {
       await storage.delete(key: "token");
     }
-  }
-
-  void showSnackBar(BuildContext context, String text) {
-    final snackbar = SnackBar(content: Text(text.toString()));
-    ScaffoldMessenger.of(context).showSnackBar(snackbar);
   }
 }

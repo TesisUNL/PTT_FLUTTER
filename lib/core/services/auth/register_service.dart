@@ -10,14 +10,14 @@ HttpWrapper http = HttpWrapper();
 
 Future<User> postRegister(
     String email, String password, String name, String phoneNumber,
-    {String authSocialToken = '', String photoUrl = ''}) async {
+    {String? authSocialToken, String? photoUrl}) async {
   Map params = {};
 
-  if (authSocialToken.isNotEmpty) {
+  if (authSocialToken != null) {
     params = {
       "name": name,
       "email": email,
-      "auth_social_token": authSocialToken,
+      "authSocialToken": authSocialToken,
       "password": password,
       "imageUrl": photoUrl,
       "phone_number": phoneNumber

@@ -36,10 +36,10 @@ class RegisterController extends GetxController {
           User? createdUser = await postRegister(
               userEmail, userPassword, userName, userPhoneNumber,
               authSocialToken: userSocialToken, photoUrl: userImageUrl);
-          if (createdUser.id.isNotEmpty) {
+          if (createdUser != null) {
             Get.snackbar('Éxito', 'Usuario Creado Correctamente');
             await Future.delayed(
-                const Duration(milliseconds: 1000),
+                const Duration(milliseconds: 800),
                 () async => {
                       loginController.email.value = userEmail,
                       loginController.password.value = userPassword,
