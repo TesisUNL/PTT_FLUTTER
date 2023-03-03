@@ -13,41 +13,47 @@ class OnBoardingScreen extends StatelessWidget {
 
     return Scaffold(
       body: Stack(alignment: Alignment.center, children: [
-        LiquidSwipe(
-          pages: obController.pages,
-          liquidController: obController.controller,
-          onPageChangeCallback: obController.OnPageChangeCallback,
-          slideIconWidget: const Icon(Icons.arrow_back_ios),
-          enableSideReveal: true,
+        Obx(
+          () => LiquidSwipe(
+            pages: obController.pages,
+            liquidController: obController.controller,
+            onPageChangeCallback: obController.OnPageChangeCallback,
+            slideIconWidget: const Icon(Icons.arrow_back_ios),
+            enableSideReveal: true,
+          ),
         ),
         Positioned(
           bottom: 40,
-          child: OutlinedButton(
-            onPressed: () => obController.animateToNextSlide(),
-            style: ElevatedButton.styleFrom(
-              side: const BorderSide(color: Colors.black26),
-              shape: const CircleBorder(),
-              padding: const EdgeInsets.all(20),
-              onPrimary: Colors.white,
-            ),
-            child: Container(
+          child: Obx(
+            () => OutlinedButton(
+              onPressed: () => obController.animateToNextSlide(),
+              style: ElevatedButton.styleFrom(
+                side: const BorderSide(color: Colors.black26),
+                shape: const CircleBorder(),
                 padding: const EdgeInsets.all(20),
-                decoration: const BoxDecoration(
-                    color: Color.fromARGB(255, 163, 157, 157),
-                    shape: BoxShape.circle),
-                child: const Icon(Icons.arrow_forward_ios)),
+                onPrimary: Colors.white,
+              ),
+              child: Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: const BoxDecoration(
+                      color: Color.fromARGB(255, 163, 157, 157),
+                      shape: BoxShape.circle),
+                  child: const Icon(Icons.arrow_forward_ios)),
+            ),
           ),
         ),
         Positioned(
             top: 20,
             right: 20,
-            child: TextButton(
-              onPressed: () => obController.skip(),
-              child: const Text(
-                "Saltar",
-                style: TextStyle(
-                    color: Color.fromARGB(255, 0, 0, 0),
-                    fontWeight: FontWeight.bold),
+            child: Obx(
+              () => TextButton(
+                onPressed: () => obController.skip(),
+                child: const Text(
+                  "Saltar",
+                  style: TextStyle(
+                      color: Color.fromARGB(255, 0, 0, 0),
+                      fontWeight: FontWeight.bold),
+                ),
               ),
             )),
         Obx(

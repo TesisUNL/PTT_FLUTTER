@@ -17,6 +17,7 @@ class WelcomeScreen extends StatelessWidget {
     var brightness = mediaQuery.platformBrightness;
     final isDarkMode = brightness == Brightness.dark;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor:
           isDarkMode ? Constants.tAppBlackColor : Constants.tAppWhiteColor,
       body: Container(

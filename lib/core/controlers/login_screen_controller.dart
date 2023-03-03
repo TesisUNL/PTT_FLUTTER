@@ -7,15 +7,10 @@ import '../services/auth/auth_local_services.dart';
 
 class LoginController extends GetxController {
   static LoginController get find => Get.find();
-  RxString email = "".obs;
-  RxString password = "".obs;
   RxBool isObscure = true.obs;
   FlutterSecureStorage _storage = FlutterSecureStorage();
 
-  loginLogic() async {
-    String userEmail = email.value;
-    String userPassword = password.value;
-
+  loginLogic(String userEmail, String userPassword) async {
     if (userEmail.isNotEmpty && userPassword.isNotEmpty) {
       if (!GetUtils.isEmail(userEmail)) {
         return Get.snackbar("Error", "Ingrese un Email Válido");

@@ -12,6 +12,10 @@ class SignUpFormWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final registerController = Get.put(RegisterController());
+    late String name = '';
+    late String email = '';
+    late String phoneNumber = '';
+    late String password = '';
     return Container(
       padding: const EdgeInsets.symmetric(vertical: tFormHeight - 10),
       child: Form(
@@ -24,7 +28,7 @@ class SignUpFormWidget extends StatelessWidget {
                 prefixIcon: Icon(Icons.person_outline_rounded),
               ),
               onChanged: (value) => {
-                registerController.name.value = value,
+                name = value,
               },
             ),
             const SizedBox(
@@ -36,7 +40,7 @@ class SignUpFormWidget extends StatelessWidget {
                 prefixIcon: Icon(Icons.email_outlined),
               ),
               onChanged: (value) => {
-                registerController.email.value = value,
+                email = value,
               },
             ),
             const SizedBox(
@@ -48,35 +52,35 @@ class SignUpFormWidget extends StatelessWidget {
                 prefixIcon: Icon(Icons.numbers),
               ),
               onChanged: (value) => {
-                registerController.phoneNumber.value = value,
+                phoneNumber = value,
               },
             ),
             const SizedBox(
               height: tFormHeight - 20,
             ),
             Obx(
-            () => TextFormField(
-              decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.fingerprint),
-                  labelText: tPassword,
-                  hintText: tPassword,
-                  border: const OutlineInputBorder(),
-                  suffixIcon: IconButton(
-                    icon: Icon(registerController.isObscure.value
-                        ? Icons.visibility
-                        : Icons.visibility_off),
-                    onPressed: () {
-                      registerController.isObscure.value =
-                          !registerController.isObscure.value;
-                    },
-                  )),
-              obscureText: registerController.isObscure.value,
-              enableSuggestions: false,
-              onChanged: (value) {
-                registerController.password.value = value;
-              },
+              () => TextFormField(
+                decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.fingerprint),
+                    labelText: tPassword,
+                    hintText: tPassword,
+                    border: const OutlineInputBorder(),
+                    suffixIcon: IconButton(
+                      icon: Icon(registerController.isObscure.value
+                          ? Icons.visibility
+                          : Icons.visibility_off),
+                      onPressed: () {
+                        registerController.isObscure.value =
+                            !registerController.isObscure.value;
+                      },
+                    )),
+                obscureText: registerController.isObscure.value,
+                enableSuggestions: false,
+                onChanged: (value) {
+                  password = value;
+                },
+              ),
             ),
-          ),
             const SizedBox(
               height: tFormHeight - 20,
             ),
@@ -84,8 +88,10 @@ class SignUpFormWidget extends StatelessWidget {
               width: double.infinity,
               child: ElevatedButton(
                   onPressed: () {
-                    registerController.registerLogic();
-                  }, child: Text(tRegister.toUpperCase())),
+                    registerController.registerLogic(
+                        email, password, name, phoneNumber);
+                  },
+                  child: Text(tRegister.toUpperCase())),
             )
           ],
         ),

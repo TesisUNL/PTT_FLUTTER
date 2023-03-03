@@ -5,9 +5,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:ptt_rtmb/core/controlers/login_screen_controller.dart';
 import 'package:ptt_rtmb/core/controlers/register_screen_controller.dart';
-import 'package:ptt_rtmb/core/models/user/auth_user.dart';
-import 'package:ptt_rtmb/core/models/user/user.dart' as UserModel;
-import 'package:ptt_rtmb/features/layout/main_screen.dart';
 
 class AuthClass {
   final GoogleSignIn _googleSignIn = GoogleSignIn(
@@ -43,20 +40,18 @@ class AuthClass {
           if (isNewUser) {
             final registerController = Get.put(RegisterController());
             print('New User');
-            registerController.email.value = user.email ?? "";
-            registerController.password.value = profileId;
-            registerController.name.value = user.displayName ?? "";
-            registerController.phoneNumber.value =
-                user.phoneNumber ?? "Not phone number found";
-            registerController.authSocialToken.value = user.uid;
-            registerController.imageUrl.value = user.photoURL ?? "";
-            registerController.registerLogic();
+            String email = user.email ?? "";
+            String password = profileId;
+            String name = user.displayName ?? "";
+            String phoneNumber = user.phoneNumber ?? "Not phone number found";
+            String authSocialToken = user.uid;
+            String photoUrl = user.photoURL ?? "";
+            registerController.registerLogic(email, password, name, phoneNumber,
+                userSocialToken: authSocialToken, userImageUrl: photoUrl);
           } else {
             final loginController = Get.put(LoginController());
             print('Not New User');
-            loginController.email.value = user.email!;
-            loginController.password.value = profileId;
-            loginController.loginLogic();
+            loginController.loginLogic(user.email!, profileId);
           }
         } catch (e) {
           print(e.toString());

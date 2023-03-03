@@ -6,23 +6,11 @@ import '../services/auth/register_service.dart';
 
 class RegisterController extends GetxController {
   static RegisterController get find => Get.find();
-
-  RxString email = "".obs;
-  RxString password = "".obs;
-  RxString name = "".obs;
-  RxString phoneNumber = "".obs;
-  RxString authSocialToken = "".obs;
-  RxString imageUrl = "".obs;
   RxBool isObscure = true.obs;
 
-  registerLogic() async {
-    String userEmail = email.value;
-    String userPassword = password.value;
-    String userName = name.value;
-    String userPhoneNumber = phoneNumber.value;
-    String userSocialToken = authSocialToken.value;
-    String userImageUrl = imageUrl.value;
-
+  registerLogic(String userEmail, String userPassword, String userName,
+      String userPhoneNumber,
+      {String? userSocialToken, String? userImageUrl}) async {
     if (userEmail.isNotEmpty &&
         userPassword.isNotEmpty &&
         userName.isNotEmpty &&
@@ -31,7 +19,7 @@ class RegisterController extends GetxController {
         return Get.snackbar("Error", "Ingrese un Email Válido");
       }
       try {
-        if (userSocialToken.isNotEmpty) {
+        if (userSocialToken != null) {
           final loginController = Get.put(LoginController());
           User? createdUser = await postRegister(
               userEmail, userPassword, userName, userPhoneNumber,
@@ -41,9 +29,7 @@ class RegisterController extends GetxController {
             await Future.delayed(
                 const Duration(milliseconds: 800),
                 () async => {
-                      loginController.email.value = userEmail,
-                      loginController.password.value = userPassword,
-                      await loginController.loginLogic(),
+                      await loginController.loginLogic(userEmail, userPassword),
                     });
           } else {
             Get.snackbar('Error', 'Ocurrió un error durante la creación');

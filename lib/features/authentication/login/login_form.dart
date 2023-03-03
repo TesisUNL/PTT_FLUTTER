@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:ptt_rtmb/core/controlers/login_screen_controller.dart';
 import '../../../core/constants/sizes.dart';
 import '../../../core/constants/text_strings.dart';
@@ -13,6 +12,8 @@ class LoginFormWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final loginController = Get.put(LoginController());
+    late String email = '';
+    late String password = '';
     return Form(
         child: Container(
       padding: const EdgeInsets.symmetric(vertical: tFormHeight - 10),
@@ -27,7 +28,7 @@ class LoginFormWidget extends StatelessWidget {
               border: OutlineInputBorder(),
             ),
             onChanged: (value) {
-              loginController.email.value = value;
+              email = value;
             },
           ),
           const SizedBox(
@@ -52,7 +53,7 @@ class LoginFormWidget extends StatelessWidget {
               obscureText: loginController.isObscure.value,
               enableSuggestions: false,
               onChanged: (value) {
-                loginController.password.value = value;
+                password = value;
               },
             ),
           ),
@@ -67,7 +68,7 @@ class LoginFormWidget extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(
                 onPressed: () {
-                  loginController.loginLogic();
+                  loginController.loginLogic(email, password);
                 },
                 child: Text(tLogin.toUpperCase())),
           ),
