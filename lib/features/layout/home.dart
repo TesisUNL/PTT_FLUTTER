@@ -26,7 +26,6 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    attractions = fetchAttractions();
     _requestPermissions();
     _addAttractions(_page);
 
@@ -43,7 +42,7 @@ class _HomeState extends State<Home> {
       _isLoading = true;
     });
 
-    final duration = new Duration(seconds: 1);
+    const duration = Duration(seconds: 1);
     return Timer(duration, _responseHTTP);
   }
 
@@ -85,8 +84,8 @@ class _HomeState extends State<Home> {
   }
 
   Future _getPage1() async {
-    final duration = new Duration(milliseconds: 500);
-    new Timer(duration, () {
+    const duration = Duration(milliseconds: 500);
+    Timer(duration, () {
       _isEndPagination = false;
       _attractions.clear();
       _page = 0;
@@ -115,7 +114,7 @@ class _HomeState extends State<Home> {
                 child: ListView(
                   controller: _scrollController,
                   children: <Widget>[
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.all(20.0),
                       child: Text(
                         "A dónde quieres \nir?",
@@ -126,7 +125,7 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.all(20.0),
+                      padding: const EdgeInsets.all(20.0),
                       child: SearchBar(),
                     ),
                     buildHorizontalList(context, _attractions),
@@ -140,7 +139,7 @@ class _HomeState extends State<Home> {
 
   buildHorizontalList(BuildContext context, List<Attraction>? data) {
     return Container(
-      padding: EdgeInsets.only(top: 10.0, left: 20.0),
+      padding: const EdgeInsets.only(top: 10.0, left: 20.0),
       height: 250.0,
       width: MediaQuery.of(context).size.width,
       child: ListView.builder(
@@ -156,10 +155,10 @@ class _HomeState extends State<Home> {
 
   buildVerticalList(List<Attraction>? data) {
     return Padding(
-      padding: EdgeInsets.all(20.0),
+      padding: const EdgeInsets.all(20.0),
       child: ListView.builder(
         primary: false,
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemCount: data == null ? 0 : data.length,
         itemBuilder: (BuildContext context, int index) {
@@ -270,11 +269,11 @@ class _HomeState extends State<Home> {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            children: const [
               CircularProgressIndicator(),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 12.0,
           )
         ],
