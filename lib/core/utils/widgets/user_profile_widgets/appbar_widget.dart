@@ -1,29 +1,32 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
-import 'package:ptt_rtmb/core/services/auth/auth_google_service.dart'; 
-import 'package:ptt_rtmb/features/login/login.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:ptt_rtmb/core/constants/secureStorage.dart';
+import 'package:ptt_rtmb/core/services/auth/auth_google_service.dart';
+import 'package:ptt_rtmb/features/authentication/login/login.dart';
 
-AppBar buildAppBar(BuildContext context) {
-  firebase_auth.FirebaseAuth firebaseAuth = firebase_auth.FirebaseAuth.instance;
+AppBar buildAppBar(BuildContext context, bool isDarkMode) {
   AuthClass authClass = AuthClass();
-  //signout function
+  const storage = FlutterSecureStorage();  
   signOut() async {
     await authClass.logout();
+    await storage.delete(key: SecureStorage.userIdKey);
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => Login()));
+        context, MaterialPageRoute(builder: (context) => const Login()));
   }
 
-  final icon = CupertinoIcons.square_arrow_right;
+  const icon = CupertinoIcons.square_arrow_right;
 
   return AppBar(
-    leading: BackButton(),
+    leading: const BackButton(),
     backgroundColor: Colors.transparent,
     elevation: 0,
     actions: [
       IconButton(
-        icon: Icon(icon),
-        onPressed:  () async { await signOut(); },
+        icon: Icon(icon, color: isDarkMode ? Colors.white : Colors.black),
+        onPressed: () async {
+          await signOut();
+        },
       ),
     ],
   );

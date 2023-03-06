@@ -3,13 +3,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:ptt_rtmb/core/models/attraction/attraction.dart';
 import 'package:ptt_rtmb/core/services/attraction/attraction_service.dart';
-import 'package:ptt_rtmb/core/utils/helpers/places.dart';
 import 'package:ptt_rtmb/core/utils/widgets/horizontal_place_item.dart';
 import 'package:ptt_rtmb/core/utils/widgets/icon_badge.dart';
 import 'package:ptt_rtmb/core/utils/widgets/search_bar.dart';
 import 'package:ptt_rtmb/core/utils/widgets/vertical_place_item.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:app_settings/app_settings.dart';
+import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -27,8 +26,8 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+    _requestPermissions();
     _addAttractions(_page);
-    requestStoragePermission();
 
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
@@ -43,7 +42,7 @@ class _HomeState extends State<Home> {
       _isLoading = true;
     });
 
-    final duration = new Duration(seconds: 1);
+    const duration = Duration(seconds: 1);
     return Timer(duration, _responseHTTP);
   }
 
@@ -85,8 +84,8 @@ class _HomeState extends State<Home> {
   }
 
   Future _getPage1() async {
-    final duration = new Duration(milliseconds: 500);
-    new Timer(duration, () {
+    const duration = Duration(milliseconds: 500);
+    Timer(duration, () {
       _isEndPagination = false;
       _attractions.clear();
       _page = 0;
@@ -115,7 +114,7 @@ class _HomeState extends State<Home> {
                 child: ListView(
                   controller: _scrollController,
                   children: <Widget>[
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.all(20.0),
                       child: Text(
                         "A dónde quieres \nir?",
@@ -126,7 +125,7 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.all(20.0),
+                      padding: const EdgeInsets.all(20.0),
                       child: SearchBar(),
                     ),
                     buildHorizontalList(context, _attractions),
@@ -140,7 +139,7 @@ class _HomeState extends State<Home> {
 
   buildHorizontalList(BuildContext context, List<Attraction>? data) {
     return Container(
-      padding: EdgeInsets.only(top: 10.0, left: 20.0),
+      padding: const EdgeInsets.only(top: 10.0, left: 20.0),
       height: 250.0,
       width: MediaQuery.of(context).size.width,
       child: ListView.builder(
@@ -156,10 +155,10 @@ class _HomeState extends State<Home> {
 
   buildVerticalList(List<Attraction>? data) {
     return Padding(
-      padding: EdgeInsets.all(20.0),
+      padding: const EdgeInsets.all(20.0),
       child: ListView.builder(
         primary: false,
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemCount: data == null ? 0 : data.length,
         itemBuilder: (BuildContext context, int index) {
@@ -170,27 +169,50 @@ class _HomeState extends State<Home> {
     );
   }
 
-  void requestPermanentlyDeniedPermission(Permission permission) async {
-    bool permissionStatus = await permission.status.isGranted;
-    if (!permissionStatus) {
-      if (await permission.isDenied) {
-        Navigator.of(context).pop();
-        await permission.request();
-      } else if (await permission.isPermanentlyDenied) {
-        Navigator.of(context).pop();
-        await AppSettings.openLocationSettings;
-      }
-    } else {
-      Navigator.of(context).pop();
-    }
-  }
+  Future<void> _requestPermissions() async {
+    Map<Permission, PermissionStatus> statuses = await [
+      Permission.camera,
+      Permission.location,
+      Permission.locationAlways,
+      Permission.locationWhenInUse,
+      Permission.storage,
+    ].request();
 
-  void requestStoragePermission() async {
-    if (await Permission.storage.request().isGranted) {
-      return;
+    String successMessage = 'Se aceptó los siguientes permisos: ';
+    String errorMessage = 'No se aceptaron los siguientes permisos: ';
+
+    if (statuses[Permission.camera] == PermissionStatus.granted) {
+      successMessage += 'Cámara, ';
     } else {
-      _showAlertDialog();
+      errorMessage += 'Cámara, ';
     }
+
+    if (statuses[Permission.location] == PermissionStatus.granted ||
+        statuses[Permission.locationAlways] == PermissionStatus.granted ||
+        statuses[Permission.locationWhenInUse] == PermissionStatus.granted) {
+      successMessage += 'Localización, ';
+    } else {
+      errorMessage += 'Localización, ';
+    }
+
+    if (statuses[Permission.storage] == PermissionStatus.granted) {
+      successMessage += 'Almacenamiento.';
+    } else {
+      errorMessage += 'Almacenamiento.';
+    }
+
+    print(errorMessage);
+    print(successMessage);
+
+    Future.delayed(const Duration(milliseconds: 200), () {
+      if (errorMessage.contains('Cámara') ||
+          errorMessage.contains('Localización') ||
+          errorMessage.contains('Almacenamiento')) {
+        _showAlertDialog();
+      } else {
+        return;
+      }
+    });
   }
 
   void _showAlertDialog() {
@@ -198,12 +220,12 @@ class _HomeState extends State<Home> {
         context: context,
         builder: (buildcontext) {
           return AlertDialog(
-            title: Text("No aceptaste los permisos"),
-            content: Text(
+            title: const Text("No aceptaste los permisos"),
+            content: const Text(
                 "Necesitamos que aceptes los permisos para funcionar bien"),
             actions: <Widget>[
               ElevatedButton(
-                child: Text(
+                child: const Text(
                   "CERRAR",
                   style: TextStyle(color: Colors.white),
                 ),
@@ -212,12 +234,12 @@ class _HomeState extends State<Home> {
                 },
               ),
               ElevatedButton(
-                child: Text(
+                child: const Text(
                   "DAR PERMISOS",
                   style: TextStyle(color: Colors.white),
                 ),
                 onPressed: () async {
-                  requestPermanentlyDeniedPermission(Permission.storage);
+                  openAppSettings();
                 },
               )
             ],
@@ -247,11 +269,11 @@ class _HomeState extends State<Home> {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            children: const [
               CircularProgressIndicator(),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 12.0,
           )
         ],

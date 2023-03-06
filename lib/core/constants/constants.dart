@@ -12,16 +12,18 @@ class Constants {
   // App
   static String appName = "Mancomunidad Bosque Seco Tourist's Routes";
 
-  //Colors for theme
-  static Color lightPrimary = ConstantsTheme.lightPrimary;
-  static Color darkPrimary = ConstantsTheme.darkPrimary;
-  static Color? lightAccent = ConstantsTheme.lightAccent;
-  static Color darkAccent = ConstantsTheme.darkAccent;
-  static Color lightBG = ConstantsTheme.lightBG;
-  static Color darkBG = ConstantsTheme.darkBG;
-  static Color badgeColor = ConstantsTheme.badgeColor;
+  static ThemeData lightTheme = PttAppTheme.lightTheme;
 
-  static ThemeData lightTheme = ConstantsTheme.lightTheme;
+  static ThemeData darkTheme = PttAppTheme.darkTheme;
 
-  static ThemeData darkTheme = ConstantsTheme.darkTheme;
+  //App Constant Colors
+  static Color tOnBoardingPageWallColor = Color.fromARGB(255, 168, 164, 175);
+  static Color tOnBoardingPageBirdColor = Color.fromARGB(255, 136, 196, 139);
+  static Color tOnBoardingPageBagColor = Color.fromARGB(255, 128, 121, 121);
+
+  static Color tAppPrimaryColor = Color.fromARGB(255, 221, 215, 224);
+  static Color tAppSecondaryColor = Color.fromARGB(255, 94, 89, 89);
+
+  static Color tAppWhiteColor = Colors.white;
+  static Color tAppBlackColor = Color.fromARGB(255, 53, 52, 52);
 }

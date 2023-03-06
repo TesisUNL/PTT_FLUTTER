@@ -39,17 +39,17 @@ class _CreateRoutePageState extends State<CreateRoutePage> {
     final Map<dynamic, dynamic> formValues = {};
 
     return Scaffold(
-      appBar: new AppBar(
-        title: new Text('Creación de ruta'),
+      appBar: AppBar(
+        title: const Text('Creación de ruta'),
       ),
       body: FutureBuilder<List<Canton>>(
           future: cantons,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return new SingleChildScrollView(
-                child: new Container(
-                  margin: new EdgeInsets.all(10.0),
-                  child: new Form(
+              return SingleChildScrollView(
+                child: Container(
+                  margin: const EdgeInsets.all(10.0),
+                  child: Form(
                     key: keyForm,
                     child: formUI(snapshot.data, formValues),
                   ),
@@ -58,26 +58,26 @@ class _CreateRoutePageState extends State<CreateRoutePage> {
             } else if (snapshot.hasError) {
               return Text("${snapshot.error}");
             }
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           }),
     );
   }
 
   formItemsDesign(icon, item) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 7),
+      padding: const EdgeInsets.symmetric(vertical: 7),
       child: Card(child: ListTile(leading: Icon(icon), title: item)),
     );
   }
 
   formLabelDesign(label) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 7),
+      padding: const EdgeInsets.symmetric(vertical: 7),
       child: Card(
           child: ListTile(
               title: Text(
         label,
-        style: TextStyle(
+        style: const TextStyle(
             fontSize: 14,
             fontStyle: FontStyle.italic,
             color: Color.fromARGB(255, 140, 145, 150)),
@@ -101,19 +101,19 @@ class _CreateRoutePageState extends State<CreateRoutePage> {
                 selectedColor: Colors.blue,
                 decoration: BoxDecoration(
                   color: Colors.blue.withOpacity(0.1),
-                  borderRadius: BorderRadius.all(Radius.circular(40)),
+                  borderRadius: const BorderRadius.all(Radius.circular(40)),
                   border: Border.all(
                     color: Colors.blue,
                     width: 2,
                   ),
                 ),
-                buttonIcon: Icon(
+                buttonIcon: const Icon(
                   Icons.arrow_drop_down,
                   color: Colors.blue,
                 ),
                 buttonText: Text(
                   cantonName,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.blue,
                     fontSize: 16,
                   ),
@@ -127,7 +127,7 @@ class _CreateRoutePageState extends State<CreateRoutePage> {
         } else if (snapshot.hasError) {
           return Text("${snapshot.error}");
         }
-        return CircularProgressIndicator();
+        return const CircularProgressIndicator();
       },
     );
   }
@@ -135,10 +135,10 @@ class _CreateRoutePageState extends State<CreateRoutePage> {
   formListCantonSelectionButtonsDesign(
       String cantonName, Map<dynamic, dynamic> formValues) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 7),
+      padding: const EdgeInsets.symmetric(vertical: 7),
       child: Container(
         alignment: Alignment.center,
-        padding: EdgeInsets.all(0),
+        padding: const EdgeInsets.all(0),
         child: buildAttractionsList(cantonName, formValues),
       ),
     );
@@ -164,18 +164,18 @@ class _CreateRoutePageState extends State<CreateRoutePage> {
               save(formValues);
             },
             child: Container(
-              margin: new EdgeInsets.all(20.0),
+              margin: const EdgeInsets.all(20.0),
               alignment: Alignment.center,
               decoration: ShapeDecoration(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.0)),
                   color: Color.fromARGB(255, 55, 115, 150)),
-              child: Text("Guardar",
+              child: const Text("Guardar",
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 18,
                       fontWeight: FontWeight.w500)),
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
             ))
       ],
     );
@@ -183,7 +183,7 @@ class _CreateRoutePageState extends State<CreateRoutePage> {
 
   String? validateName(String? value) {
     String pattern = r'(^[a-zA-Z ]*$)';
-    RegExp regExp = new RegExp(pattern);
+    RegExp regExp = RegExp(pattern);
     if (value?.length == 0) {
       return "El nombre es necesario";
     } else if (!regExp.hasMatch(value!)) {
@@ -221,8 +221,8 @@ class _CreateRoutePageState extends State<CreateRoutePage> {
                 Navigator.of(context).pop();
               } else {
                 keyForm.currentState!.reset();
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ProfilePage()));
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
               }
             },
           ),
@@ -243,7 +243,9 @@ class _CreateRoutePageState extends State<CreateRoutePage> {
           await postTouristRoute(nameCtrl.text, selectedAttractionsIds, 0);
       if (response.name == nameCtrl.text) {
         _displayDialogAndroid(
-            context, "Ruta ${nameCtrl.text} creada exitosamente", false);
+            context,
+            "Ruta ${nameCtrl.text} creada exitosamente, tus rutas aparecerán en tu perfil",
+            false);
       }
     } else {
       _displayDialogAndroid(

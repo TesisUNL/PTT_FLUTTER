@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ptt_rtmb/core/utils/helpers/places.dart';
 import 'package:ptt_rtmb/core/utils/widgets/icon_badge.dart';
-
 import '../../core/models/attraction/attraction.dart';
 import '../../enviroment.dart';
 
@@ -135,8 +133,6 @@ class Details extends StatelessWidget {
         primary: false,
         itemCount: allImages == null ? 0 : allImages.length,
         itemBuilder: (BuildContext context, int index) {
-          Map place = places[index];
-
           return Padding(
             padding: EdgeInsets.only(right: 10.0),
             child: ClipRRect(
