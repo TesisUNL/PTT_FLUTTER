@@ -8,12 +8,13 @@ import 'package:http/http.dart' as http;
 class HttpWrapper {
   HttpHelperService helperService = HttpHelperService();
 
-  Future<dynamic> get(String path, {bool withAccessToken = true}) async {
+  Future<dynamic> get(String path,
+      {Map<String, dynamic>? queryParams, bool withAccessToken = true}) async {
     Map<String, String> headers =
         await helperService.buildHeaders(withAccessToken: withAccessToken);
 
     final response = await http.get(
-      helperService.buildUri(path),
+      helperService.buildUri(path, queryParameters: queryParams),
       headers: headers,
     );
     return response;

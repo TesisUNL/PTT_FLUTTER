@@ -9,11 +9,12 @@ class HttpHelperService {
   late String? _accessToken;
   FlutterSecureStorage _storage = FlutterSecureStorage();
 
-  Uri buildUri(String path) {
+  Uri buildUri(String path, {Map<String, dynamic>? queryParameters}) {
+    queryParameters ??= {};
     if (_scheme == 'http') {
-      return Uri.http(_host, '$_apiPath$path');
+      return Uri.http(_host, '$_apiPath$path', queryParameters);
     } else {
-      return Uri.https(_host, '$_apiPath$path');
+      return Uri.https(_host, '$_apiPath$path', queryParameters);
     }
   }
 

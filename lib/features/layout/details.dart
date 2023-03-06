@@ -138,8 +138,7 @@ class Details extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10.0),
               child: FadeInImage(
-                image: NetworkImage(
-                    "${Enviroment.api_scheme}://${Enviroment.api_host}${Enviroment.api_part}/${allImages[index]}"),
+                image: NetworkImage("${allImages[index]}"),
                 imageErrorBuilder: (context, error, stackTrace) {
                   return Image.asset(
                     'assets/default.jpeg',
