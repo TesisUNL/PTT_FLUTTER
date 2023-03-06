@@ -6,7 +6,7 @@ import 'package:ptt_rtmb/core/utils/widgets/icon_badge.dart';
 import 'package:ptt_rtmb/core/utils/widgets/search_bar.dart';
 import 'package:ptt_rtmb/core/utils/widgets/vertical_place_item.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:app_settings/app_settings.dart';
+import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -21,7 +21,7 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     attractions = fetchAttractions();
-    requestStoragePermission();
+    _requestPermissions();
   }
 
   @override
@@ -99,27 +99,50 @@ class _HomeState extends State<Home> {
     );
   }
 
-  void requestPermanentlyDeniedPermission(Permission permission) async {
-    bool permissionStatus = await permission.status.isGranted;
-    if (!permissionStatus) {
-      if (await permission.isDenied) {
-        Navigator.of(context).pop();
-        await permission.request();
-      } else if (await permission.isPermanentlyDenied) {
-        Navigator.of(context).pop();
-        await AppSettings.openLocationSettings;
-      }
-    } else {
-      Navigator.of(context).pop();
-    }
-  }
+  Future<void> _requestPermissions() async {
+    Map<Permission, PermissionStatus> statuses = await [
+      Permission.camera,
+      Permission.location,
+      Permission.locationAlways,
+      Permission.locationWhenInUse,
+      Permission.storage,
+    ].request();
 
-  void requestStoragePermission() async {
-    if (await Permission.storage.request().isGranted) {
-      return;
+    String successMessage = 'Se aceptó los siguientes permisos: ';
+    String errorMessage = 'No se aceptaron los siguientes permisos: ';
+
+    if (statuses[Permission.camera] == PermissionStatus.granted) {
+      successMessage += 'Cámara, ';
     } else {
-      _showAlertDialog();
+      errorMessage += 'Cámara, ';
     }
+
+    if (statuses[Permission.location] == PermissionStatus.granted ||
+        statuses[Permission.locationAlways] == PermissionStatus.granted ||
+        statuses[Permission.locationWhenInUse] == PermissionStatus.granted) {
+      successMessage += 'Localización, ';
+    } else {
+      errorMessage += 'Localización, ';
+    }
+
+    if (statuses[Permission.storage] == PermissionStatus.granted) {
+      successMessage += 'Almacenamiento.';
+    } else {
+      errorMessage += 'Almacenamiento.';
+    }
+
+    print(errorMessage);
+    print(successMessage);
+
+    Future.delayed(const Duration(milliseconds: 200), () {
+      if (errorMessage.contains('Cámara') ||
+          errorMessage.contains('Localización') ||
+          errorMessage.contains('Almacenamiento')) {
+        _showAlertDialog();
+      } else {
+        return;
+      }
+    });
   }
 
   void _showAlertDialog() {
@@ -127,12 +150,12 @@ class _HomeState extends State<Home> {
         context: context,
         builder: (buildcontext) {
           return AlertDialog(
-            title: Text("No aceptaste los permisos"),
-            content: Text(
+            title: const Text("No aceptaste los permisos"),
+            content: const Text(
                 "Necesitamos que aceptes los permisos para funcionar bien"),
             actions: <Widget>[
               ElevatedButton(
-                child: Text(
+                child: const Text(
                   "CERRAR",
                   style: TextStyle(color: Colors.white),
                 ),
@@ -141,12 +164,12 @@ class _HomeState extends State<Home> {
                 },
               ),
               ElevatedButton(
-                child: Text(
+                child: const Text(
                   "DAR PERMISOS",
                   style: TextStyle(color: Colors.white),
                 ),
                 onPressed: () async {
-                  requestPermanentlyDeniedPermission(Permission.storage);
+                  openAppSettings();
                 },
               )
             ],

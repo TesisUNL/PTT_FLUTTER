@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:ptt_rtmb/core/constants/secureStorage.dart';
@@ -10,7 +11,7 @@ class SplashScreenController extends GetxController {
   RxBool animate = false.obs;
   FlutterSecureStorage _storage = FlutterSecureStorage();
 
-  Future startAnimation() async {
+  Future startAnimation(BuildContext context) async {
     await Future.delayed(const Duration(milliseconds: 500));
 
     animate.value = true;
@@ -27,12 +28,29 @@ class SplashScreenController extends GetxController {
                 {
                   userId = await _storage.read(key: SecureStorage.userIdKey),
                   if (userId != null)
-                    {Get.to(MainScreen())}
+                    {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => MainScreen()),
+                      )
+                    }
                   else
-                    {Get.to(const WelcomeScreen())}
+                    {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const WelcomeScreen()),
+                      )
+                    }
                 }
               else
-                {Get.to(const OnBoardingScreen())}
+                {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const OnBoardingScreen()),
+                  )
+                }
             });
   }
 }

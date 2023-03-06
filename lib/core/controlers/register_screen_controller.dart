@@ -46,7 +46,7 @@ class RegisterController extends GetxController {
         }
       } on Exception catch (e) {
         print(e.toString());
-        Get.snackbar('Error', 'Credenciales incorrectas');
+        Get.snackbar('Error', e.toString());
       }
     } else {
       return Get.snackbar("Error", "Ingrese todos los campos primero");

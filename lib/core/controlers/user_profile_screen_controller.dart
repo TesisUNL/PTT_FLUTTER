@@ -1,7 +1,5 @@
-import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart';
 import 'package:ptt_rtmb/core/models/routes/route.dart';
 import 'package:ptt_rtmb/core/models/user/user.dart';
 import 'package:ptt_rtmb/core/services/rotues/routes_service.dart';

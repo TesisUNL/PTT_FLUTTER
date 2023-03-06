@@ -1,11 +1,8 @@
-import 'package:get/state_manager.dart';
-
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:liquid_swipe/PageHelpers/LiquidController.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
-import 'package:ptt_rtmb/features/authentication/login/login.dart';
 import 'package:ptt_rtmb/features/authentication/welcome/welcome.dart';
-
 import '../constants/constants.dart';
 import '../constants/image_strings.dart';
 import '../constants/text_strings.dart';
@@ -51,12 +48,18 @@ class OnBoardingController extends GetxController {
     currentPage.value = activePageIndex;
   }
 
-  skip() => Get.to(WelcomeScreen());
+  skip(BuildContext context) => Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const WelcomeScreen()),
+      );
 
-  animateToNextSlide() {
+  animateToNextSlide(BuildContext context) {
     int nextPage = controller.currentPage + 1;
     if (nextPage == 3) {
-      Get.to(WelcomeScreen());
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const WelcomeScreen()),
+      );
       return;
     } else {
       controller.jumpToPage(page: nextPage);

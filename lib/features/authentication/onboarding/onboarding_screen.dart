@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
 import 'package:ptt_rtmb/core/controlers/onboarding_screen_controller.dart';
@@ -9,7 +10,7 @@ class OnBoardingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final obController = OnBoardingController();
+    final obController = Get.put(OnBoardingController());
 
     return Scaffold(
       body: Stack(alignment: Alignment.center, children: [
@@ -26,7 +27,7 @@ class OnBoardingScreen extends StatelessWidget {
           bottom: 40,
           child: Obx(
             () => OutlinedButton(
-              onPressed: () => obController.animateToNextSlide(),
+              onPressed: () => obController.animateToNextSlide(context),
               style: ElevatedButton.styleFrom(
                 side: const BorderSide(color: Colors.black26),
                 shape: const CircleBorder(),
@@ -47,7 +48,7 @@ class OnBoardingScreen extends StatelessWidget {
             right: 20,
             child: Obx(
               () => TextButton(
-                onPressed: () => obController.skip(),
+                onPressed: () => obController.skip(context),
                 child: const Text(
                   "Saltar",
                   style: TextStyle(

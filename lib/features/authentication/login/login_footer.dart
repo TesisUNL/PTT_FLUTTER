@@ -37,7 +37,12 @@ class LoginFooterWidget extends StatelessWidget {
           height: tFormHeight - 20,
         ),
         TextButton(
-            onPressed: () => Get.to(() => const SingUpScreen()),
+            onPressed: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const SingUpScreen()),
+              );
+            },
             child: Text.rich(TextSpan(
                 text: tDontHaveAnAccount,
                 style: Theme.of(context).textTheme.bodyText1,

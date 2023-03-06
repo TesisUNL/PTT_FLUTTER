@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:ptt_rtmb/features/layout/main_screen.dart';
@@ -26,8 +28,10 @@ class LoginController extends GetxController {
         }
       } on Exception catch (e) {
         print(e.toString());
-        Get.snackbar('Error', 'Credenciales incorrectas');
+        Get.snackbar('Error', 'Credenciales Incorrectas');
       }
+    } else {
+      return Get.snackbar("Error", "Ingrese todos los campos primero");
     }
   }
 }

@@ -12,8 +12,11 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final profileScreenController = Get.put(ProfileScreenController());
+    final mediaQuery = MediaQuery.of(context);
+    var brightness = mediaQuery.platformBrightness;
+    final isDarkMode = brightness == Brightness.dark;
     return Scaffold(
-      appBar: buildAppBar(context),
+      appBar: buildAppBar(context, isDarkMode),
       body: ListView(
         physics: const BouncingScrollPhysics(),
         children: [

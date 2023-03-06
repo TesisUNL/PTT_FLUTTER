@@ -5,10 +5,9 @@ import 'package:ptt_rtmb/core/constants/secureStorage.dart';
 import 'package:ptt_rtmb/core/services/auth/auth_google_service.dart';
 import 'package:ptt_rtmb/features/authentication/login/login.dart';
 
-AppBar buildAppBar(BuildContext context) {
+AppBar buildAppBar(BuildContext context, bool isDarkMode) {
   AuthClass authClass = AuthClass();
-  const storage = FlutterSecureStorage();
-
+  const storage = FlutterSecureStorage();  
   signOut() async {
     await authClass.logout();
     await storage.delete(key: SecureStorage.userIdKey);
@@ -24,7 +23,7 @@ AppBar buildAppBar(BuildContext context) {
     elevation: 0,
     actions: [
       IconButton(
-        icon: const Icon(icon),
+        icon: Icon(icon, color: isDarkMode ? Colors.white : Colors.black),
         onPressed: () async {
           await signOut();
         },

@@ -46,7 +46,13 @@ class WelcomeScreen extends StatelessWidget {
                 children: [
                   Expanded(
                     child: OutlinedButton(
-                      onPressed: () => Get.to(() => const Login()),
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Login()),
+                        );
+                      },
                       child: Text(tLogin.toUpperCase()),
                     ),
                   ),
@@ -55,7 +61,13 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () => Get.to(() => const SingUpScreen()),
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SingUpScreen()),
+                        );
+                      },
                       child: Text(tRegister.toUpperCase()),
                     ),
                   ),
