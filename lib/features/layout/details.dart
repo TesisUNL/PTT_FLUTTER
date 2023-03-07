@@ -13,29 +13,21 @@ class Details extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
           ),
           onPressed: () => Navigator.pop(context),
         ),
-        actions: <Widget>[
-          IconButton(
-            icon: IconBadge(
-              icon: Icons.notifications_none,
-            ),
-            onPressed: () {},
-          ),
-        ],
       ),
       body: ListView(
         children: <Widget>[
-          SizedBox(height: 10.0),
+          const SizedBox(height: 10.0),
           buildSlider(),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           ListView(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             primary: false,
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             children: <Widget>[
               Row(
@@ -45,19 +37,13 @@ class Details extends StatelessWidget {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       "${place.name}",
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.w700,
                         fontSize: 20,
                       ),
                       maxLines: 2,
                       textAlign: TextAlign.left,
                     ),
-                  ),
-                  IconButton(
-                    icon: Icon(
-                      Icons.bookmark,
-                    ),
-                    onPressed: () {},
                   ),
                 ],
               ),
@@ -68,11 +54,11 @@ class Details extends StatelessWidget {
                     size: 14,
                     color: Colors.blueGrey[300],
                   ),
-                  SizedBox(width: 3),
+                  const SizedBox(width: 3),
                   Container(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "${place.location}",
+                      place.location,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 13,
@@ -84,11 +70,11 @@ class Details extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 40),
+              const SizedBox(height: 40),
               Container(
                 alignment: Alignment.centerLeft,
-                child: Text(
-                  "Details",
+                child: const Text(
+                  "Detalles",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
@@ -97,28 +83,22 @@ class Details extends StatelessWidget {
                   textAlign: TextAlign.left,
                 ),
               ),
-              SizedBox(height: 10.0),
+              const SizedBox(height: 10.0),
               Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  "${place.shortDescription}",
-                  style: TextStyle(
+                  place.shortDescription,
+                  style: const TextStyle(
                     fontWeight: FontWeight.normal,
                     fontSize: 15.0,
                   ),
                   textAlign: TextAlign.left,
                 ),
               ),
-              SizedBox(height: 10.0),
+              const SizedBox(height: 10.0),
             ],
           ),
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(
-          Icons.airplanemode_active,
-        ),
-        onPressed: () {},
       ),
     );
   }
@@ -126,7 +106,7 @@ class Details extends StatelessWidget {
   buildSlider() {
     List<String> allImages = [place.image, ...place.images];
     return Container(
-      padding: EdgeInsets.only(left: 20),
+      padding: const EdgeInsets.only(left: 20),
       height: 250.0,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
@@ -134,11 +114,11 @@ class Details extends StatelessWidget {
         itemCount: allImages == null ? 0 : allImages.length,
         itemBuilder: (BuildContext context, int index) {
           return Padding(
-            padding: EdgeInsets.only(right: 10.0),
+            padding: const EdgeInsets.only(right: 10.0),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10.0),
               child: FadeInImage(
-                image: NetworkImage("${allImages[index]}"),
+                image: NetworkImage(allImages[index]),
                 imageErrorBuilder: (context, error, stackTrace) {
                   return Image.asset(
                     'assets/default.jpeg',
@@ -147,7 +127,7 @@ class Details extends StatelessWidget {
                     fit: BoxFit.cover,
                   );
                 },
-                placeholder: AssetImage("assets/jar-loading.gif"),
+                placeholder: const AssetImage("assets/jar-loading.gif"),
                 height: 250.0,
                 width: MediaQuery.of(context).size.width - 40.0,
                 fit: BoxFit.cover,

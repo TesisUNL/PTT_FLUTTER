@@ -99,8 +99,9 @@ class _MainScreenState extends State<MainScreen> {
       {IconData icon = Icons.home, int page = 0, bool badge = false}) {
     return IconButton(
       icon: badge ? IconBadge(icon: icon, size: 24.0) : Icon(icon, size: 24.0),
-      color:
-          _page == page ? Theme.of(context).accentColor : Colors.blueGrey[300],
+      color: _page == page
+          ? Theme.of(context).secondaryHeaderColor
+          : Colors.blueGrey[300],
       onPressed: () => {_pageController.jumpToPage(page), _page = page},
     );
   }
