@@ -147,7 +147,7 @@ packages:
       name: dart_style
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.4"
+    version: "2.2.5"
   email_validator:
     dependency: "direct main"
     description:
@@ -804,7 +804,7 @@ packages:
       name: smooth_page_indicator
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0+2"
+    version: "1.0.1"
   source_gen:
     dependency: transitive
     description:

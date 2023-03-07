@@ -63,7 +63,10 @@ class LoginFormWidget extends StatelessWidget {
           Align(
               alignment: Alignment.centerRight,
               child: TextButton(
-                  onPressed: () {}, child: const Text(tForgotPassword))),
+                  onPressed: () {
+                    _showPasswordRecoveryModal(context);
+                  },
+                  child: const Text(tForgotPassword))),
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
@@ -75,5 +78,47 @@ class LoginFormWidget extends StatelessWidget {
         ],
       ),
     ));
+  }
+
+  void _showPasswordRecoveryModal(BuildContext context) {
+    final loginController = Get.put(LoginController());
+    String email = '';
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        elevation: 5,
+        title: const Text('Recupera tu contraseña'),
+        content: Column(
+          mainAxisSize:
+              MainAxisSize.min, // this determines the height of the dialog
+          children: [
+            const Text(
+                'Ingresa tu email y luego sigue los pasos indicados en el correo'),
+            const SizedBox(height: 20),
+            TextField(
+              decoration: const InputDecoration(
+                labelText: 'Email',
+                hintText: 'Email',
+              ),
+              onChanged: (value) {
+                email = value;
+              },
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            child: const Text('Aceptar'),
+            onPressed: () {
+              loginController.forgotPasswordLogic(email);
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      ),
+    );
   }
 }
