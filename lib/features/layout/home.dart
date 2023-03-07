@@ -8,7 +8,6 @@ import 'package:ptt_rtmb/core/utils/widgets/icon_badge.dart';
 import 'package:ptt_rtmb/core/utils/widgets/search_bar.dart';
 import 'package:ptt_rtmb/core/utils/widgets/vertical_place_item.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 
 class Home extends StatefulWidget {
   @override

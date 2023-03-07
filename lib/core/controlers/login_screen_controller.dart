@@ -6,6 +6,7 @@ import 'package:ptt_rtmb/features/layout/main_screen.dart';
 import '../constants/secureStorage.dart';
 import '../models/user/auth_user.dart';
 import '../services/auth/auth_local_services.dart';
+import '../services/auth/password_recovery.dart';
 
 class LoginController extends GetxController {
   static LoginController get find => Get.find();
@@ -32,6 +33,24 @@ class LoginController extends GetxController {
       }
     } else {
       return Get.snackbar("Error", "Ingrese todos los campos primero");
+    }
+  }
+
+  forgotPasswordLogic(String email) async {
+    if (email.isNotEmpty) {
+      try {
+        if (!GetUtils.isEmail(email)) {
+          return Get.snackbar("Error", "Ingrese un Email Válido");
+        }
+        await postForgotPassword(email);
+        Get.snackbar('Éxito', 'Se ha enviado un correo a $email');
+      } on Exception catch (e) {
+        print(e.toString());
+        Get.snackbar('Error',
+            'No se pudo enviar el correo, verifique que sea el correo registrado en nuestra aplicación');
+      }
+    } else {
+      return Get.snackbar("Error", "Ingrese su correo primero");
     }
   }
 }
