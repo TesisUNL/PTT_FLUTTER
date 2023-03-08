@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:ptt_rtmb/core/models/attraction/attraction.dart';
 import 'package:ptt_rtmb/core/services/attraction/attraction_service.dart';
 import 'package:ptt_rtmb/core/utils/widgets/horizontal_place_item.dart';
-import 'package:ptt_rtmb/core/utils/widgets/icon_badge.dart';
 import 'package:ptt_rtmb/core/utils/widgets/search_bar.dart';
 import 'package:ptt_rtmb/core/utils/widgets/vertical_place_item.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -48,7 +47,8 @@ class _HomeState extends State<Home> {
   void _responseHTTP() async {
     if (_scrollController.hasClients) {
       _scrollController.animateTo(_scrollController.position.pixels + 100,
-          duration: Duration(milliseconds: 250), curve: Curves.fastOutSlowIn);
+          duration: const Duration(milliseconds: 250),
+          curve: Curves.fastOutSlowIn);
     }
 
     _addAttractions(_page);
@@ -97,16 +97,6 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          actions: <Widget>[
-            IconButton(
-              icon: IconBadge(
-                icon: Icons.notifications_none,
-              ),
-              onPressed: () {},
-            ),
-          ],
-        ),
         body: (_attractions.length > 0)
             ? RefreshIndicator(
                 onRefresh: _getPage1,
