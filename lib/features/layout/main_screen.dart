@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ptt_rtmb/features/augmented_reality/ar_screen.dart';
 import 'package:ptt_rtmb/features/layout/home.dart';
 import 'package:ptt_rtmb/core/utils/widgets/icon_badge.dart';
 import 'package:ptt_rtmb/features/user_profile/profile_page.dart';
@@ -79,7 +80,7 @@ class _MainScreenState extends State<MainScreen> {
         pageWidget = List.generate(5, (index) => Home());
         break;
       case 1:
-        //pageWidget = List.generate(5, (index) => ARCore(title: 'Guia Virtual',));
+        pageWidget = List.generate(5, (index) => ARScreen());
         break;
       case 2:
         pageWidget = List.generate(5, (index) => const MapPage());

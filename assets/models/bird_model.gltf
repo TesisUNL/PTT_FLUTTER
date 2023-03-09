@@ -1,0 +1,411 @@
+{
+  "accessors": [
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 38476,
+      "max": [
+        1.5447759628295898,
+        2.78574800491333,
+        3.193969964981079
+      ],
+      "min": [
+        -1.5357470512390137,
+        -1.6007449626922607,
+        -2.5342769622802734
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 461712,
+      "componentType": 5126,
+      "count": 38476,
+      "max": [
+        0.999913215637207,
+        1.0,
+        0.9988207817077637
+      ],
+      "min": [
+        -0.9998581409454346,
+        -0.9998984932899475,
+        -0.9999703764915466
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 3,
+      "componentType": 5126,
+      "count": 38476,
+      "max": [
+        0.9999961853027344,
+        0.9997286200523376,
+        0.9998899102210999,
+        1.0
+      ],
+      "min": [
+        -0.9998999834060669,
+        -0.9997396469116211,
+        -0.9999486207962036,
+        -1.0
+      ],
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 38476,
+      "max": [
+        0.9902169704437256,
+        0.9902340173721313
+      ],
+      "min": [
+        0.00976600032299757,
+        0.00976600032299757
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "componentType": 5125,
+      "count": 57714,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 923424,
+      "componentType": 5126,
+      "count": 34832,
+      "max": [
+        3.6218929290771484,
+        -0.17443400621414185,
+        1.9058690071105957
+      ],
+      "min": [
+        -3.001415967941284,
+        -2.7666831016540527,
+        -1.0043009519577026
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 1341408,
+      "componentType": 5126,
+      "count": 34832,
+      "max": [
+        0.9997962117195129,
+        0.9999882578849792,
+        0.9994750022888184
+      ],
+      "min": [
+        -0.9999608993530273,
+        -0.9998393654823303,
+        -0.9997667670249939
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 3,
+      "byteOffset": 615616,
+      "componentType": 5126,
+      "count": 34832,
+      "max": [
+        0.9996551871299744,
+        0.999023973941803,
+        0.9999997019767761,
+        1.0
+      ],
+      "min": [
+        -0.998646080493927,
+        -0.9995866417884827,
+        -0.9999977350234985,
+        -1.0
+      ],
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 307808,
+      "componentType": 5126,
+      "count": 34832,
+      "max": [
+        0.990234375,
+        0.9570356607437134
+      ],
+      "min": [
+        0.009765625,
+        0.009765625
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 230856,
+      "componentType": 5125,
+      "count": 52242,
+      "type": "SCALAR"
+    }
+  ],
+  "asset": {
+    "extras": {
+      "author": "Václav Pleticha (https://sketchfab.com/klidas8)",
+      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "source": "https://sketchfab.com/3d-models/bird-e63479b07d8c4ae6a69b34247d572299",
+      "title": "Bird"
+    },
+    "generator": "Sketchfab-12.65.0",
+    "version": "2.0"
+  },
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 439824,
+      "name": "floatBufferViews",
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 586464,
+      "byteOffset": 439824,
+      "byteStride": 8,
+      "name": "floatBufferViews",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 1759392,
+      "byteOffset": 1026288,
+      "byteStride": 12,
+      "name": "floatBufferViews",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 1172928,
+      "byteOffset": 2785680,
+      "byteStride": 16,
+      "name": "floatBufferViews",
+      "target": 34962
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 3958608,
+      "uri": "scene.bin"
+    }
+  ],
+  "images": [
+    {
+      "uri": "textures/MAT_Bird_baseColor.png"
+    },
+    {
+      "uri": "textures/MAT_Bird_metallicRoughness.png"
+    },
+    {
+      "uri": "textures/MAT_Bird_normal.png"
+    },
+    {
+      "uri": "textures/MAT_branch_baseColor.png"
+    },
+    {
+      "uri": "textures/MAT_branch_metallicRoughness.png"
+    },
+    {
+      "uri": "textures/MAT_branch_normal.png"
+    }
+  ],
+  "materials": [
+    {
+      "doubleSided": true,
+      "name": "MAT_Bird",
+      "normalTexture": {
+        "index": 2
+      },
+      "occlusionTexture": {
+        "index": 1
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
+        "metallicFactor": 0.0,
+        "metallicRoughnessTexture": {
+          "index": 1
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "MAT_branch",
+      "normalTexture": {
+        "index": 5
+      },
+      "occlusionTexture": {
+        "index": 4
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 3
+        },
+        "metallicRoughnessTexture": {
+          "index": 4
+        }
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "SM_Bird_MAT_Bird_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 1,
+            "POSITION": 0,
+            "TANGENT": 2,
+            "TEXCOORD_0": 3
+          },
+          "indices": 4,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "SM_branch_MAT_branch_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 6,
+            "POSITION": 5,
+            "TANGENT": 7,
+            "TEXCOORD_0": 8
+          },
+          "indices": 9,
+          "material": 1,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "children": [
+        1
+      ],
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        2.220446049250313e-16,
+        -1.0,
+        0.0,
+        0.0,
+        1.0,
+        2.220446049250313e-16,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "Sketchfab_model"
+    },
+    {
+      "children": [
+        2
+      ],
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "1c76eccec866457bb2bd1332244d0cce.fbx"
+    },
+    {
+      "children": [
+        3,
+        5
+      ],
+      "name": "RootNode"
+    },
+    {
+      "children": [
+        4
+      ],
+      "name": "SM_Bird"
+    },
+    {
+      "mesh": 0,
+      "name": "SM_Bird_MAT_Bird_0"
+    },
+    {
+      "children": [
+        6
+      ],
+      "name": "SM_branch"
+    },
+    {
+      "mesh": 1,
+      "name": "SM_branch_MAT_branch_0"
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9729,
+      "minFilter": 9987,
+      "wrapS": 10497,
+      "wrapT": 10497
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "Sketchfab_Scene",
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 2
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    }
+  ]
+}
