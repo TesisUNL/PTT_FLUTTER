@@ -26,9 +26,9 @@ class MarkerAttraction {
   static List<MarkerAttraction> fromAttractionList(
       List<Attraction> attractionList) {
     List<MarkerAttraction> marker = [];
-    attractionList.forEach((Attraction attractionElement) {
+    for (var attractionElement in attractionList) {
       marker.add(MarkerAttraction.fromAttraction(attractionElement));
-    });
+    }
 
     return marker;
   }

@@ -5,7 +5,6 @@ import 'package:ptt_rtmb/core/models/attraction/attraction_marker.dart';
 import 'package:ptt_rtmb/core/utils/helpers/HttpHelpers/htppWrapper.dart';
 import 'package:ptt_rtmb/core/utils/helpers/HttpHelpers/httpHelper.service.dart';
 import 'dart:async';
-import 'package:ptt_rtmb/enviroment.dart';
 
 const String ATTRACTION_URL = '/attractions';
 const int PAGE_SIZE = 10;

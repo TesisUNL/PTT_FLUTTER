@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:ptt_rtmb/core/constants/image_strings.dart';
 import 'package:ptt_rtmb/core/services/auth/auth_google_service.dart';
 import '../../../core/constants/sizes.dart';
@@ -15,7 +14,6 @@ class LoginFooterWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     AuthClass authClass = AuthClass();
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const Text("O"),
         const SizedBox(
@@ -45,7 +43,7 @@ class LoginFooterWidget extends StatelessWidget {
             },
             child: Text.rich(TextSpan(
                 text: tDontHaveAnAccount,
-                style: Theme.of(context).textTheme.bodyText1,
+                style: Theme.of(context).textTheme.bodyLarge,
                 children: const [
                   TextSpan(
                       text: tMakeARegister,

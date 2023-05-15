@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:ptt_rtmb/core/constants/constants.dart';
 import 'package:ptt_rtmb/core/constants/image_strings.dart';
 import 'package:ptt_rtmb/core/constants/sizes.dart';
@@ -33,11 +32,11 @@ class WelcomeScreen extends StatelessWidget {
                 children: [
                   Text(
                     tAppWelcomeScreenTitle,
-                    style: Theme.of(context).textTheme.headline6,
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                   Text(
                     tWelcomeSubTitle,
-                    style: Theme.of(context).textTheme.bodyText1,
+                    style: Theme.of(context).textTheme.bodyLarge,
                     textAlign: TextAlign.center,
                   ),
                 ],

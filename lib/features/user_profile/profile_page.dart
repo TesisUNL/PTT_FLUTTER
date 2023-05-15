@@ -122,9 +122,9 @@ class ProfilePage extends StatelessWidget {
 
   Widget buildRoutesWidget() => Container(
         padding: const EdgeInsets.symmetric(horizontal: 48),
-        child: Column(
+        child: const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
+          children: [
             Text(
               'Rutas',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),

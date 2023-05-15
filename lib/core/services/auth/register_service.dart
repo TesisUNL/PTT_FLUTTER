@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:http/http.dart' as httpPackage;
 import 'package:ptt_rtmb/core/utils/helpers/HttpHelpers/httpHelper.service.dart';
 
 import '../../models/user/user.dart';

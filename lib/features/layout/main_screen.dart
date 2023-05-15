@@ -7,6 +7,8 @@ import 'package:ptt_rtmb/features/map/maps.dart';
 import '../tourist_routes/routes_list.dart';
 
 class MainScreen extends StatefulWidget {
+  const MainScreen({Key? key}) : super(key: key);
+
   @override
   _MainScreenState createState() => _MainScreenState();
 }
@@ -27,11 +29,10 @@ class _MainScreenState extends State<MainScreen> {
           ),
           bottomNavigationBar: BottomAppBar(
             child: Row(
-              mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 const SizedBox(width: 7.0),
-                barIcon(icon: Icons.home, page: 0),
+                barIcon(),
                 barIcon(icon: Icons.app_shortcut_sharp, page: 1),
                 barIcon(icon: Icons.map, page: 2, badge: true),
                 barIcon(icon: Icons.add_road, page: 3),
@@ -76,7 +77,7 @@ class _MainScreenState extends State<MainScreen> {
 
     switch (index) {
       case 0:
-        pageWidget = List.generate(5, (index) => Home());
+        pageWidget = List.generate(5, (index) => const Home());
         break;
       case 1:
         //pageWidget = List.generate(5, (index) => ARCore(title: 'Guia Virtual',));

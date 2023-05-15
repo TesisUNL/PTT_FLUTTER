@@ -26,15 +26,11 @@ class MapPageState extends State<MapPage> {
   late PageController _pageController;
   int prevPage = 0;
 
-  final double _zoom = 19.151926040649414;
-
   //Completer<GoogleMapController> _controller = Completer();
 
   late GoogleMapController _controller;
 
-  Set<Polyline> polyline = Set<Polyline>();
-
-  final Set<Polyline> _polyline = {};
+  Set<Polyline> polyline = <Polyline>{};
 
   @override
   void initState() {
@@ -68,7 +64,7 @@ class MapPageState extends State<MapPage> {
           child: Stack(children: [
             Center(
                 child: Container(
-                    margin: EdgeInsets.symmetric(
+                    margin: const EdgeInsets.symmetric(
                       horizontal: 10.0,
                       vertical: 20.0,
                     ),
@@ -76,7 +72,7 @@ class MapPageState extends State<MapPage> {
                     width: 275.0,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.0),
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
                             color: Colors.black54,
                             offset: Offset(0.0, 4.0),
@@ -92,7 +88,7 @@ class MapPageState extends State<MapPage> {
                               height: 450.0,
                               width: 90.0,
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
+                                  borderRadius: const BorderRadius.only(
                                       bottomLeft: Radius.circular(10.0),
                                       topLeft: Radius.circular(10.0)),
                                   image: DecorationImage(
@@ -100,7 +96,7 @@ class MapPageState extends State<MapPage> {
                                           fetchListMarkers[index].thumbNail),
                                       //'https://lh5.googleusercontent.com/p/AF1QipNNzoa4RVMeOisc0vQ5m3Z7aKet5353lu0Aah0a=w90-h90-n-k-no'),
                                       fit: BoxFit.cover))),
-                          SizedBox(width: 5.0),
+                          const SizedBox(width: 5.0),
                           Expanded(
                               child: Column(
                                   mainAxisAlignment:
@@ -109,21 +105,21 @@ class MapPageState extends State<MapPage> {
                                   children: [
                                 Text(
                                   fetchListMarkers[index].name,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 12.5,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Text(
                                   fetchListMarkers[index].address,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 12.0,
                                       fontWeight: FontWeight.w600),
                                 ),
-                                Container(
+                                SizedBox(
                                   width: 170.0,
                                   child: Text(
                                     fetchListMarkers[index].description,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 11.0,
                                         fontWeight: FontWeight.w300),
                                   ),
@@ -170,7 +166,7 @@ class MapPageState extends State<MapPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Mapa'),
+          title: const Text('Mapa'),
           centerTitle: true,
         ),
         body: FutureBuilder(
@@ -178,25 +174,23 @@ class MapPageState extends State<MapPage> {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 fetchListMarkers = snapshot.data as List<MarkerAttraction>;
-                fetchListMarkers.forEach((MarkerAttraction attractionElement) {
+                for (var attractionElement in fetchListMarkers) {
                   allMarkers.add(Marker(
                       markerId: MarkerId(attractionElement.name),
                       infoWindow: InfoWindow(
                           title: attractionElement.name,
                           snippet: attractionElement.address),
-                      draggable: false,
                       position: attractionElement.locationCoords));
-                });
+                }
 
                 return Stack(children: <Widget>[
-                  Container(
+                  SizedBox(
                     height: MediaQuery.of(context).size.height - 50.0,
                     width: MediaQuery.of(context).size.width,
                     child: GoogleMap(
                         markers: Set.from(allMarkers),
                         mapType: _defaultMapType,
                         myLocationEnabled: true,
-                        compassEnabled: true,
                         onMapCreated: mapCreated,
                         //indoorViewEnabled: true,
                         //trafficEnabled: true,
@@ -206,7 +200,7 @@ class MapPageState extends State<MapPage> {
                   ),
                   Positioned(
                     top: 20,
-                    child: Container(
+                    child: SizedBox(
                       height: 200.0,
                       width: MediaQuery.of(context).size.width,
                       child: PageView.builder(
@@ -219,18 +213,19 @@ class MapPageState extends State<MapPage> {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 180, right: 10),
+                    margin: const EdgeInsets.only(top: 180, right: 10),
                     alignment: Alignment.bottomRight,
                     child: Column(children: <Widget>[
                       FloatingActionButton(
-                          child: Icon(Icons.layers),
+                          child: const Icon(Icons.layers),
                           elevation: 5,
-                          backgroundColor: Theme.of(context).backgroundColor,
+                          backgroundColor:
+                              Theme.of(context).colorScheme.background,
                           onPressed: () {
                             _changeMapType();
                             print('Changing the Map Type');
                           }),
-                      SizedBox(
+                      const SizedBox(
                         height: 15,
                       ),
                       // FloatingActionButton(
@@ -241,7 +236,7 @@ class MapPageState extends State<MapPage> {
                   ),
                 ]);
               }
-              return CircularProgressIndicator();
+              return const CircularProgressIndicator();
             }));
   }
 

@@ -1,8 +1,6 @@
 import 'dart:convert';
 
-import 'package:ptt_rtmb/core/constants/constants.dart';
 import 'package:ptt_rtmb/core/utils/helpers/HttpHelpers/httpHelper.service.dart';
-import 'package:ptt_rtmb/enviroment.dart';
 import 'package:http/http.dart' as http;
 
 class HttpWrapper {

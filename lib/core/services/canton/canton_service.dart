@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:ptt_rtmb/core/models/attraction/attraction.dart';
 import 'package:ptt_rtmb/core/utils/helpers/HttpHelpers/htppWrapper.dart';
 import 'package:ptt_rtmb/core/utils/helpers/HttpHelpers/httpHelper.service.dart';
 import 'dart:async';

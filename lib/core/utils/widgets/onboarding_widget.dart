@@ -28,7 +28,7 @@ class OnboardingPageWidget extends StatelessWidget {
               children: [
                 Text(
                   onboardingModel.title,
-                  style: Theme.of(context).textTheme.headline3,
+                  style: Theme.of(context).textTheme.displaySmall,
                 ),
                 Text(
                   onboardingModel.subtitle,
@@ -38,7 +38,7 @@ class OnboardingPageWidget extends StatelessWidget {
             ),
             Text(
               onboardingModel.counterText,
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
             SizedBox(
               height: size.height * 0.4,
