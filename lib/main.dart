@@ -2,7 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:ptt_rtmb/features/authentication/create_account/register.dart';
 import 'core/constants/constants.dart';
 import 'features/authentication/splash/splash.dart';
 import 'firebase_options.dart';
@@ -14,10 +13,12 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await FlutterConfig.loadEnvVariables();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -25,7 +26,6 @@ class MyApp extends StatelessWidget {
       title: Constants.appName,
       theme: Constants.lightTheme,
       darkTheme: Constants.darkTheme,
-      themeMode: ThemeMode.system,
       home: SplashScreen(),
     );
   }

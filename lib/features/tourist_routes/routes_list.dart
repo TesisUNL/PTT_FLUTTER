@@ -49,13 +49,13 @@ class RoutesPageState extends State<RoutesPage> {
         },      
       ),
       persistentFooterButtons: <Widget>[
-        Text('Crea tu propia ruta:    '),
+        const Text('Crea tu propia ruta:    '),
         ElevatedButton(
           onPressed: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => CreateRoutePage()));
+                MaterialPageRoute(builder: (context) => const CreateRoutePage()));
           },
-          child: Icon(
+          child: const Icon(
             Icons.add,
             color: Colors.white,
           ),
@@ -66,17 +66,17 @@ class RoutesPageState extends State<RoutesPage> {
 
   Widget buildRoutesContainer(String routeName, int pathLenght, int views) =>
       Container(
-        margin: EdgeInsets.all(10),
+        margin: const EdgeInsets.all(10),
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
+            borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(40.0),
                 bottomLeft: Radius.circular(40.0)),
             border: Border.all(color: Colors.blue, width: 3)),
         child: ListTile(
           title: Text(routeName),
           subtitle: Text(pathLenght.toString() + 'km'),
-          leading: Icon(
+          leading: const Icon(
             Icons.map_rounded,
             color: Colors.blue,
           ),
@@ -85,7 +85,7 @@ class RoutesPageState extends State<RoutesPage> {
             spacing: 5,
             children: [
               Text(views.toString()),
-              Icon(Icons.remove_red_eye_outlined, color: Colors.blue),
+              const Icon(Icons.remove_red_eye_outlined, color: Colors.blue),
             ],
           ),
         ),

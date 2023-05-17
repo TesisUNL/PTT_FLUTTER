@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:ptt_rtmb/core/utils/widgets/icon_badge.dart';
 import '../../core/models/attraction/attraction.dart';
-import '../../enviroment.dart';
 
 class Details extends StatelessWidget {
   final Attraction place;
 
-  Details({required this.place});
+  const Details({Key? key, required this.place}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +34,7 @@ class Details extends StatelessWidget {
                   Container(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "${place.name}",
+                      place.name,
                       style: const TextStyle(
                         fontWeight: FontWeight.w700,
                         fontSize: 20,

@@ -7,7 +7,7 @@ class HttpHelperService {
   final String _scheme = Constants.api_scheme;
   final String _apiPath = Constants.api_part;
   late String? _accessToken;
-  FlutterSecureStorage _storage = FlutterSecureStorage();
+  final FlutterSecureStorage _storage = const FlutterSecureStorage();
 
   Uri buildUri(String path, {Map<String, dynamic>? queryParameters}) {
     queryParameters ??= {};

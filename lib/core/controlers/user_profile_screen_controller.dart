@@ -8,7 +8,7 @@ import '../services/user/get_user_service.dart';
 
 class ProfileScreenController extends GetxController {
   static ProfileScreenController get find => Get.find();
-  FlutterSecureStorage _storage = FlutterSecureStorage();
+  final FlutterSecureStorage _storage = const FlutterSecureStorage();
 
   Future<User> getUser() async {
     String userId = await _storage.read(key: 'user_id') ?? '';

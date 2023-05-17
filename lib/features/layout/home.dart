@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:ptt_rtmb/core/models/attraction/attraction.dart';
 import 'package:ptt_rtmb/core/services/attraction/attraction_service.dart';
 import 'package:ptt_rtmb/core/utils/widgets/horizontal_place_item.dart';
-import 'package:ptt_rtmb/core/utils/widgets/search_bar.dart';
 import 'package:ptt_rtmb/core/utils/widgets/vertical_place_item.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class Home extends StatefulWidget {
+  const Home({Key? key}) : super(key: key);
+
   @override
   _HomeState createState() => _HomeState();
 }
@@ -16,7 +17,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final ScrollController _scrollController = ScrollController();
   late Future<List<Attraction>> attractions;
-  List<Attraction> _attractions = [];
+  final List<Attraction> _attractions = [];
   bool _isLoading = false;
   bool _isEndPagination = false;
   int _page = 0;
@@ -63,7 +64,7 @@ class _HomeState extends State<Home> {
     }
     List<Attraction> pageAttractions = await getAttractions(page: page);
     _isLoading = false;
-    if (pageAttractions.length == 0) {
+    if (pageAttractions.isEmpty) {
       _isEndPagination = true;
       setState(() {});
       return;
@@ -97,7 +98,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: (_attractions.length > 0)
+        body: (_attractions.isNotEmpty)
             ? RefreshIndicator(
                 onRefresh: _getPage1,
                 child: ListView(
@@ -113,8 +114,8 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(20.0),
+                    const Padding(
+                      padding: EdgeInsets.all(20.0),
                       child: SearchBar(),
                     ),
                     buildHorizontalList(context, _attractions),
@@ -252,17 +253,16 @@ class _HomeState extends State<Home> {
       );
     }
     if (_isLoading) {
-      return Column(
-        mainAxisSize: MainAxisSize.max,
+      return const Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
+            children: [
               CircularProgressIndicator(),
             ],
           ),
-          const SizedBox(
+          SizedBox(
             height: 12.0,
           )
         ],

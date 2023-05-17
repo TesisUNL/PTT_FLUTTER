@@ -9,7 +9,7 @@ import 'package:ptt_rtmb/features/layout/main_screen.dart';
 class SplashScreenController extends GetxController {
   static SplashScreenController get find => Get.find();
   RxBool animate = false.obs;
-  FlutterSecureStorage _storage = FlutterSecureStorage();
+  final FlutterSecureStorage _storage = const FlutterSecureStorage();
 
   Future startAnimation(BuildContext context) async {
     await Future.delayed(const Duration(milliseconds: 500));
@@ -31,7 +31,7 @@ class SplashScreenController extends GetxController {
                     {
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (context) => MainScreen()),
+                        MaterialPageRoute(builder: (context) => const MainScreen()),
                       )
                     }
                   else
