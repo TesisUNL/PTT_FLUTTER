@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:ptt_rtmb/core/models/attraction/attraction.dart';
 import 'package:ptt_rtmb/core/services/attraction/attraction_service.dart';
@@ -107,20 +106,14 @@ class _HomeState extends State<Home> {
                     const Padding(
                       padding: EdgeInsets.all(20.0),
                       child: Text(
-                        "A dónde quieres \nir?",
+                        "Cantones de la \nMancomunidad Bosque Seco",
                         style: TextStyle(
                           fontSize: 30.0,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.all(20.0),
-                      child: SearchBar(),
-                    ),
                     buildHorizontalList(context, _attractions),
-                    buildVerticalList(_attractions),
-                    createLoading(),
                   ],
                 ),
               )
@@ -129,16 +122,35 @@ class _HomeState extends State<Home> {
 
   buildHorizontalList(BuildContext context, List<Attraction>? data) {
     return Container(
-      padding: const EdgeInsets.only(top: 10.0, left: 20.0),
-      height: 250.0,
+      padding: const EdgeInsets.only(top: 10.0, left: 10.0),
+      height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          primary: false,
+          //scrollDirection: Axis.horizontal,
+          //primary: false,
           itemCount: data?.length,
           itemBuilder: (BuildContext context, int index) {
-            Attraction place = data!.reversed.toList()[index];
-            return HorizontalPlaceItem(place: place);
+            //Attraction place = data!.reversed.toList()[index];
+            return SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: GridView.builder(
+                  //crossAxisCount: 2,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 0.8,
+                  ),
+                  //childAspectRatio: 0.8,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  /*children: <Widget>[
+                  HorizontalPlaceItem(canton: place),
+                ],*/
+                  itemCount: data?.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    Attraction place = data![index];
+                    return HorizontalPlaceItem(canton: place);
+                  }),
+            );
           }),
     );
   }
