@@ -5,7 +5,7 @@ import 'package:ptt_rtmb/features/layout/details.dart';
 import '../../models/attraction/attraction.dart';
 
 class HorizontalPlaceItem extends StatelessWidget {
-  final Attraction canton;
+  final Attraction canton; //TODO: change to Canton Model
   const HorizontalPlaceItem({Key? key, required this.canton}) : super(key: key);
 
   @override

@@ -125,32 +125,16 @@ class _HomeState extends State<Home> {
       padding: const EdgeInsets.only(top: 10.0, left: 10.0),
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
-      child: ListView.builder(
-          //scrollDirection: Axis.horizontal,
-          //primary: false,
+      child: GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 0.8,
+          ),
+          shrinkWrap: true,
           itemCount: data?.length,
           itemBuilder: (BuildContext context, int index) {
-            //Attraction place = data!.reversed.toList()[index];
-            return SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: GridView.builder(
-                  //crossAxisCount: 2,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 0.8,
-                  ),
-                  //childAspectRatio: 0.8,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  /*children: <Widget>[
-                  HorizontalPlaceItem(canton: place),
-                ],*/
-                  itemCount: data?.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    Attraction place = data![index];
-                    return HorizontalPlaceItem(canton: place);
-                  }),
-            );
+            Attraction place = data![index];
+            return HorizontalPlaceItem(canton: place);
           }),
     );
   }
