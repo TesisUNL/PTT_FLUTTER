@@ -4,8 +4,6 @@ import 'package:ptt_rtmb/core/utils/widgets/icon_badge.dart';
 import 'package:ptt_rtmb/features/user_profile/profile_page.dart';
 import 'package:ptt_rtmb/features/map/maps.dart';
 
-import '../tourist_routes/routes_list.dart';
-
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
 
@@ -28,6 +26,7 @@ class _MainScreenState extends State<MainScreen> {
             children: buildChildren(),
           ),
           bottomNavigationBar: BottomAppBar(
+            color: Theme.of(context).primaryColor,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -40,7 +39,6 @@ class _MainScreenState extends State<MainScreen> {
                 const SizedBox(width: 7.0),
               ],
             ),
-            color: Theme.of(context).primaryColor,
           ),
         ),
         onWillPop: () async {
@@ -81,14 +79,12 @@ class _MainScreenState extends State<MainScreen> {
         break;
       case 1:
         //pageWidget = List.generate(5, (index) => ARCore(title: 'Guia Virtual',));
+        print('non accesible');
         break;
       case 2:
         pageWidget = List.generate(5, (index) => const MapPage());
         break;
       case 3:
-        pageWidget = List.generate(5, (index) => const RoutesPage());
-        break;
-      case 4:
         pageWidget = List.generate(5, (index) => const ProfilePage());
         break;
     }
