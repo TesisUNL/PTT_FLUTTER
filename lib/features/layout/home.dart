@@ -139,21 +139,21 @@ class _HomeState extends State<Home> {
     );
   }
 
-  buildVerticalList(List<Attraction>? data) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: ListView.builder(
-        primary: false,
-        physics: const NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        itemCount: data == null ? 0 : data.length,
-        itemBuilder: (BuildContext context, int index) {
-          Attraction place = data![index];
-          return VerticalPlaceItem(place: place);
-        },
-      ),
-    );
-  }
+  // buildVerticalList(List<Attraction>? data) {
+  //   return Padding(
+  //     padding: const EdgeInsets.all(20.0),
+  //     child: ListView.builder(
+  //       primary: false,
+  //       physics: const NeverScrollableScrollPhysics(),
+  //       shrinkWrap: true,
+  //       itemCount: data == null ? 0 : data.length,
+  //       itemBuilder: (BuildContext context, int index) {
+  //         Attraction place = data![index];
+  //         return VerticalPlaceItem(place: place);
+  //       },
+  //     ),
+  //   );
+  // }
 
   Future<void> _requestPermissions() async {
     Map<Permission, PermissionStatus> statuses = await [
@@ -233,38 +233,38 @@ class _HomeState extends State<Home> {
         });
   }
 
-  Widget createLoading() {
-    if (_isEndPagination) {
-      return Container(
-        padding: const EdgeInsets.only(bottom: 10.0),
-        child: const Center(
-          child: Text(
-            "No hay más atracciones",
-            style: TextStyle(
-              fontSize: 10.0,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ),
-      );
-    }
-    if (_isLoading) {
-      return const Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CircularProgressIndicator(),
-            ],
-          ),
-          SizedBox(
-            height: 12.0,
-          )
-        ],
-      );
-    } else {
-      return Container();
-    }
-  }
+  // Widget createLoading() {
+  //   if (_isEndPagination) {
+  //     return Container(
+  //       padding: const EdgeInsets.only(bottom: 10.0),
+  //       child: const Center(
+  //         child: Text(
+  //           "No hay más atracciones",
+  //           style: TextStyle(
+  //             fontSize: 10.0,
+  //             fontWeight: FontWeight.w600,
+  //           ),
+  //         ),
+  //       ),
+  //     );
+  //   }
+  //   if (_isLoading) {
+  //     return const Column(
+  //       mainAxisAlignment: MainAxisAlignment.end,
+  //       children: [
+  //         Row(
+  //           mainAxisAlignment: MainAxisAlignment.center,
+  //           children: [
+  //             CircularProgressIndicator(),
+  //           ],
+  //         ),
+  //         SizedBox(
+  //           height: 12.0,
+  //         )
+  //       ],
+  //     );
+  //   } else {
+  //     return Container();
+  //   }
+  // }
 }
