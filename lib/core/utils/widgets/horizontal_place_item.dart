@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-
-import 'package:ptt_rtmb/features/layout/details.dart';
-
-import '../../models/attraction/attraction.dart';
+import 'package:ptt_rtmb/core/models/canton/canton.dart';
+import 'package:ptt_rtmb/features/layout/details_canton.dart';
 
 class HorizontalPlaceItem extends StatelessWidget {
-  final Attraction canton; //TODO: change to Canton Model
+  final Canton canton; //TODO: change to Canton Model
   const HorizontalPlaceItem({Key? key, required this.canton}) : super(key: key);
 
   @override
@@ -21,7 +19,7 @@ class HorizontalPlaceItem extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: FadeInImage(
-                  image: NetworkImage(canton.image),
+                  image: NetworkImage(canton.name),
                   imageErrorBuilder: (context, error, stackTrace) {
                     return Image.asset('assets/default.jpeg',
                         height: 170.0,
@@ -54,7 +52,7 @@ class HorizontalPlaceItem extends StatelessWidget {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (BuildContext context) {
-                return Details(place: canton);
+                return DetailsCanton(canton: canton);
               },
             ),
           );

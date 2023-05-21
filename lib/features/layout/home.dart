@@ -1,10 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:ptt_rtmb/core/models/attraction/attraction.dart';
-import 'package:ptt_rtmb/core/services/attraction/attraction_service.dart';
 import 'package:ptt_rtmb/core/utils/widgets/horizontal_place_item.dart';
-import 'package:ptt_rtmb/core/utils/widgets/vertical_place_item.dart';
 import 'package:permission_handler/permission_handler.dart';
+import '../../core/models/canton/canton.dart';
+import '../../core/services/canton/canton_service.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -14,113 +13,106 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final ScrollController _scrollController = ScrollController();
-  late Future<List<Attraction>> attractions;
-  final List<Attraction> _attractions = [];
-  bool _isLoading = false;
-  bool _isEndPagination = false;
-  int _page = 0;
+  //final ScrollController _scrollController = ScrollController();
+  // late Future<List<Canton>> attractions;
+  // final List<Attraction> _attractions = [];
+  late Future<List<Canton>> cantons;
+  Future<List<Canton>> fetchCantons() async => await getCantons();
+  // bool _isLoading = false;
+  // bool _isEndPagination = false;
+  // int _page = 0;
 
   @override
   void initState() {
     super.initState();
     _requestPermissions();
-    _addAttractions(_page);
+    cantons = fetchCantons();
+    // _addAttractions(_page);
 
-    _scrollController.addListener(() {
-      if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent) {
-        _fetchData();
-      }
-    });
+    // _scrollController.addListener(() {
+    //   if (_scrollController.position.pixels ==
+    //       _scrollController.position.maxScrollExtent) {
+    //     _fetchData();
+    //   }
+    // });
   }
 
-  Future<Timer> _fetchData() async {
-    setState(() {
-      _isLoading = true;
-    });
+  // Future<Timer> _fetchData() async {
+  //   setState(() {
+  //     _isLoading = true;
+  //   });
 
-    const duration = Duration(seconds: 1);
-    return Timer(duration, _responseHTTP);
-  }
+  //   const duration = Duration(seconds: 1);
+  //   return Timer(duration, _responseHTTP);
+  // }
 
-  void _responseHTTP() async {
-    if (_scrollController.hasClients) {
-      _scrollController.animateTo(_scrollController.position.pixels + 100,
-          duration: const Duration(milliseconds: 250),
-          curve: Curves.fastOutSlowIn);
-    }
+  // void _responseHTTP() async {
+  //   if (_scrollController.hasClients) {
+  //     _scrollController.animateTo(_scrollController.position.pixels + 100,
+  //         duration: const Duration(milliseconds: 250),
+  //         curve: Curves.fastOutSlowIn);
+  //   }
 
-    _addAttractions(_page);
-  }
+  //   _addAttractions(_page);
+  // }
 
-  void _addAttractions(int page) async {
-    if (_isEndPagination) {
-      setState(() {
-        _isLoading = false;
-        return;
-      });
-    }
-    List<Attraction> pageAttractions = await getAttractions(page: page);
-    _isLoading = false;
-    if (pageAttractions.isEmpty) {
-      _isEndPagination = true;
-      setState(() {});
-      return;
-    }
-    _attractions.addAll(pageAttractions);
-    setState(() {
-      _page++;
-    });
-  }
+  // void _addAttractions(int page) async {
+  //   if (_isEndPagination) {
+  //     setState(() {
+  //       _isLoading = false;
+  //       return;
+  //     });
+  //   }
+  //   List<Attraction> pageAttractions = await getAttractions(page: page);
+  //   _isLoading = false;
+  //   if (pageAttractions.isEmpty) {
+  //     _isEndPagination = true;
+  //     setState(() {});
+  //     return;
+  //   }
+  //   _attractions.addAll(pageAttractions);
+  //   setState(() {
+  //     _page++;
+  //   });
+  // }
 
   @override
   void dispose() {
     super.dispose();
-    if (_scrollController.hasClients) {
-      _scrollController.dispose();
-    }
+    // if (_scrollController.hasClients) {
+    //   _scrollController.dispose();
+    // }
   }
 
-  Future _getPage1() async {
-    const duration = Duration(milliseconds: 500);
-    Timer(duration, () {
-      _isEndPagination = false;
-      _attractions.clear();
-      _page = 0;
-      _addAttractions(_page);
-    });
+  // Future _getPage1() async {
+  //   const duration = Duration(milliseconds: 500);
+  //   Timer(duration, () {
+  //     _isEndPagination = false;
+  //     _attractions.clear();
+  //     _page = 0;
+  //     _addAttractions(_page);
+  //   });
 
-    return Future.delayed(duration);
-  }
+  //   return Future.delayed(duration);
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: (_attractions.isNotEmpty)
-            ? RefreshIndicator(
-                onRefresh: _getPage1,
-                child: ListView(
-                  controller: _scrollController,
-                  children: <Widget>[
-                    const Padding(
-                      padding: EdgeInsets.all(20.0),
-                      child: Text(
-                        "Cantones de la \nMancomunidad Bosque Seco",
-                        style: TextStyle(
-                          fontSize: 30.0,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                    buildHorizontalList(context, _attractions),
-                  ],
-                ),
-              )
-            : const Center(child: CircularProgressIndicator()));
+      body: FutureBuilder<List<Canton>>(
+          future: cantons,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return buildHorizontalList(context, snapshot.data);
+            } else if (snapshot.hasError) {
+              return Text("${snapshot.error}");
+            }
+            return const CircularProgressIndicator();
+          }),
+    );
   }
 
-  buildHorizontalList(BuildContext context, List<Attraction>? data) {
+  buildHorizontalList(BuildContext context, List<Canton>? data) {
     return Container(
       padding: const EdgeInsets.only(top: 10.0, left: 10.0),
       height: MediaQuery.of(context).size.height,
@@ -133,27 +125,11 @@ class _HomeState extends State<Home> {
           shrinkWrap: true,
           itemCount: data?.length,
           itemBuilder: (BuildContext context, int index) {
-            Attraction place = data![index];
+            Canton place = data![index];
             return HorizontalPlaceItem(canton: place);
           }),
     );
   }
-
-  // buildVerticalList(List<Attraction>? data) {
-  //   return Padding(
-  //     padding: const EdgeInsets.all(20.0),
-  //     child: ListView.builder(
-  //       primary: false,
-  //       physics: const NeverScrollableScrollPhysics(),
-  //       shrinkWrap: true,
-  //       itemCount: data == null ? 0 : data.length,
-  //       itemBuilder: (BuildContext context, int index) {
-  //         Attraction place = data![index];
-  //         return VerticalPlaceItem(place: place);
-  //       },
-  //     ),
-  //   );
-  // }
 
   Future<void> _requestPermissions() async {
     Map<Permission, PermissionStatus> statuses = await [

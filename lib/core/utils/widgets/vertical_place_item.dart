@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ptt_rtmb/core/models/attraction/attraction.dart';
-import 'package:ptt_rtmb/features/layout/details.dart';
+
+import '../../../features/layout/details_attraction.dart';
 
 class VerticalPlaceItem extends StatelessWidget {
   final Attraction place;
@@ -85,7 +86,7 @@ class VerticalPlaceItem extends StatelessWidget {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (BuildContext context) {
-                return Details(place: place);
+                return DetailsAttraction(attraction: place);
               },
             ),
           );
