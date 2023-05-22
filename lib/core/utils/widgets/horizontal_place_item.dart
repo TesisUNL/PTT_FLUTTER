@@ -3,7 +3,7 @@ import 'package:ptt_rtmb/core/models/canton/canton.dart';
 import 'package:ptt_rtmb/features/layout/details_canton.dart';
 
 class HorizontalPlaceItem extends StatelessWidget {
-  final Canton canton; //TODO: change to Canton Model
+  final Canton canton;
   const HorizontalPlaceItem({Key? key, required this.canton}) : super(key: key);
 
   @override
@@ -19,7 +19,7 @@ class HorizontalPlaceItem extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: FadeInImage(
-                  image: NetworkImage(canton.name),
+                  image: NetworkImage(canton.flag_image),
                   imageErrorBuilder: (context, error, stackTrace) {
                     return Image.asset('assets/default.jpeg',
                         height: 170.0,

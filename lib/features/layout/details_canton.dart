@@ -49,32 +49,19 @@ class DetailsCanton extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 40),
-              Container(
-                alignment: Alignment.centerLeft,
-                child: const Text(
-                  "Detalles",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                  maxLines: 1,
-                  textAlign: TextAlign.left,
-                ),
-              ),
-              const SizedBox(height: 10.0),
+              const SizedBox(height: 15),
               Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   canton.description,
                   style: const TextStyle(
                     fontWeight: FontWeight.normal,
-                    fontSize: 15.0,
+                    fontSize: 12.0,
                   ),
-                  textAlign: TextAlign.left,
+                  textAlign: TextAlign.justify,
                 ),
               ),
-              const SizedBox(height: 10.0),
+              const SizedBox(height: 15.0),
               Container(
                 alignment: Alignment.centerLeft,
                 child: const Text(
@@ -87,7 +74,6 @@ class DetailsCanton extends StatelessWidget {
                   textAlign: TextAlign.left,
                 ),
               ),
-              const SizedBox(height: 10.0),
               buildVerticalList(),
             ],
           ),
@@ -97,13 +83,13 @@ class DetailsCanton extends StatelessWidget {
   }
 
   buildVideoPlayer(BuildContext context) {
-    if (canton.video.isEmpty) {
+    if (canton.presentation_video.isEmpty) {
       return Padding(
         padding: const EdgeInsets.only(right: 10.0),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10.0),
           child: FadeInImage(
-            image: NetworkImage(canton.flag),
+            image: NetworkImage(canton.flag_image),
             imageErrorBuilder: (context, error, stackTrace) {
               return Image.asset(
                 'assets/default.jpeg',
@@ -131,7 +117,7 @@ class DetailsCanton extends StatelessWidget {
     Future<List<Attraction>> attractions = fetchAttractions(canton.name);
 
     return Padding(
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
       child: FutureBuilder(
           builder: (context, snapshot) {
             if (snapshot.hasData) {

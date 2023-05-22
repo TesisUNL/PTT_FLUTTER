@@ -217,14 +217,14 @@ class MapPageState extends State<MapPage> {
                     alignment: Alignment.bottomRight,
                     child: Column(children: <Widget>[
                       FloatingActionButton(
-                          child: const Icon(Icons.layers),
                           elevation: 5,
                           backgroundColor:
                               Theme.of(context).colorScheme.background,
                           onPressed: () {
                             _changeMapType();
                             print('Changing the Map Type');
-                          }),
+                          },
+                          child: const Icon(Icons.layers)),
                       const SizedBox(
                         height: 15,
                       ),

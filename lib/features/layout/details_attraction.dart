@@ -46,47 +46,11 @@ class DetailsAttraction extends StatelessWidget {
                   ),
                 ],
               ),
-              Row(
-                children: <Widget>[
-                  Icon(
-                    Icons.location_on,
-                    size: 14,
-                    color: Colors.blueGrey[300],
-                  ),
-                  const SizedBox(width: 3),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      attraction.location,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13,
-                        color: Colors.blueGrey[300],
-                      ),
-                      maxLines: 1,
-                      textAlign: TextAlign.left,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 40),
-              Container(
-                alignment: Alignment.centerLeft,
-                child: const Text(
-                  "Detalles",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                  maxLines: 1,
-                  textAlign: TextAlign.left,
-                ),
-              ),
-              const SizedBox(height: 10.0),
+              const SizedBox(height: 15),              
               Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  attraction.shortDescription,
+                  attraction.description,
                   style: const TextStyle(
                     fontWeight: FontWeight.normal,
                     fontSize: 15.0,

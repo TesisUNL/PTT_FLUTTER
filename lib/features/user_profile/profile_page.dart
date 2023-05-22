@@ -85,7 +85,7 @@ class ProfilePage extends StatelessWidget {
             border: Border.all(color: Colors.blue, width: 3)),
         child: ListTile(
           title: Text(routeName),
-          subtitle: Text(pathLenght.toString() + 'km'),
+          subtitle: Text('${pathLenght}km'),
           leading: const Icon(
             Icons.map_rounded,
             color: Colors.blue,

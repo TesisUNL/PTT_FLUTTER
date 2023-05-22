@@ -3,6 +3,7 @@ import 'package:ptt_rtmb/features/layout/home.dart';
 import 'package:ptt_rtmb/core/utils/widgets/icon_badge.dart';
 import 'package:ptt_rtmb/features/user_profile/profile_page.dart';
 import 'package:ptt_rtmb/features/map/maps.dart';
+import 'package:ptt_rtmb/core/constants/constants.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -26,16 +27,15 @@ class _MainScreenState extends State<MainScreen> {
             children: buildChildren(),
           ),
           bottomNavigationBar: BottomAppBar(
-            color: Theme.of(context).primaryColor,
+            color: Constants.tAppPrimaryColor,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 const SizedBox(width: 7.0),
                 barIcon(),
                 barIcon(icon: Icons.app_shortcut_sharp, page: 1),
-                barIcon(icon: Icons.map, page: 2, badge: true),
-                barIcon(icon: Icons.add_road, page: 3),
-                barIcon(icon: Icons.person, page: 4),
+                barIcon(icon: Icons.map, page: 2),
+                barIcon(icon: Icons.person, page: 3),
                 const SizedBox(width: 7.0),
               ],
             ),
@@ -98,7 +98,7 @@ class _MainScreenState extends State<MainScreen> {
       icon: badge ? IconBadge(icon: icon, size: 24.0) : Icon(icon, size: 24.0),
       color: _page == page
           ? Theme.of(context).secondaryHeaderColor
-          : Colors.blueGrey[300],
+          : const Color.fromARGB(255, 13, 14, 15),
       onPressed: () => {_pageController.jumpToPage(page), _page = page},
     );
   }

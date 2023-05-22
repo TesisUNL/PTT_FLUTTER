@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ptt_rtmb/core/models/canton/canton.dart';
 import 'package:video_player/video_player.dart';
+import 'package:ptt_rtmb/features/video_player/controls_overlay.dart';
 
 class VideoPlayerWidget extends StatefulWidget {
   final Canton canton;
@@ -17,10 +18,12 @@ class _VideoPlayerState extends State<VideoPlayerWidget> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.network(widget.canton.video)
-      ..initialize().then((_) {
-        setState(() {});
-      });
+    _controller =
+        VideoPlayerController.network(widget.canton.presentation_video)
+          ..initialize().then((_) {
+            setState(() {});
+          });
+    _controller.play();
   }
 
   @override
@@ -40,22 +43,18 @@ class _VideoPlayerState extends State<VideoPlayerWidget> {
             child: _controller.value.isInitialized
                 ? AspectRatio(
                     aspectRatio: _controller.value.aspectRatio,
-                    child: VideoPlayer(_controller),
+                    child: Stack(
+                      alignment: Alignment.bottomCenter,
+                      children: <Widget>[
+                        VideoPlayer(_controller),
+                        ControlsOverlay(controller: _controller),
+                        VideoProgressIndicator(_controller,
+                            allowScrubbing: true),
+                      ],
+                    ),
                   )
                 : Container(),
-          ),
-          FloatingActionButton(
-            onPressed: () {
-              setState(() {
-                _controller.value.isPlaying
-                    ? _controller.pause()
-                    : _controller.play();
-              });
-            },
-          ),
-          Icon(_controller.value.isPlaying
-              ? Icons.pause
-              : Icons.play_arrow_outlined),
+          )
         ],
       ),
     );

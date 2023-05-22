@@ -162,10 +162,6 @@ class _HomeState extends State<Home> {
     } else {
       errorMessage += 'Almacenamiento.';
     }
-
-    print(errorMessage);
-    print(successMessage);
-
     Future.delayed(const Duration(milliseconds: 200), () {
       if (errorMessage.contains('Cámara') ||
           errorMessage.contains('Localización') ||
