@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:ptt_rtmb/core/constants/constants.dart';
 import 'package:ptt_rtmb/core/utils/widgets/horizontal_place_item.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../../core/models/canton/canton.dart';
@@ -113,21 +114,29 @@ class _HomeState extends State<Home> {
   }
 
   buildHorizontalList(BuildContext context, List<Canton>? data) {
-    return Container(
-      padding: const EdgeInsets.only(top: 10.0, left: 10.0),
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
-      child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 0.8,
-          ),
-          shrinkWrap: true,
-          itemCount: data?.length,
-          itemBuilder: (BuildContext context, int index) {
-            Canton place = data![index];
-            return HorizontalPlaceItem(canton: place);
-          }),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        const SizedBox(height: 60),
+        Text(Constants.appName,
+            style: Theme.of(context).textTheme.headlineMedium),
+        Container(
+          padding: const EdgeInsets.only(top: 10.0, left: 10.0),
+          height: MediaQuery.of(context).size.height * 0.70,
+          width: MediaQuery.of(context).size.width,
+          child: GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 0.8,
+              ),
+              shrinkWrap: true,
+              itemCount: data?.length,
+              itemBuilder: (BuildContext context, int index) {
+                Canton place = data![index];
+                return HorizontalPlaceItem(canton: place);
+              }),
+        )
+      ],
     );
   }
 

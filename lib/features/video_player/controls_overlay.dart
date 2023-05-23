@@ -11,8 +11,8 @@ class ControlsOverlay extends StatelessWidget {
     return Stack(
       children: <Widget>[
         AnimatedSwitcher(
-          duration: const Duration(milliseconds: 50),
-          reverseDuration: const Duration(milliseconds: 200),
+          duration: const Duration(milliseconds: 500),
+          reverseDuration: const Duration(milliseconds: 600),
           child: controller.value.isPlaying
               ? const SizedBox.shrink()
               : Container(
@@ -20,7 +20,7 @@ class ControlsOverlay extends StatelessWidget {
                   child: const Center(
                     child: Icon(
                       Icons.play_arrow,
-                      color: Colors.white,
+                      color: Color.fromARGB(255, 255, 255, 255),
                       size: 100.0,
                       semanticLabel: 'Play',
                     ),

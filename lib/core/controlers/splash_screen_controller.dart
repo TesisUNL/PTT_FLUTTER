@@ -16,12 +16,12 @@ class SplashScreenController extends GetxController {
 
     animate.value = true;
 
-    await Future.delayed(const Duration(milliseconds: 3000));
+    await Future.delayed(const Duration(milliseconds: 700));
 
     late String? token;
     late String? userId;
     await Future.delayed(
-        const Duration(milliseconds: 3100),
+        const Duration(milliseconds: 800),
         () async => {
               token = await _storage.read(key: SecureStorage.accessTokenKey),
               if (token != null)
@@ -31,7 +31,8 @@ class SplashScreenController extends GetxController {
                     {
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (context) => const MainScreen()),
+                        MaterialPageRoute(
+                            builder: (context) => const MainScreen()),
                       )
                     }
                   else

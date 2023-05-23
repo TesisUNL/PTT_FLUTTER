@@ -20,13 +20,15 @@ class PttAppTheme {
       ),
       outlinedButtonTheme: (OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-            foregroundColor: Constants.tAppSecondaryColor, shape: const RoundedRectangleBorder(),
+            foregroundColor: Constants.tAppSecondaryColor,
+            shape: const RoundedRectangleBorder(),
             side: BorderSide(color: Constants.tAppSecondaryColor),
             padding: const EdgeInsets.symmetric(vertical: tButtonHeight)),
       )),
       elevatedButtonTheme: (ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-            foregroundColor: Constants.tAppPrimaryColor, backgroundColor: Constants.tAppSecondaryColor,
+            foregroundColor: Constants.tAppPrimaryColor,
+            backgroundColor: Constants.tAppSecondaryColor,
             side: BorderSide(color: Constants.tAppSecondaryColor),
             elevation: 0,
             shape: const RoundedRectangleBorder(),
@@ -59,13 +61,15 @@ class PttAppTheme {
       ),
       outlinedButtonTheme: (OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-            foregroundColor: Constants.tAppPrimaryColor, shape: const RoundedRectangleBorder(),
+            foregroundColor: Constants.tAppPrimaryColor,
+            shape: const RoundedRectangleBorder(),
             side: BorderSide(color: Constants.tAppPrimaryColor),
             padding: const EdgeInsets.symmetric(vertical: tButtonHeight)),
       )),
       elevatedButtonTheme: (ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-            foregroundColor: Constants.tAppSecondaryColor, backgroundColor: Constants.tAppPrimaryColor,
+            foregroundColor: Constants.tAppSecondaryColor,
+            backgroundColor: Constants.tAppPrimaryColor,
             side: BorderSide(color: Constants.tAppPrimaryColor),
             elevation: 0,
             shape: const RoundedRectangleBorder(),
