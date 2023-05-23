@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import '../../core/models/attraction/attraction.dart';
 
-class Details extends StatelessWidget {
-  final Attraction place;
+class DetailsAttraction extends StatelessWidget {
+  final Attraction attraction;
 
-  const Details({Key? key, required this.place}) : super(key: key);
+  const DetailsAttraction({Key? key, required this.attraction})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,7 @@ class Details extends StatelessWidget {
                   Container(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      place.name,
+                      attraction.name,
                       style: const TextStyle(
                         fontWeight: FontWeight.w700,
                         fontSize: 20,
@@ -45,47 +46,11 @@ class Details extends StatelessWidget {
                   ),
                 ],
               ),
-              Row(
-                children: <Widget>[
-                  Icon(
-                    Icons.location_on,
-                    size: 14,
-                    color: Colors.blueGrey[300],
-                  ),
-                  const SizedBox(width: 3),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      place.location,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13,
-                        color: Colors.blueGrey[300],
-                      ),
-                      maxLines: 1,
-                      textAlign: TextAlign.left,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 40),
-              Container(
-                alignment: Alignment.centerLeft,
-                child: const Text(
-                  "Detalles",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                  maxLines: 1,
-                  textAlign: TextAlign.left,
-                ),
-              ),
-              const SizedBox(height: 10.0),
+              const SizedBox(height: 15),              
               Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  place.shortDescription,
+                  attraction.description,
                   style: const TextStyle(
                     fontWeight: FontWeight.normal,
                     fontSize: 15.0,
@@ -102,14 +67,14 @@ class Details extends StatelessWidget {
   }
 
   buildSlider() {
-    List<String> allImages = [place.image, ...place.images];
+    List<String> allImages = [attraction.image, ...attraction.images];
     return Container(
       padding: const EdgeInsets.only(left: 20),
       height: 250.0,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         primary: false,
-        itemCount: allImages == null ? 0 : allImages.length,
+        itemCount: allImages.length,
         itemBuilder: (BuildContext context, int index) {
           return Padding(
             padding: const EdgeInsets.only(right: 10.0),

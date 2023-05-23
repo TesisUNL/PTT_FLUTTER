@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ptt_rtmb/core/models/attraction/attraction.dart';
-import 'package:ptt_rtmb/features/layout/details.dart';
+
+import '../../../features/layout/details_attraction.dart';
 
 class VerticalPlaceItem extends StatelessWidget {
   final Attraction place;
@@ -55,22 +56,24 @@ class VerticalPlaceItem extends StatelessWidget {
                     Row(
                       children: <Widget>[
                         Icon(
-                          Icons.location_on,
+                          Icons.album_outlined,
                           size: 13.0,
                           color: Colors.blueGrey[300],
                         ),
                         const SizedBox(width: 3.0),
                         Container(
                           alignment: Alignment.centerLeft,
+                          width: 200,
                           child: Text(
-                            place.location,
+                            place.shortDescription,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 13.0,
+                              fontSize: 12.0,
                               color: Colors.blueGrey[300],
                             ),
-                            maxLines: 1,
-                            textAlign: TextAlign.left,
+                            textAlign: TextAlign.justify,
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
                       ],
@@ -85,7 +88,7 @@ class VerticalPlaceItem extends StatelessWidget {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (BuildContext context) {
-                return Details(place: place);
+                return DetailsAttraction(attraction: place);
               },
             ),
           );

@@ -170,12 +170,12 @@ class _CreateRoutePageState extends State<CreateRoutePage> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.0)),
                   color: const Color.fromARGB(255, 55, 115, 150)),
+              padding: const EdgeInsets.all(10),
               child: const Text("Guardar",
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 18,
                       fontWeight: FontWeight.w500)),
-              padding: const EdgeInsets.all(10),
             ))
       ],
     );
