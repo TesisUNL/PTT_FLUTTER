@@ -5,6 +5,8 @@ import 'package:ptt_rtmb/features/user_profile/profile_page.dart';
 import 'package:ptt_rtmb/features/map/maps.dart';
 import 'package:ptt_rtmb/core/constants/constants.dart';
 
+import '../augmented_reality/bird_model.dart';
+
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
 
@@ -78,8 +80,11 @@ class _MainScreenState extends State<MainScreen> {
         pageWidget = List.generate(5, (index) => const Home());
         break;
       case 1:
-        //pageWidget = List.generate(5, (index) => ARCore(title: 'Guia Virtual',));
-        print('non accesible');
+        pageWidget = List.generate(
+            5,
+            (index) => const ARCore(
+                  title: 'Guia Virtual',
+                ));
         break;
       case 2:
         pageWidget = List.generate(5, (index) => const MapPage());
