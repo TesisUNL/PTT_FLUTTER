@@ -94,8 +94,6 @@ flutter:
     - assets/onboarding/
     - assets/splash/
     - assets/welcome/
-    - assets/map/markers/
-    - assets/map/styles/
     - .env
 
   fonts:
