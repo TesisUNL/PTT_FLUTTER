@@ -1,50 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:ptt_rtmb/core/models/attraction/attraction.dart';
-import 'package:ptt_rtmb/enviroment.dart';
-import 'package:ptt_rtmb/features/layout/details.dart';
+
+import '../../../features/layout/details_attraction.dart';
 
 class VerticalPlaceItem extends StatelessWidget {
   final Attraction place;
 
-  VerticalPlaceItem({required this.place});
+  const VerticalPlaceItem({Key? key, required this.place}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 15.0),
       child: InkWell(
-        child: Container(
+        child: SizedBox(
           height: 70.0,
           child: Row(
             children: <Widget>[
               ClipRRect(
                 borderRadius: BorderRadius.circular(5),
                 child: FadeInImage(
-                  image: NetworkImage("${place.image}"),
+                  image: NetworkImage(place.image),
                   imageErrorBuilder: (context, error, stackTrace) {
                     return Image.asset('assets/default.jpeg',
                         height: 70.0, width: 70.0, fit: BoxFit.fitWidth);
                   },
-                  placeholder: AssetImage("assets/jar-loading.gif"),
+                  placeholder: const AssetImage("assets/jar-loading.gif"),
                   height: 70.0,
                   width: 70.0,
                   fit: BoxFit.cover,
                 ),
               ),
-              SizedBox(width: 15.0),
-              Container(
+              const SizedBox(width: 15.0),
+              SizedBox(
                 height: 80.0,
                 width: MediaQuery.of(context).size.width - 130.0,
                 child: ListView(
                   primary: false,
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   children: <Widget>[
                     Container(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "${place.name}",
-                        style: TextStyle(
+                        place.name,
+                        style: const TextStyle(
                           fontWeight: FontWeight.w700,
                           fontSize: 14.0,
                         ),
@@ -52,26 +52,28 @@ class VerticalPlaceItem extends StatelessWidget {
                         textAlign: TextAlign.left,
                       ),
                     ),
-                    SizedBox(height: 3.0),
+                    const SizedBox(height: 3.0),
                     Row(
                       children: <Widget>[
                         Icon(
-                          Icons.location_on,
+                          Icons.album_outlined,
                           size: 13.0,
                           color: Colors.blueGrey[300],
                         ),
-                        SizedBox(width: 3.0),
+                        const SizedBox(width: 3.0),
                         Container(
                           alignment: Alignment.centerLeft,
+                          width: 200,
                           child: Text(
-                            "${place.location}",
+                            place.shortDescription,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 13.0,
+                              fontSize: 12.0,
                               color: Colors.blueGrey[300],
                             ),
-                            maxLines: 1,
-                            textAlign: TextAlign.left,
+                            textAlign: TextAlign.justify,
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
                       ],
@@ -86,7 +88,7 @@ class VerticalPlaceItem extends StatelessWidget {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (BuildContext context) {
-                return Details(place: place);
+                return DetailsAttraction(attraction: place);
               },
             ),
           );

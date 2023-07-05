@@ -24,7 +24,7 @@ class User {
   }) =>
       User(
         id: id ?? this.id,
-        image: imagePath ?? this.image,
+        image: imagePath ?? image,
         name: name ?? this.name,
         email: email ?? this.email,
         phone: phone ?? this.phone,

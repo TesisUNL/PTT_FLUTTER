@@ -34,12 +34,12 @@ class Attraction {
           double? longitude}) =>
       Attraction(
         id: id ?? this.id,
-        image: cover_image ?? this.image,
+        image: cover_image ?? image,
         images: images ?? this.images,
         name: name ?? this.name,
-        description: long_description ?? this.description,
+        description: long_description ?? description,
         location: location ?? this.location,
-        shortDescription: short_description ?? this.shortDescription,
+        shortDescription: short_description ?? shortDescription,
         latitude: latitude ?? this.latitude,
         longitude: longitude ?? this.longitude,
       );

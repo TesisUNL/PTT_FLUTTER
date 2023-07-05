@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:ptt_rtmb/core/models/attraction/attraction.dart';
 import 'package:ptt_rtmb/core/utils/helpers/HttpHelpers/htppWrapper.dart';
 import 'package:ptt_rtmb/core/utils/helpers/HttpHelpers/httpHelper.service.dart';
 import 'dart:async';
@@ -17,7 +16,7 @@ Future<List<TouristRoute>> getTouristRoutes() async {
 }
 
 Future<List<TouristRoute>> getTouristRoutesByOwnerId(ownerId) async {
-  final response = await http.get(ROUTES_URL+'/'+ownerId);
+  final response = await http.get('$ROUTES_URL/' + ownerId);
   if (!HttpHelperService.isSuccessfullyResponse(response!.statusCode)) {
     throw Exception('Failed to load routes');
   }
@@ -38,8 +37,6 @@ Future<TouristRoute> postTouristRoute(
 
   if (HttpHelperService.isClientErrorResponse(response.statusCode) ||
       HttpHelperService.isServerErrorResponse(response.statusCode)) {
-    print(response!.statusCode);
-    print(response.body);
     throw Exception('Failed to Create a new Route');
   }
 

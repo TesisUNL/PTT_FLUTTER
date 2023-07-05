@@ -5,7 +5,6 @@ import 'package:ptt_rtmb/core/models/attraction/attraction_marker.dart';
 import 'package:ptt_rtmb/core/utils/helpers/HttpHelpers/htppWrapper.dart';
 import 'package:ptt_rtmb/core/utils/helpers/HttpHelpers/httpHelper.service.dart';
 import 'dart:async';
-import 'package:ptt_rtmb/enviroment.dart';
 
 const String ATTRACTION_URL = '/attractions';
 const int PAGE_SIZE = 10;
@@ -36,7 +35,7 @@ Future<List<MarkerAttraction>> getMarkerAttractions() async {
 }
 
 Future<List<Attraction>> getAttractionsByCantonName(String cantonName) async {
-  final response = await http.get(ATTRACTION_URL + '/byCanton/' + cantonName);
+  final response = await http.get('$ATTRACTION_URL/byCanton/$cantonName');
   if (!HttpHelperService.isSuccessfullyResponse(response!.statusCode)) {
     throw Exception('Failed to load attractions');
   }

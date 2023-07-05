@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:ptt_rtmb/features/layout/main_screen.dart';
@@ -11,7 +9,7 @@ import '../services/auth/password_recovery.dart';
 class LoginController extends GetxController {
   static LoginController get find => Get.find();
   RxBool isObscure = true.obs;
-  FlutterSecureStorage _storage = FlutterSecureStorage();
+  final FlutterSecureStorage _storage = const FlutterSecureStorage();
 
   loginLogic(String userEmail, String userPassword) async {
     if (userEmail.isNotEmpty && userPassword.isNotEmpty) {
@@ -25,7 +23,7 @@ class LoginController extends GetxController {
               key: SecureStorage.accessTokenKey, value: userLogged.accessToken);
           await _storage.write(
               key: SecureStorage.userIdKey, value: userLogged.user.id);
-          Get.to(MainScreen());
+          Get.to(const MainScreen());
         }
       } on Exception catch (e) {
         print(e.toString());

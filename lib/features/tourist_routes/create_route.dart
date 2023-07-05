@@ -2,23 +2,24 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:multi_select_flutter/dialog/multi_select_dialog_field.dart';
 import 'package:multi_select_flutter/util/multi_select_item.dart';
+import 'package:ptt_rtmb/core/utils/widgets/AppLoading.dart';
 import '../../core/models/attraction/attraction.dart';
 import '../../core/models/canton/canton.dart';
 import '../../core/services/attraction/attraction_service.dart';
 import '../../core/services/canton/canton_service.dart';
 import 'package:ptt_rtmb/core/services/rotues/routes_service.dart';
 
-import '../user_profile/profile_page.dart';
-
 class CreateRoutePage extends StatefulWidget {
+  const CreateRoutePage({Key? key}) : super(key: key);
+
   @override
   _CreateRoutePageState createState() => _CreateRoutePageState();
 }
 
 class _CreateRoutePageState extends State<CreateRoutePage> {
-  GlobalKey<FormState> keyForm = new GlobalKey();
-  TextEditingController nameCtrl = new TextEditingController();
-  TextEditingController pathLengthCtrl = new TextEditingController();
+  GlobalKey<FormState> keyForm = GlobalKey();
+  TextEditingController nameCtrl = TextEditingController();
+  TextEditingController pathLengthCtrl = TextEditingController();
 
   //Canton Service
   late Future<List<Canton>> cantons;
@@ -58,7 +59,7 @@ class _CreateRoutePageState extends State<CreateRoutePage> {
             } else if (snapshot.hasError) {
               return Text("${snapshot.error}");
             }
-            return const CircularProgressIndicator();
+            return const AppLoading();
           }),
     );
   }
@@ -127,7 +128,7 @@ class _CreateRoutePageState extends State<CreateRoutePage> {
         } else if (snapshot.hasError) {
           return Text("${snapshot.error}");
         }
-        return const CircularProgressIndicator();
+        return const AppLoading();
       },
     );
   }
@@ -169,13 +170,13 @@ class _CreateRoutePageState extends State<CreateRoutePage> {
               decoration: ShapeDecoration(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.0)),
-                  color: Color.fromARGB(255, 55, 115, 150)),
+                  color: const Color.fromARGB(255, 55, 115, 150)),
+              padding: const EdgeInsets.all(10),
               child: const Text("Guardar",
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 18,
                       fontWeight: FontWeight.w500)),
-              padding: const EdgeInsets.all(10),
             ))
       ],
     );
@@ -184,9 +185,9 @@ class _CreateRoutePageState extends State<CreateRoutePage> {
   String? validateName(String? value) {
     String pattern = r'(^[a-zA-Z ]*$)';
     RegExp regExp = RegExp(pattern);
-    if (value?.length == 0) {
+    if (value!.isEmpty) {
       return "El nombre es necesario";
-    } else if (!regExp.hasMatch(value!)) {
+    } else if (!regExp.hasMatch(value)) {
       return "El nombre debe de ser a-z y A-Z";
     }
     return null;

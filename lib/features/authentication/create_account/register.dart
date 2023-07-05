@@ -17,9 +17,9 @@ class SingUpScreen extends StatelessWidget {
         body: SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.all(tDefaultSize),
-            child: Column(
+            child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
+              children: [
                 FormHeaderWidget(
                     image: tAppWelcomeScreenImage,
                     title: tRegisterTitle,

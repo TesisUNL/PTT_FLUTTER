@@ -1,19 +1,22 @@
 import 'dart:convert';
 
-import 'package:ptt_rtmb/core/constants/constants.dart';
+import 'package:http_interceptor/http/http.dart';
+import 'package:ptt_rtmb/core/utils/helpers/HttpHelpers/SessionInterceptor.dart';
 import 'package:ptt_rtmb/core/utils/helpers/HttpHelpers/httpHelper.service.dart';
-import 'package:ptt_rtmb/enviroment.dart';
-import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 
 class HttpWrapper {
   HttpHelperService helperService = HttpHelperService();
+  Client client = InterceptedClient.build(interceptors: [
+    SessionInterceptor(),
+  ]);
 
   Future<dynamic> get(String path,
       {Map<String, dynamic>? queryParams, bool withAccessToken = true}) async {
     Map<String, String> headers =
         await helperService.buildHeaders(withAccessToken: withAccessToken);
 
-    final response = await http.get(
+    final response = await client.get(
       helperService.buildUri(path, queryParameters: queryParams),
       headers: headers,
     );
@@ -25,7 +28,7 @@ class HttpWrapper {
     Map<String, String> headers =
         await helperService.buildHeaders(withAccessToken: withAccessToken);
 
-    final response = await http.post(
+    final response = await client.post(
       helperService.buildUri(path),
       headers: headers,
       body: body,
@@ -39,7 +42,7 @@ class HttpWrapper {
     Map<String, String> headers =
         await helperService.buildHeaders(withAccessToken: withAccessToken);
 
-    final response = await http.put(
+    final response = await client.put(
       helperService.buildUri(path),
       headers: headers,
       body: body,
@@ -53,7 +56,7 @@ class HttpWrapper {
     Map<String, String> headers =
         await helperService.buildHeaders(withAccessToken: withAccessToken);
 
-    final response = await http.delete(
+    final response = await client.delete(
       helperService.buildUri(path),
       headers: headers,
       body: body,
@@ -67,7 +70,7 @@ class HttpWrapper {
     Map<String, String> headers =
         await helperService.buildHeaders(withAccessToken: withAccessToken);
 
-    final response = await http.patch(
+    final response = await client.patch(
       helperService.buildUri(path),
       headers: headers,
       body: body,

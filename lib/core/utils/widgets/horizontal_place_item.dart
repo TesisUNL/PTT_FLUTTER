@@ -1,50 +1,48 @@
 import 'package:flutter/material.dart';
-
-import 'package:ptt_rtmb/features/layout/details.dart';
-
-import '../../../enviroment.dart';
-import '../../models/attraction/attraction.dart';
+import 'package:ptt_rtmb/core/models/canton/canton.dart';
+import 'package:ptt_rtmb/features/layout/details_canton.dart';
 
 class HorizontalPlaceItem extends StatelessWidget {
-  final Attraction place;
-
-  HorizontalPlaceItem({required this.place});
+  final Canton canton;
+  const HorizontalPlaceItem({Key? key, required this.canton}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 20.0),
+      padding: const EdgeInsets.only(right: 15.0),
       child: InkWell(
-        child: Container(
+        child: SizedBox(
           height: 250.0,
-          width: 140.0,
+          width: MediaQuery.of(context).size.width * 0.35,
           child: Column(
             children: <Widget>[
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: FadeInImage(
-                  image: NetworkImage("${place.image}"),
+                  image: NetworkImage(canton.flag_image),
                   imageErrorBuilder: (context, error, stackTrace) {
                     return Image.asset('assets/default.jpeg',
-                        height: 178.0, width: 140.0, fit: BoxFit.fitWidth);
+                        height: 170.0,
+                        width: MediaQuery.of(context).size.width * 0.35,
+                        fit: BoxFit.fitWidth);
                   },
-                  placeholder: AssetImage("assets/jar-loading.gif"),
-                  height: 178.0,
-                  width: 140.0,
+                  placeholder: const AssetImage("assets/jar-loading.gif"),
+                  height: 170.0,
+                  width: MediaQuery.of(context).size.width * 0.35,
                   fit: BoxFit.cover,
                 ),
               ),
-              SizedBox(height: 7.0),
+              const SizedBox(height: 2.0),
               Container(
-                alignment: Alignment.centerLeft,
+                alignment: Alignment.center,
                 child: Text(
-                  "${place.name}",
-                  style: TextStyle(
+                  canton.name,
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 15.0,
+                    fontSize: 12.0,
                   ),
                   maxLines: 2,
-                  textAlign: TextAlign.left,
+                  textAlign: TextAlign.center,
                 ),
               ),
             ],
@@ -54,7 +52,7 @@ class HorizontalPlaceItem extends StatelessWidget {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (BuildContext context) {
-                return Details(place: place);
+                return DetailsCanton(canton: canton);
               },
             ),
           );
