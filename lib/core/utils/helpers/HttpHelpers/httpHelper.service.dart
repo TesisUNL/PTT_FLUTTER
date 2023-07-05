@@ -2,12 +2,17 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:ptt_rtmb/core/constants/constants.dart';
 import 'package:ptt_rtmb/core/constants/secureStorage.dart';
 
+final FlutterSecureStorage _storage = const FlutterSecureStorage();
+
 class HttpHelperService {
   final String _host = Constants.api_url;
   final String _scheme = Constants.api_scheme;
   final String _apiPath = Constants.api_part;
   late String? _accessToken;
-  final FlutterSecureStorage _storage = const FlutterSecureStorage();
+
+  static deleteSession() {
+    return _storage.delete(key: SecureStorage.accessTokenKey);
+  }
 
   Uri buildUri(String path, {Map<String, dynamic>? queryParameters}) {
     queryParameters ??= {};
