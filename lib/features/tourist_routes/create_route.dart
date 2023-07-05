@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:multi_select_flutter/dialog/multi_select_dialog_field.dart';
 import 'package:multi_select_flutter/util/multi_select_item.dart';
+import 'package:ptt_rtmb/core/utils/widgets/AppLoading.dart';
 import '../../core/models/attraction/attraction.dart';
 import '../../core/models/canton/canton.dart';
 import '../../core/services/attraction/attraction_service.dart';
@@ -58,7 +59,7 @@ class _CreateRoutePageState extends State<CreateRoutePage> {
             } else if (snapshot.hasError) {
               return Text("${snapshot.error}");
             }
-            return const CircularProgressIndicator();
+            return const AppLoading();
           }),
     );
   }
@@ -127,7 +128,7 @@ class _CreateRoutePageState extends State<CreateRoutePage> {
         } else if (snapshot.hasError) {
           return Text("${snapshot.error}");
         }
-        return const CircularProgressIndicator();
+        return const AppLoading();
       },
     );
   }

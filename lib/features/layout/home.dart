@@ -5,6 +5,8 @@ import 'package:ptt_rtmb/core/utils/widgets/horizontal_place_item.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../../core/models/canton/canton.dart';
 import '../../core/services/canton/canton_service.dart';
+import '../../core/utils/widgets/AppLoading.dart';
+import '../../core/utils/widgets/user_profile_widgets/appbar_widget.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -108,7 +110,9 @@ class _HomeState extends State<Home> {
             } else if (snapshot.hasError) {
               return Text("${snapshot.error}");
             }
-            return const CircularProgressIndicator();
+            return const Center(
+              child: AppLoading(),
+            );
           }),
     );
   }

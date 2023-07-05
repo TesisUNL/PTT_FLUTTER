@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:ptt_rtmb/core/services/rotues/routes_service.dart';
+import 'package:ptt_rtmb/core/utils/widgets/AppLoading.dart';
 
 import '../../core/models/routes/route.dart';
 import 'create_route.dart';
@@ -13,7 +14,6 @@ class RoutesPage extends StatefulWidget {
 }
 
 class RoutesPageState extends State<RoutesPage> {
-
   late Future<List<TouristRoute>> touristRoutes;
   Future<List<TouristRoute>> fetchRoutes() async => await getTouristRoutes();
 
@@ -45,15 +45,17 @@ class RoutesPageState extends State<RoutesPage> {
           } else if (snapshot.hasError) {
             return Text("${snapshot.error}");
           }
-          return const CircularProgressIndicator();
-        },      
+          return const AppLoading();
+        },
       ),
       persistentFooterButtons: <Widget>[
         const Text('Crea tu propia ruta:    '),
         ElevatedButton(
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const CreateRoutePage()));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const CreateRoutePage()));
           },
           child: const Icon(
             Icons.add,

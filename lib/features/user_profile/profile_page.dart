@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ptt_rtmb/core/controlers/user_profile_screen_controller.dart';
 import 'package:ptt_rtmb/core/models/user/user.dart';
+import 'package:ptt_rtmb/core/utils/widgets/AppLoading.dart';
 import 'package:ptt_rtmb/core/utils/widgets/user_profile_widgets/profile_widget.dart';
 import 'package:ptt_rtmb/core/utils/widgets/user_profile_widgets/appbar_widget.dart';
 
@@ -11,11 +12,8 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final profileScreenController = Get.put(ProfileScreenController());
-    final mediaQuery = MediaQuery.of(context);
-    var brightness = mediaQuery.platformBrightness;
-    final isDarkMode = brightness == Brightness.dark;
     return Scaffold(
-      appBar: buildAppBar(context, isDarkMode),
+      appBar: buildAppBar(context),
       body: ListView(
         physics: const BouncingScrollPhysics(),
         children: [
@@ -42,7 +40,7 @@ class ProfilePage extends StatelessWidget {
           } else if (snapshot.hasError) {
             return Text("${snapshot.error}");
           }
-          return const CircularProgressIndicator();
+          return const AppLoading();
         },
       );
 

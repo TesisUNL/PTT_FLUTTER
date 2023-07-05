@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ptt_rtmb/core/utils/widgets/AppLoading.dart';
 import 'package:ptt_rtmb/features/video_player/video_player.dart';
 import '../../core/models/canton/canton.dart';
 import '../../core/models/attraction/attraction.dart';
@@ -133,7 +134,7 @@ class DetailsCanton extends StatelessWidget {
               );
             } else {
               return const Center(
-                child: CircularProgressIndicator(),
+                child: AppLoading(),
               );
             }
           },
